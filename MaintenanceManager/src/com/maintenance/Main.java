@@ -66,7 +66,6 @@ public class Main extends Application {
 
 	// Java Entwicklungsversion
 	public final static String JDK = "1.8.0_152";
-	
 
 	private static final Logger logger = Logger.getLogger(Main.class);
 	private ResourceBundle resources = ResourceBundle.getBundle("language");
@@ -91,7 +90,7 @@ public class Main extends Application {
 		}
 
 		launch(args);
-		
+
 	}
 
 	@Override
