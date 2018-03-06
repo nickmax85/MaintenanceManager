@@ -285,7 +285,7 @@ public class AnhangJDBCDAO implements AnhangDAO {
 			}
 
 			if (logger.isInfoEnabled()) {
-				//logger.info(attachmentList);
+				// logger.info(attachmentList);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

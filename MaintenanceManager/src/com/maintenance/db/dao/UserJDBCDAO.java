@@ -69,8 +69,6 @@ public class UserJDBCDAO implements UserDAO {
 				user.setId(new Integer(rs.getInt("id")));
 				user.setName(rs.getString("name"));
 				user.setMail(rs.getString("mail"));
-				user.setTimestamp(rs.getTimestamp("timestamp"));
-				user.setUser(rs.getString("user"));
 				abteilungList.add(user);
 			}
 
@@ -96,8 +94,6 @@ public class UserJDBCDAO implements UserDAO {
 
 			ps.setString(1, user.getName());
 			ps.setString(2, user.getMail());
-			user.setTimestamp(new Timestamp(System.currentTimeMillis() / 1000 * 1000));
-			ps.setTimestamp(3, user.getTimestamp());
 			ps.setString(4, System.getProperty("user.name"));
 			ps.executeUpdate();
 
@@ -157,8 +153,6 @@ public class UserJDBCDAO implements UserDAO {
 			user.setId(new Integer(rs.getInt("id")));
 			user.setName(rs.getString("name"));
 			user.setMail(rs.getString("mail"));
-			user.setTimestamp(rs.getTimestamp("timestamp"));
-			user.setUser(rs.getString("user"));
 
 			if (logger.isInfoEnabled()) {
 				logger.info(user);
@@ -179,29 +173,17 @@ public class UserJDBCDAO implements UserDAO {
 
 		try {
 
-			User userDb = selectUser(user.getId());
+			PreparedStatement ps = ConnectionManager.getInstance().getConnection().prepareStatement(UPDATE_USER);
 
-			if (userDb.getTimestamp().equals(user.getTimestamp())) {
+			ps.setString(1, user.getName());
+			ps.setString(2, user.getMail());
+			ps.setTimestamp(3, timestamp);
+			ps.setString(4, System.getProperty("user.name"));
+			ps.setInt(5, user.getId());
+			ps.executeUpdate();
 
-				PreparedStatement ps = ConnectionManager.getInstance().getConnection().prepareStatement(UPDATE_USER);
-
-				ps.setString(1, user.getName());
-				ps.setString(2, user.getMail());
-				ps.setTimestamp(3, timestamp);
-				ps.setString(4, System.getProperty("user.name"));
-				ps.setInt(5, user.getId());
-				ps.executeUpdate();
-
-				// Zeitstempel soll erst beschrieben werden, wenn der Befehl
-				// erfolgreich ausgeführt wurde
-				user.setTimestamp(timestamp);
-
-				if (logger.isInfoEnabled()) {
-					logger.info(user);
-				}
-
-			} else {
-				throw new DAOException(TIMESTAMP_ERROR);
+			if (logger.isInfoEnabled()) {
+				logger.info(user);
 			}
 
 		}

@@ -146,7 +146,7 @@ public class LeerflaecheJDBCDAO implements LeerflaecheDAO {
 			if (logger.isInfoEnabled()) {
 				// logger.info(leerflaeche.getName());
 			}
-			
+
 			con.close();
 
 		} catch (SQLException e) {

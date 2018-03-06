@@ -164,7 +164,7 @@ public class MESAnlageJDBCDAO implements MESAnlageDAO {
 			}
 
 			if (logger.isInfoEnabled()) {
-				 logger.info(mesAnlagen);
+				logger.info(mesAnlagen);
 			}
 
 		} catch (SQLException e) {

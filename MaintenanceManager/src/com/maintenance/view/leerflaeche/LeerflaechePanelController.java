@@ -122,15 +122,15 @@ public class LeerflaechePanelController {
 	public void initData(Leerflaeche leerflaeche) {
 
 		this.leerflaeche = leerflaeche;
-		
+
 		getDataFromDatabase();
 		setGraphicComponents();
 	}
 
 	public void setGraphicComponents() {
-		
-//		if (leerflaeche.getName().equalsIgnoreCase("instandhaltung"))
-//			logger.error(leerflaeche.getName() + ": " + leerflaeche.hashCode());
+
+		// if (leerflaeche.getName().equalsIgnoreCase("instandhaltung"))
+		// logger.error(leerflaeche.getName() + ": " + leerflaeche.hashCode());
 
 		nameLabel.setText(leerflaeche.getName());
 
@@ -144,7 +144,7 @@ public class LeerflaechePanelController {
 	public void getDataFromDatabase() {
 
 		if (!Service.getInstance().isErrorStatus()) {
-		leerflaeche = Service.getInstance().getLeerflaeche(leerflaeche);
+			leerflaeche = Service.getInstance().getLeerflaeche(leerflaeche);
 		}
 	}
 

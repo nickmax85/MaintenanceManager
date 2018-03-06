@@ -1,6 +1,5 @@
 package com.maintenance.model;
 
-import java.sql.Timestamp;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -19,67 +18,62 @@ import javax.persistence.Transient;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
-import com.maintenance.model.Anlage;
-
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 @Entity
 @Table(name = "user")
 public class User {
 
-	private int id;
-	private String name;
-	private String mail;
-
-	private Timestamp timestamp;
-	private String user;
+	private IntegerProperty id = new SimpleIntegerProperty();
+	private StringProperty name = new SimpleStringProperty();
+	private StringProperty mail = new SimpleStringProperty();
 
 	private List<Anlage> anlagen;
 
 	private BooleanProperty active = new SimpleBooleanProperty();
 
+	public IntegerProperty idProperty() {
+		return this.id;
+	}
+
 	@Id
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public int getId() {
-		return id;
+		return this.idProperty().get();
 	}
 
-	public String getMail() {
-		return mail;
+	public void setId(final int id) {
+		this.idProperty().set(id);
+	}
+
+	public StringProperty nameProperty() {
+		return this.name;
 	}
 
 	public String getName() {
-		return name;
+		return this.nameProperty().get();
 	}
 
-	public Timestamp getTimestamp() {
-		return timestamp;
+	public void setName(final String name) {
+		this.nameProperty().set(name);
 	}
 
-	public String getUser() {
-		return user;
+	public StringProperty mailProperty() {
+		return this.mail;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public String getMail() {
+		return this.mailProperty().get();
 	}
 
-	public void setMail(String mail) {
-		this.mail = mail;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public void setTimestamp(Timestamp timestamp) {
-		this.timestamp = timestamp;
-	}
-
-	public void setUser(String user) {
-		this.user = user;
+	public void setMail(final String mail) {
+		this.mailProperty().set(mail);
 	}
 
 	@LazyCollection(LazyCollectionOption.FALSE)
@@ -92,11 +86,6 @@ public class User {
 
 	public void setAnlagen(List<Anlage> anlagen) {
 		this.anlagen = anlagen;
-	}
-
-	@Override
-	public String toString() {
-		return getMail();
 	}
 
 	public BooleanProperty activeProperty() {

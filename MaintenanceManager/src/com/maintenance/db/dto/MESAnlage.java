@@ -18,7 +18,7 @@ public class MESAnlage {
 
 	private int anlageId;
 	private Anlage anlage;
-	
+
 	private int anlage2Id;
 	private Anlage anlage2;
 
@@ -93,8 +93,6 @@ public class MESAnlage {
 	public void setAnlage(Anlage anlage) {
 		this.anlage = anlage;
 	}
-	
-	
 
 	public int getAnlage2Id() {
 		return anlage2Id;
@@ -117,7 +115,5 @@ public class MESAnlage {
 		return "MESAnlage [id=" + id + ", name=" + name + ", anlageId=" + anlageId + ", anlage=" + anlage
 				+ ", anlage2Id=" + anlage2Id + ", anlage2=" + anlage2 + "]";
 	}
-
-	
 
 }

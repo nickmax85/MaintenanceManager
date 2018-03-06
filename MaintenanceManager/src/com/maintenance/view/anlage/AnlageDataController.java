@@ -186,7 +186,7 @@ public class AnlageDataController {
 				else {
 					try {
 						Runtime.getRuntime().exec("explorer " + wartungsPlanField.getText());
-						//Desktop.getDesktop().browse(new URI(wartungsPlanField.getText()));
+						// Desktop.getDesktop().browse(new URI(wartungsPlanField.getText()));
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -465,9 +465,9 @@ public class AnlageDataController {
 			warnungStueckField.setDisable(true);
 			fehlerStueckField.setDisable(true);
 			dateGridPane.setDisable(false);
-		
-				calendarWartungGridPane.setDisable(true);
-			
+
+			calendarWartungGridPane.setDisable(true);
+
 		}
 
 	}

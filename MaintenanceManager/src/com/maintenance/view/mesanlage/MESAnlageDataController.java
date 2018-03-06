@@ -42,7 +42,7 @@ public class MESAnlageDataController {
 		anl.setId(0);
 		anl.setName("keine Auswahl");
 		anlagen.add(0, anl);
-		
+
 		anlageComboBox.setItems(anlagen);
 		anlageComboBox.setConverter(new StringConverter<Anlage>() {
 
@@ -81,7 +81,7 @@ public class MESAnlageDataController {
 					if (data.getAnlageId() == anlage.getId())
 						anlageComboBox.getSelectionModel().select(anlage);
 				}
-			
+
 			if (data.getAnlage2Id() != 0)
 				for (Anlage anlage : anlagen) {
 					if (data.getAnlage2Id() == anlage.getId())

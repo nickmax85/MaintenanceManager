@@ -68,7 +68,7 @@ public class AnlagenOverviewController {
 	private void initialize() {
 
 		anlageDataController.setEditable(false);
-		
+
 		equipmentColumn.setCellValueFactory(cellData -> cellData.getValue().equipmentProperty());
 		nameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
 		auftragColumn.setCellValueFactory(cellData -> cellData.getValue().auftragProperty());
@@ -177,12 +177,9 @@ public class AnlagenOverviewController {
 						else
 							lastWartungDate = stationDate.getCreateDate();
 
-					
-							nextWartungDate = ProzentCalc.calcNextWartungDate(lastWartungDate,
-									stationDate.getIntervallDateUnit(), stationDate.getWartungDateIntervall());
-							prozent = ProzentCalc.calcProzent(lastWartungDate.getTime(),
-									nextWartungDate.getTime());
-						
+						nextWartungDate = ProzentCalc.calcNextWartungDate(lastWartungDate,
+								stationDate.getIntervallDateUnit(), stationDate.getWartungDateIntervall());
+						prozent = ProzentCalc.calcProzent(lastWartungDate.getTime(), nextWartungDate.getTime());
 
 					}
 				}

@@ -16,10 +16,6 @@ import com.maintenance.model.Station;
 import com.maintenance.model.User;
 import com.maintenance.util.ApplicationProperties;
 import com.maintenance.util.ProzentCalc;
-import com.maintenance.view.root.LoginDialog;
-
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 
 public class MailManager {
 
@@ -126,7 +122,7 @@ public class MailManager {
 	}
 
 	public List<Station> getStationenForMail() {
-		
+
 		stationenForMail = new ArrayList<>();
 
 		for (Anlage anlage : Service.getInstance().getAnlageService().findAll()) {

@@ -131,9 +131,9 @@ public class Station {
 	}
 
 	public void setWartungStueckIntervall(final Integer wartungStueckIntervall) {
-		
+
 		if (wartungStueckIntervall != null)
-		this.wartungStueckIntervallProperty().set(wartungStueckIntervall);
+			this.wartungStueckIntervallProperty().set(wartungStueckIntervall);
 	}
 
 	public IntegerProperty wartungDateIntervallProperty() {
@@ -145,9 +145,9 @@ public class Station {
 	}
 
 	public void setWartungDateIntervall(final Integer wartungDateIntervall) {
-		
+
 		if (wartungDateIntervall != null)
-		this.wartungDateIntervallProperty().set(wartungDateIntervall);
+			this.wartungDateIntervallProperty().set(wartungDateIntervall);
 	}
 
 	public IntegerProperty lastWartungStueckProperty() {
@@ -185,9 +185,9 @@ public class Station {
 	}
 
 	public void setWartungStueckWarnung(final Integer wartungStueckWarnung) {
-		
+
 		if (wartungStueckWarnung != null)
-		this.wartungStueckWarnungProperty().set(wartungStueckWarnung);
+			this.wartungStueckWarnungProperty().set(wartungStueckWarnung);
 	}
 
 	public IntegerProperty wartungStueckFehlerProperty() {
@@ -199,9 +199,9 @@ public class Station {
 	}
 
 	public void setWartungStueckFehler(final Integer wartungStueckFehler) {
-		
+
 		if (wartungStueckFehler != null)
-		this.wartungStueckFehlerProperty().set(wartungStueckFehler);
+			this.wartungStueckFehlerProperty().set(wartungStueckFehler);
 	}
 
 	public IntegerProperty wartungDateWarnungProperty() {
@@ -213,9 +213,9 @@ public class Station {
 	}
 
 	public void setWartungDateWarnung(final Integer wartungDateWarnung) {
-		
+
 		if (wartungDateWarnung != null)
-		this.wartungDateWarnungProperty().set(wartungDateWarnung);
+			this.wartungDateWarnungProperty().set(wartungDateWarnung);
 	}
 
 	public BooleanProperty auswertungProperty() {
@@ -264,9 +264,9 @@ public class Station {
 	}
 
 	public void setWartungArt(final Integer wartungArt) {
-		
-		if (wartungArt !=null)
-		this.wartungArtProperty().set(wartungArt);
+
+		if (wartungArt != null)
+			this.wartungArtProperty().set(wartungArt);
 	}
 
 	public StringProperty wartungsPlanLinkProperty() {
@@ -290,9 +290,9 @@ public class Station {
 	}
 
 	public void setIntervallDateUnit(final Integer intervallDateUnit) {
-		
+
 		if (intervallDateUnit != null)
-		this.intervallDateUnitProperty().set(intervallDateUnit);
+			this.intervallDateUnitProperty().set(intervallDateUnit);
 	}
 
 	public IntegerProperty warnungDateUnitProperty() {
@@ -304,9 +304,9 @@ public class Station {
 	}
 
 	public void setWarnungDateUnit(final Integer warnungDateUnit) {
-		
+
 		if (warnungDateUnit != null)
-		this.warnungDateUnitProperty().set(warnungDateUnit);
+			this.warnungDateUnitProperty().set(warnungDateUnit);
 	}
 
 	public BooleanProperty mailSentProperty() {

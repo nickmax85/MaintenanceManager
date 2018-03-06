@@ -1,95 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.image.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import java.lang.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" stylesheets="@../css/JMetroLightTheme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.maintenance.view.user.UserOverviewController">
+<AnchorPane onKeyPressed="#handleRefresh" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.maintenance.view.user.UserOverviewController">
    <children>
-      <BorderPane prefHeight="600.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <BorderPane AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
          <center>
-            <SplitPane dividerPositions="0.5" prefHeight="400.0" prefWidth="600.0" BorderPane.alignment="CENTER">
-              <items>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="398.0" prefWidth="474.0" styleClass="background">
+            <SplitPane dividerPositions="0.4907801418439716" focusTraversable="false" BorderPane.alignment="CENTER">
+               <items>
+                  <AnchorPane>
                      <children>
-                        <TableView fx:id="userTable" layoutX="20.0" layoutY="20.0" prefHeight="556.0" prefWidth="496.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                          <columns>
-                            <TableColumn fx:id="nameColumn" prefWidth="194.0" text="Name" />
-                              <TableColumn fx:id="mailColumn" prefWidth="281.0" text="Mail" />
-                          </columns>
+                        <TableView fx:id="table" layoutX="-12.5" layoutY="58.0" onKeyPressed="#handleDeleteKeyPressed" onMouseClicked="#handleEditMouseClick" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
+                           <columns>
+                              <TableColumn fx:id="nameColumn" minWidth="-Infinity" prefWidth="300.0" text="Name" />
+                              <TableColumn fx:id="mailColumn" minWidth="-Infinity" prefWidth="400.0" text="Mail" />
+                           </columns>
                         </TableView>
                      </children>
-                     <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </padding>
                   </AnchorPane>
-                <AnchorPane prefHeight="592.0" prefWidth="431.0" styleClass="background">
-                     <children>
-                        <GridPane layoutX="14.0" layoutY="76.0" prefHeight="143.0" prefWidth="426.0">
-                          <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="188.0" minWidth="10.0" prefWidth="105.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="352.0" minWidth="10.0" prefWidth="321.0" />
-                          </columnConstraints>
-                          <rowConstraints>
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                          </rowConstraints>
-                           <children>
-                              <Label text="Name" />
-                              <Label fx:id="nameLabel" text="Label" GridPane.columnIndex="1" />
-                              <Label text="User" GridPane.rowIndex="2" />
-                              <Label fx:id="userLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                              <Label text="Timestamp" GridPane.rowIndex="3" />
-                              <Label fx:id="timestampLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                              <Label text="Mail" GridPane.rowIndex="1" />
-                              <Label fx:id="mailLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                           </children>
-                        </GridPane>
-                        <Label layoutX="14.0" layoutY="14.0" styleClass="label-header" text="Benutzer Details" />
-                     </children>
-                     <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </padding>
-                  </AnchorPane>
-              </items>
+                  <fx:include fx:id="userData" source="UserData.fxml" />
+               </items>
             </SplitPane>
          </center>
          <top>
-            <ToolBar prefHeight="40.0" prefWidth="200.0" styleClass="background" BorderPane.alignment="CENTER">
-              <items>
-                  <Button mnemonicParsing="false" onAction="#handleNewUser" text="Neu">
+            <HBox spacing="10.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#handleNew" text="Neu">
                      <graphic>
-                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../resources/add24.png" />
+                              <Image url="@../../resource/icons/new24.png" />
                            </image>
                         </ImageView>
                      </graphic>
                   </Button>
-                <Button mnemonicParsing="false" onAction="#handleEditUser" text="Bearbeiten">
+                  <Button mnemonicParsing="false" onAction="#handleEdit" text="Bearbeiten">
                      <graphic>
-                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../resources/edit24.png" />
+                              <Image url="@../../resource/icons/edit24.png" />
                            </image>
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#handleDeleteUser" text="Entfernen">
+                  <Button mnemonicParsing="false" onAction="#handleDelete" text="Entfernen">
                      <graphic>
-                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../resources/delete24.png" />
+                              <Image url="@../../resource/icons/delete24.png" />
                            </image>
                         </ImageView>
                      </graphic>
                   </Button>
-              </items>
-            </ToolBar>
+               </children>
+               <padding>
+                  <Insets bottom="10.0" />
+               </padding>
+            </HBox>
          </top>
       </BorderPane>
    </children>

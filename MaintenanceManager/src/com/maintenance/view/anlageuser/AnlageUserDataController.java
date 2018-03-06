@@ -2,8 +2,8 @@ package com.maintenance.view.anlageuser;
 
 import java.util.ResourceBundle;
 
-import com.maintenance.model.Anlage;
 import com.maintenance.db.service.Service;
+import com.maintenance.model.Anlage;
 import com.maintenance.model.User;
 import com.maintenance.view.alert.InputValidatorAlert;
 

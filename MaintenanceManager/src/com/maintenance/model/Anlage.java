@@ -18,7 +18,6 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
-import org.hibernate.annotations.Type;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;

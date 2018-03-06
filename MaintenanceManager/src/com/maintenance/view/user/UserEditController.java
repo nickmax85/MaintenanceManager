@@ -1,69 +1,90 @@
 package com.maintenance.view.user;
 
+import java.util.ResourceBundle;
+
+import com.maintenance.db.service.Service;
+import com.maintenance.model.User;
+
 import javafx.fxml.FXML;
-import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class UserEditController {
 
 	@FXML
-	private TextField name;
+	private ResourceBundle resources;
+
 	@FXML
-	private TextField mail;
-	@FXML
-	private TextField user;
-	@FXML
-	private TextField timestamp;
+	private UserDataController userDataController;
 
 	private Stage dialogStage;
-	private UserProperties userProperties;
-	private boolean okClicked;
 
-	@FXML
-	private void handleCancel() {
-		dialogStage.close();
-	}
+	private User data;
 
-	@FXML
-	private void handleOk() {
-
-		userProperties.setName(name.getText());
-		userProperties.setMail(mail.getText());
-
-		userProperties.setUser(user.getText());
-		userProperties.setTimestamp(timestamp.getText());
-
-		okClicked = true;
-		dialogStage.close();
-
-	}
+	private boolean okClicked = false;
 
 	@FXML
 	private void initialize() {
-	}
-
-	public boolean isOkClicked() {
-		return okClicked;
 	}
 
 	public void setDialogStage(Stage dialogStage) {
 		this.dialogStage = dialogStage;
 	}
 
-	public void setUserProperties(UserProperties userProperties) {
+	public void setData(User data) {
 
-		this.userProperties = userProperties;
+		this.data = data;
 
-		if (userProperties.getUser() != null) {
+		userDataController.setData(data);
+		userDataController.setDialogStage(dialogStage);
 
-			name.setText(userProperties.getName());
-			mail.setText(userProperties.getMail());
+	}
 
-			user.setText(userProperties.getModifiedBy());
-			timestamp.setText(userProperties.getTimestamp());
+	public boolean isOkClicked() {
+		return okClicked;
+	}
+
+	@FXML
+	private void handleOk() {
+
+		if (!userDataController.isInputValid())
+			return;
+
+		if (data == null)
+			data = new User();
+
+		if (data != null) {
+			data.setName(userDataController.nameField.getText());
+			data.setMail(userDataController.mailField.getText());
 
 		}
 
+		if (data.getId() == 0)
+			insert();
+		else
+			update();
+
+		if (!Service.getInstance().isErrorStatus()) {
+			okClicked = true;
+			dialogStage.close();
+		}
+
+	}
+
+	private void insert() {
+
+		Service.getInstance().getUserService().insert(data);
+
+	}
+
+	private void update() {
+
+		Service.getInstance().getUserService().update(data);
+
+	}
+
+	@FXML
+	private void handleCancel() {
+		dialogStage.close();
 	}
 
 }

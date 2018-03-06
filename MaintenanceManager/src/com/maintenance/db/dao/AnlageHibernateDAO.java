@@ -2,7 +2,6 @@ package com.maintenance.db.dao;
 
 import java.util.List;
 
-
 import com.maintenance.db.util.DAOException;
 import com.maintenance.model.Anlage;
 

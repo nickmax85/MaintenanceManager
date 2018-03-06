@@ -10,7 +10,7 @@ public interface LeerflaecheDAO {
 	public List<Leerflaeche> getAllLeerflaechen() throws DAOException;
 
 	public Leerflaeche getLeerflaeche(int leerflaecheId) throws DAOException;
-	
+
 	public Leerflaeche getLeerflaeche(Leerflaeche leerflaeche) throws DAOException;
 
 	public void insertLeerflaeche(Leerflaeche leerflaeche) throws DAOException;

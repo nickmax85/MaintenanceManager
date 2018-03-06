@@ -118,7 +118,7 @@ public class CalendarWartungJDBCDAO implements CalendarWartungDAO {
 			if (logger.isInfoEnabled()) {
 				// logger.info(stationenList);
 			}
-			
+
 			con.close();
 		} catch (SQLException e) {
 			e.printStackTrace();

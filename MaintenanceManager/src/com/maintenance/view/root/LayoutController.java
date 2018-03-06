@@ -105,16 +105,16 @@ public class LayoutController implements Initializable {
 	private void handleMailVerteiler() {
 
 	}
-	
+
 	@FXML
 	private void handleUser() {
 		if (LoginDialog.isLoggedIn(main.getPrimaryStage()))
 			main.showUserOverviewDialog();
 	}
-	
+
 	@FXML
 	private void handleAnlageUser() {
-		
+
 		if (LoginDialog.isLoggedIn(main.getPrimaryStage()))
 			main.showAnlageUserOverviewDialog();
 
@@ -243,8 +243,7 @@ public class LayoutController implements Initializable {
 		alert.setHeaderText(resources.getString("appname") + "\n" + sb.toString().replace("$", ""));
 		alert.initOwner(main.getPrimaryStage());
 
-		alert.setContentText(
-				"Entwicklung:\n" + resources.getString("programer"));
+		alert.setContentText("Entwicklung:\n" + resources.getString("programer"));
 
 		DialogPane dialogPane = alert.getDialogPane();
 		dialogPane.getStylesheets().addAll(Constants.STYLESHEET);

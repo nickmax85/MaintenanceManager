@@ -92,7 +92,8 @@ public class AnlageEditController {
 			data.setWartungStueckFehler(Integer.parseInt(anlageDataController.fehlerStueckField.getText()));
 		}
 
-		if (anlageDataController.wartungArtComboBox.getSelectionModel().getSelectedItem() == EWartungArt.TIME_INTERVALL) {
+		if (anlageDataController.wartungArtComboBox.getSelectionModel()
+				.getSelectedItem() == EWartungArt.TIME_INTERVALL) {
 			// Date date = Date.from(
 			// anlageDataController.lastWartungDateField.getValue().atStartOfDay().toInstant(ZoneOffset.UTC));
 			// data.setLastWartungDate(date);

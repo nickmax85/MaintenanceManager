@@ -199,7 +199,7 @@ public class WartungReportController {
 			if (auswahlComboBox.getSelectionModel().getSelectedItem() == EAuswahl.STATIONEN)
 				for (Station station : Service.getInstance().getStationenFromAnlage(anlage)) {
 					for (Wartung wartung : Service.getInstance().getWartungenStationDate(station, sqlDate1, sqlDate2)) {
-						
+
 						System.out.println(wartung.getStatus());
 
 						if (statusComboBox.getSelectionModel().getSelectedItem().ordinal() == wartung.getStatus()) {

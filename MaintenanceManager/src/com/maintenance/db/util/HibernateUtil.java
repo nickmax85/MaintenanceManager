@@ -46,8 +46,8 @@ public class HibernateUtil {
 
 				registry = registryBuilder.build();
 
-				MetadataSources sources = new MetadataSources(registry).addAnnotatedClass(Anlage.class).addAnnotatedClass(Station.class)
-						.addAnnotatedClass(User.class);
+				MetadataSources sources = new MetadataSources(registry).addAnnotatedClass(Anlage.class)
+						.addAnnotatedClass(Station.class).addAnnotatedClass(User.class);
 
 				Metadata metadata = sources.getMetadataBuilder().build();
 

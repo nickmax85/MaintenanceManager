@@ -142,6 +142,7 @@ public class Anlage {
 	public StringProperty auftragProperty() {
 		return this.auftrag;
 	}
+
 	@Transient
 	public String getAuftrag() {
 		return this.auftragProperty().get();
@@ -154,6 +155,7 @@ public class Anlage {
 	public IntegerProperty jahresStueckProperty() {
 		return this.jahresStueck;
 	}
+
 	@Transient
 	public int getJahresStueck() {
 		return this.jahresStueckProperty().get();
@@ -166,6 +168,7 @@ public class Anlage {
 	public IntegerProperty aktuelleStueckProperty() {
 		return this.aktuelleStueck;
 	}
+
 	@Transient
 	public int getAktuelleStueck() {
 		return this.aktuelleStueckProperty().get();
@@ -178,6 +181,7 @@ public class Anlage {
 	public IntegerProperty lastWartungStueckzahlProperty() {
 		return this.lastWartungStueckzahl;
 	}
+
 	@Transient
 	public int getLastWartungStueckzahl() {
 		return this.lastWartungStueckzahlProperty().get();
@@ -246,6 +250,7 @@ public class Anlage {
 	public void setTimestamp(final String timestamp) {
 		this.timestampProperty().set(timestamp);
 	}
+
 	@Transient
 	public Timestamp getTimestampSql() {
 		return timestampSql;
@@ -258,6 +263,7 @@ public class Anlage {
 	public BooleanProperty subMenuProperty() {
 		return this.subMenu;
 	}
+
 	@Transient
 	public boolean isSubMenu() {
 		return this.subMenuProperty().get();
@@ -282,6 +288,7 @@ public class Anlage {
 	public IntegerProperty wartungArtProperty() {
 		return this.wartungArt;
 	}
+
 	@Transient
 	public int getWartungArt() {
 		return this.wartungArtProperty().get();
@@ -294,6 +301,7 @@ public class Anlage {
 	public IntegerProperty wartungStueckIntervallProperty() {
 		return this.wartungStueckIntervall;
 	}
+
 	@Transient
 	public int getWartungStueckIntervall() {
 		return this.wartungStueckIntervallProperty().get();
@@ -306,6 +314,7 @@ public class Anlage {
 	public ObjectProperty<Date> lastWartungDateProperty() {
 		return this.lastWartungDate;
 	}
+
 	@Transient
 	public Date getLastWartungDate() {
 		return this.lastWartungDateProperty().get();
@@ -318,6 +327,7 @@ public class Anlage {
 	public IntegerProperty wartungDateIntervallProperty() {
 		return this.wartungDateIntervall;
 	}
+
 	@Transient
 	public int getWartungDateIntervall() {
 		return this.wartungDateIntervallProperty().get();
@@ -330,6 +340,7 @@ public class Anlage {
 	public IntegerProperty wartungStueckWarnungProperty() {
 		return this.wartungStueckWarnung;
 	}
+
 	@Transient
 	public int getWartungStueckWarnung() {
 		return this.wartungStueckWarnungProperty().get();
@@ -342,6 +353,7 @@ public class Anlage {
 	public IntegerProperty wartungStueckFehlerProperty() {
 		return this.wartungStueckFehler;
 	}
+
 	@Transient
 	public int getWartungStueckFehler() {
 		return this.wartungStueckFehlerProperty().get();
@@ -354,6 +366,7 @@ public class Anlage {
 	public IntegerProperty wartungDateWarnungProperty() {
 		return this.wartungDateWarnung;
 	}
+
 	@Transient
 	public int getWartungDateWarnung() {
 		return this.wartungDateWarnungProperty().get();
@@ -371,6 +384,7 @@ public class Anlage {
 	public StringProperty wartungsplanLinkProperty() {
 		return this.wartungsplanLink;
 	}
+
 	@Transient
 	public String getWartungsplanLink() {
 		return this.wartungsplanLinkProperty().get();
@@ -383,6 +397,7 @@ public class Anlage {
 	public IntegerProperty intervallDateUnitProperty() {
 		return this.intervallDateUnit;
 	}
+
 	@Transient
 	public int getIntervallDateUnit() {
 		return this.intervallDateUnitProperty().get();
@@ -395,6 +410,7 @@ public class Anlage {
 	public IntegerProperty warnungDateUnitProperty() {
 		return this.warnungDateUnit;
 	}
+
 	@Transient
 	public int getWarnungDateUnit() {
 		return this.warnungDateUnitProperty().get();
@@ -407,6 +423,7 @@ public class Anlage {
 	public DoubleProperty intervallProperty() {
 		return this.intervall;
 	}
+
 	@Transient
 	public double getIntervall() {
 		return this.intervallProperty().get();
@@ -428,6 +445,7 @@ public class Anlage {
 	public IntegerProperty wartungUeberfaelligProperty() {
 		return this.wartungUeberfaellig;
 	}
+
 	@Transient
 	public int getWartungUeberfaellig() {
 		return this.wartungUeberfaelligProperty().get();

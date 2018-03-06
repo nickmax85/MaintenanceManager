@@ -11,7 +11,6 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
-
 import com.maintenance.db.util.DAOException;
 import com.maintenance.db.util.HibernateUtil;
 import com.maintenance.model.Anlage;
@@ -54,6 +53,7 @@ public class AnlageHibernateJDBCDAO implements AnlageHibernateDAO {
 
 			Root<Anlage> root = query.from(Anlage.class);
 			query.select(root);
+			query.orderBy(builder.asc(root.get("name")));
 
 			Query<Anlage> q = currentSession.createQuery(query);
 			List<Anlage> data = q.getResultList();
@@ -111,5 +111,3 @@ public class AnlageHibernateJDBCDAO implements AnlageHibernateDAO {
 	}
 
 }
-
-

@@ -181,7 +181,7 @@ public class NextWartungenBarChartController implements Initializable {
 						if (stationDate.getWartungArt() == EWartungArt.TIME_INTERVALL.ordinal()) {
 
 							Date nextWartungDate;
-							
+
 							Date cal = null;
 
 							if (stationDate.getLastWartungDate() != null)
@@ -189,11 +189,10 @@ public class NextWartungenBarChartController implements Initializable {
 							else
 								cal = stationDate.getCreateDate();
 
-							nextWartungDate = ProzentCalc.calcNextWartungDate(cal,
-									stationDate.getIntervallDateUnit(), stationDate.getWartungDateIntervall());
+							nextWartungDate = ProzentCalc.calcNextWartungDate(cal, stationDate.getIntervallDateUnit(),
+									stationDate.getWartungDateIntervall());
 
-							prozDate = ProzentCalc.calcProzent(cal.getTime(),
-									nextWartungDate.getTime());
+							prozDate = ProzentCalc.calcProzent(cal.getTime(), nextWartungDate.getTime());
 
 						}
 					}

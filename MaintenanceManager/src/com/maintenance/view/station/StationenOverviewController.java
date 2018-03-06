@@ -65,7 +65,7 @@ public class StationenOverviewController {
 
 	@FXML
 	private void initialize() {
-		
+
 		stationDataController.setEditable(false);
 
 		equipmentColumn.setCellValueFactory(cellData -> cellData.getValue().equipmentProperty());
@@ -73,7 +73,7 @@ public class StationenOverviewController {
 		auftragColumn.setCellValueFactory(cellData -> cellData.getValue().auftragProperty());
 		statusColumn.setCellValueFactory(new PropertyValueFactory<Station, Boolean>("status"));
 		statusColumn.setCellFactory(CheckBoxTableCell.forTableColumn(statusColumn));
-		
+
 		tpmColumn.setCellValueFactory(new PropertyValueFactory<Station, Boolean>("tpm"));
 		tpmColumn.setCellFactory(CheckBoxTableCell.forTableColumn(tpmColumn));
 

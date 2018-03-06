@@ -207,7 +207,7 @@ public class PanelFormatJDBCDAO implements PanelFormatDAO {
 				panelFormat.setTimestamp(timestamp);
 
 				if (logger.isInfoEnabled()) {
-					//logger.info(panelFormat.getX());
+					// logger.info(panelFormat.getX());
 				}
 			} else {
 				throw new DAOException(TIMESTAMP_ERROR);

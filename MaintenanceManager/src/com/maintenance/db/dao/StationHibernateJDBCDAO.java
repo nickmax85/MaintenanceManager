@@ -11,7 +11,6 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
-import com.maintenance.db.dto.Anlage;
 import com.maintenance.db.util.DAOException;
 import com.maintenance.db.util.HibernateUtil;
 import com.maintenance.model.Station;

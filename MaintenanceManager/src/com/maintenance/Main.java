@@ -28,7 +28,6 @@ import com.maintenance.view.chart.NextWartungenBarChartController;
 import com.maintenance.view.leerflaeche.LeerflaecheEditController;
 import com.maintenance.view.leerflaeche.LeerflaechePanelController;
 import com.maintenance.view.leerflaeche.LeerflaechenOverviewController;
-import com.maintenance.view.mail.AnlagenUserOverviewController;
 import com.maintenance.view.mesanlage.MESAnlagenOverviewController;
 import com.maintenance.view.report.WartungReportController;
 import com.maintenance.view.root.LayoutController;
@@ -478,7 +477,7 @@ public class Main extends Application {
 
 			UserOverviewController controller = loader.getController();
 			controller.setDialogStage(primaryStage);
-			// controller.setData();
+			controller.setData();
 
 			dialogStage.showAndWait();
 

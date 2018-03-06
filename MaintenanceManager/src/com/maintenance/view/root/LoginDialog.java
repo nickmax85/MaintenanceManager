@@ -36,9 +36,10 @@ public class LoginDialog {
 	public static boolean login(Stage stage) {
 
 		// Superuser
-//		if (System.getProperty("user.name").contains("steinb") || System.getProperty("user.name").contains("potz")) {
-//			loggedIn = true;
-//		}
+		// if (System.getProperty("user.name").contains("steinb") ||
+		// System.getProperty("user.name").contains("potz")) {
+		// loggedIn = true;
+		// }
 
 		if (loggedIn)
 			return true;
