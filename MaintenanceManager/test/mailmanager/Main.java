@@ -18,6 +18,7 @@ import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -31,7 +32,7 @@ public class Main extends Application {
 
 	private MailManager mailManager;
 
-	ListView<String> listView;
+	private	TextArea textArea;
 
 	Thread thread;
 
