@@ -3,8 +3,8 @@ package com.maintenance.view.anlageuser;
 import java.util.ResourceBundle;
 
 import com.maintenance.db.dto.Anlage;
-import com.maintenance.db.dto.User;
 import com.maintenance.db.service.Service;
+import com.maintenance.model.User;
 import com.maintenance.view.alert.InputValidatorAlert;
 
 import javafx.collections.FXCollections;

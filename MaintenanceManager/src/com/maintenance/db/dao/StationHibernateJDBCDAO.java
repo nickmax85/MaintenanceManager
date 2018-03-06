@@ -11,36 +11,38 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
+import com.maintenance.db.dto.Anlage;
 import com.maintenance.db.util.DAOException;
 import com.maintenance.db.util.HibernateUtil;
-import com.maintenance.model.User;
+import com.maintenance.model.Station;
 
-public class UserHibernateJDBCDAO implements UserHibernateDAO {
+public class StationHibernateJDBCDAO implements StationHibernateDAO {
 
-	private static final Logger logger = Logger.getLogger(UserHibernateJDBCDAO.class);
+	private static final Logger logger = Logger.getLogger(AnlageJDBCDAO.class);
 
 	private Session currentSession;
+	private Transaction currentTransaction;
 
 	@Override
-	public void delete(User mitarbeiter) throws DAOException {
+	public void delete(Station data) throws DAOException {
 
 		Transaction tr = currentSession.beginTransaction();
 
-		currentSession.delete(mitarbeiter);
+		currentSession.delete(data);
 
 		tr.commit();
 
 	}
 
 	@Override
-	public User get(int id) throws DAOException {
-		User data = currentSession.get(User.class, id);
+	public Station get(int id) throws DAOException {
+		Station data = currentSession.get(Station.class, id);
 		return data;
 
 	}
 
 	@Override
-	public List<User> getAll() throws DAOException {
+	public List<Station> getAll() throws DAOException {
 		Transaction transaction = null;
 
 		try {
@@ -48,18 +50,17 @@ public class UserHibernateJDBCDAO implements UserHibernateDAO {
 			transaction = currentSession.beginTransaction();
 
 			CriteriaBuilder builder = currentSession.getCriteriaBuilder();
-			CriteriaQuery<User> query = builder.createQuery(User.class);
+			CriteriaQuery<Station> query = builder.createQuery(Station.class);
 
-			Root<User> root = query.from(User.class);
+			Root<Station> root = query.from(Station.class);
 			query.select(root);
-			query.orderBy(builder.asc(root.get("name")), builder.asc(root.get("mail")));
 
-			Query<User> q = currentSession.createQuery(query);
-			List<User> data = q.getResultList();
+			Query<Station> q = currentSession.createQuery(query);
+			List<Station> dataen = q.getResultList();
 
 			transaction.commit();
 
-			return data;
+			return dataen;
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -67,29 +68,29 @@ public class UserHibernateJDBCDAO implements UserHibernateDAO {
 				transaction.rollback();
 			}
 		} finally {
-			currentSession.close();
+
 		}
 		return null;
 
 	}
 
 	@Override
-	public void insert(User user) throws DAOException {
+	public void insert(Station data) throws DAOException {
 
 		Transaction tr = currentSession.beginTransaction();
 
-		currentSession.save(user);
+		currentSession.save(data);
 
 		tr.commit();
 
 	}
 
 	@Override
-	public void update(User user) throws DAOException {
+	public void update(Station data) throws DAOException {
 
 		Transaction tr = currentSession.beginTransaction();
 
-		currentSession.update(user);
+		currentSession.update(data);
 
 		tr.commit();
 

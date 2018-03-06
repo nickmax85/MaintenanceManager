@@ -31,9 +31,9 @@ import com.maintenance.db.dto.Leerflaeche;
 import com.maintenance.db.dto.MESAnlage;
 import com.maintenance.db.dto.PanelFormat;
 import com.maintenance.db.dto.Station;
-import com.maintenance.db.dto.User;
 import com.maintenance.db.dto.Wartung;
 import com.maintenance.db.util.DAOException;
+import com.maintenance.model.User;
 import com.maintenance.util.Constants;
 
 import javafx.scene.control.Alert;

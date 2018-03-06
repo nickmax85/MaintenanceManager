@@ -2,6 +2,8 @@ package com.maintenance.db.dto;
 
 import java.sql.Timestamp;
 
+import com.maintenance.model.User;
+
 public class AnlageUser {
 
 	private int anlageId;

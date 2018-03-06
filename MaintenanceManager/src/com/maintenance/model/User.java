@@ -1,4 +1,4 @@
-package com.maintenance.db.dto;
+package com.maintenance.model;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -18,6 +18,8 @@ import javax.persistence.Transient;
 
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
+
+import com.maintenance.db.dto.Anlage;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;

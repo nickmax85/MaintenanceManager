@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import com.maintenance.db.dto.Anlage;
-import com.maintenance.db.dto.User;
 import com.maintenance.db.service.Service;
+import com.maintenance.model.User;
 
 import javafx.fxml.FXML;
 import javafx.stage.Stage;

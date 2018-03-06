@@ -11,9 +11,9 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import com.maintenance.db.dto.User;
 import com.maintenance.db.util.ConnectionManager;
 import com.maintenance.db.util.DAOException;
+import com.maintenance.model.User;
 
 public class UserJDBCDAO implements UserDAO {
 

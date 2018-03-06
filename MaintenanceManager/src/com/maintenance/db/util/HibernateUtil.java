@@ -11,7 +11,7 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
 import com.maintenance.db.dto.Anlage;
-import com.maintenance.db.dto.User;
+import com.maintenance.model.User;
 import com.maintenance.util.ApplicationProperties;
 
 public class HibernateUtil {

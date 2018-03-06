@@ -2,8 +2,8 @@ package com.maintenance.db.dao;
 
 import java.util.List;
 
-import com.maintenance.db.dto.User;
 import com.maintenance.db.util.DAOException;
+import com.maintenance.model.User;
 
 public interface UserDAO {
 

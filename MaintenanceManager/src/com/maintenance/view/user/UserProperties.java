@@ -1,6 +1,6 @@
 package com.maintenance.view.user;
 
-import com.maintenance.db.dto.User;
+import com.maintenance.model.User;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
