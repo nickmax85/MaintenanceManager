@@ -4,8 +4,9 @@ import java.util.List;
 
 import com.maintenance.db.dao.AnlageHibernateDAO;
 import com.maintenance.db.dao.AnlageHibernateJDBCDAO;
-import com.maintenance.db.dto.Anlage;
+
 import com.maintenance.db.util.DAOException;
+import com.maintenance.model.Anlage;
 
 public class AnlageService {
 

@@ -11,13 +11,14 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
-import com.maintenance.db.dto.Anlage;
+
 import com.maintenance.db.util.DAOException;
 import com.maintenance.db.util.HibernateUtil;
+import com.maintenance.model.Anlage;
 
 public class AnlageHibernateJDBCDAO implements AnlageHibernateDAO {
 
-	private static final Logger logger = Logger.getLogger(AnlageJDBCDAO.class);
+	private static final Logger logger = Logger.getLogger(AnlageHibernateJDBCDAO.class);
 
 	private Session currentSession;
 	private Transaction currentTransaction;
@@ -55,11 +56,11 @@ public class AnlageHibernateJDBCDAO implements AnlageHibernateDAO {
 			query.select(root);
 
 			Query<Anlage> q = currentSession.createQuery(query);
-			List<Anlage> dataen = q.getResultList();
+			List<Anlage> data = q.getResultList();
 
 			transaction.commit();
 
-			return dataen;
+			return data;
 
 		} catch (Exception e) {
 			e.printStackTrace();

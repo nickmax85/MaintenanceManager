@@ -1,6 +1,5 @@
 package com.maintenance.model;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -11,8 +10,15 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+import org.hibernate.annotations.Type;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
@@ -63,7 +69,8 @@ public class Anlage {
 	private ObjectProperty<Date> timestamp = new SimpleObjectProperty<Date>();
 	private StringProperty user = new SimpleStringProperty();
 
-	private List<Station> stationen = new ArrayList<>();
+	private List<Station> stationen;
+	private List<User> users;
 
 	public IntegerProperty idProperty() {
 		return this.id;
@@ -72,11 +79,11 @@ public class Anlage {
 	@Id
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	public int getId() {
+	public Integer getId() {
 		return this.idProperty().get();
 	}
 
-	public void setId(final int id) {
+	public void setId(final Integer id) {
 		this.idProperty().set(id);
 	}
 
@@ -99,6 +106,18 @@ public class Anlage {
 
 	public void setStationen(List<Station> stationen) {
 		this.stationen = stationen;
+	}
+
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE })
+	@JoinTable(name = "anlage_user", joinColumns = { @JoinColumn(name = "anlageId") }, inverseJoinColumns = {
+			@JoinColumn(name = "userId") })
+	public List<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(List<User> users) {
+		this.users = users;
 	}
 
 	public StringProperty equipmentProperty() {
@@ -129,47 +148,50 @@ public class Anlage {
 		return this.jahresStueck;
 	}
 
-	public int getJahresStueck() {
+	public Integer getJahresStueck() {
 		return this.jahresStueckProperty().get();
 	}
 
-	public void setJahresStueck(final int jahresStueck) {
-		this.jahresStueckProperty().set(jahresStueck);
+	public void setJahresStueck(final Integer jahresStueck) {
+		if (jahresStueck != null)
+			this.jahresStueckProperty().set(jahresStueck);
 	}
 
 	public IntegerProperty aktuelleStueckProperty() {
 		return this.aktuelleStueck;
 	}
 
-	public int getAktuelleStueck() {
+	public Integer getAktuelleStueck() {
 		return this.aktuelleStueckProperty().get();
 	}
 
-	public void setAktuelleStueck(final int aktuelleStueck) {
-		this.aktuelleStueckProperty().set(aktuelleStueck);
+	public void setAktuelleStueck(final Integer aktuelleStueck) {
+		if (aktuelleStueck != null)
+			this.aktuelleStueckProperty().set(aktuelleStueck);
 	}
 
 	public IntegerProperty wartungStueckIntervallProperty() {
 		return this.wartungStueckIntervall;
 	}
 
-	public int getWartungStueckIntervall() {
+	public Integer getWartungStueckIntervall() {
 		return this.wartungStueckIntervallProperty().get();
 	}
 
-	public void setWartungStueckIntervall(final int wartungStueckIntervall) {
-		this.wartungStueckIntervallProperty().set(wartungStueckIntervall);
+	public void setWartungStueckIntervall(final Integer wartungStueckIntervall) {
+		if (wartungStueckIntervall != null)
+			this.wartungStueckIntervallProperty().set(wartungStueckIntervall);
 	}
 
 	public IntegerProperty wartungDateIntervallProperty() {
 		return this.wartungDateIntervall;
 	}
 
-	public int getWartungDateIntervall() {
+	public Integer getWartungDateIntervall() {
 		return this.wartungDateIntervallProperty().get();
 	}
 
-	public void setWartungDateIntervall(final int wartungDateIntervall) {
+	public void setWartungDateIntervall(final Integer wartungDateIntervall) {
 		this.wartungDateIntervallProperty().set(wartungDateIntervall);
 	}
 
@@ -177,12 +199,13 @@ public class Anlage {
 		return this.lastWartungStueck;
 	}
 
-	public int getLastWartungStueck() {
+	public Integer getLastWartungStueck() {
 		return this.lastWartungStueckProperty().get();
 	}
 
-	public void setLastWartungStueck(final int lastWartungStueck) {
-		this.lastWartungStueckProperty().set(lastWartungStueck);
+	public void setLastWartungStueck(final Integer lastWartungStueck) {
+		if (lastWartungStueck != null)
+			this.lastWartungStueckProperty().set(lastWartungStueck);
 	}
 
 	public ObjectProperty<Date> lastWartungDateProperty() {
@@ -201,47 +224,50 @@ public class Anlage {
 		return this.wartungStueckWarnung;
 	}
 
-	public int getWartungStueckWarnung() {
+	public Integer getWartungStueckWarnung() {
 		return this.wartungStueckWarnungProperty().get();
 	}
 
-	public void setWartungStueckWarnung(final int wartungStueckWarnung) {
-		this.wartungStueckWarnungProperty().set(wartungStueckWarnung);
+	public void setWartungStueckWarnung(final Integer wartungStueckWarnung) {
+		if (wartungStueckWarnung != null)
+			this.wartungStueckWarnungProperty().set(wartungStueckWarnung);
 	}
 
 	public IntegerProperty wartungStueckFehlerProperty() {
 		return this.wartungStueckFehler;
 	}
 
-	public int getWartungStueckFehler() {
+	public Integer getWartungStueckFehler() {
 		return this.wartungStueckFehlerProperty().get();
 	}
 
-	public void setWartungStueckFehler(final int wartungStueckFehler) {
-		this.wartungStueckFehlerProperty().set(wartungStueckFehler);
+	public void setWartungStueckFehler(final Integer wartungStueckFehler) {
+		if (wartungStueckFehler != null)
+			this.wartungStueckFehlerProperty().set(wartungStueckFehler);
 	}
 
 	public IntegerProperty wartungDateWarnungProperty() {
 		return this.wartungDateWarnung;
 	}
 
-	public int getWartungDateWarnung() {
+	public Integer getWartungDateWarnung() {
 		return this.wartungDateWarnungProperty().get();
 	}
 
-	public void setWartungDateWarnung(final int wartungDateWarnung) {
-		this.wartungDateWarnungProperty().set(wartungDateWarnung);
+	public void setWartungDateWarnung(final Integer wartungDateWarnung) {
+		if (wartungDateWarnung != null)
+			this.wartungDateWarnungProperty().set(wartungDateWarnung);
 	}
 
 	public BooleanProperty auswertungProperty() {
 		return this.auswertung;
 	}
 
-	public boolean isAuswertung() {
+	public Boolean isAuswertung() {
 		return this.auswertungProperty().get();
 	}
 
-	public void setAuswertung(final boolean auswertung) {
+	public void setAuswertung(final Boolean auswertung) {
 		this.auswertungProperty().set(auswertung);
 	}
 
@@ -249,11 +275,11 @@ public class Anlage {
 		return this.status;
 	}
 
-	public boolean isStatus() {
+	public Boolean isStatus() {
 		return this.statusProperty().get();
 	}
 
-	public void setStatus(final boolean status) {
+	public void setStatus(final Boolean status) {
 		this.statusProperty().set(status);
 	}
 
@@ -261,24 +287,27 @@ public class Anlage {
 		return this.subMenu;
 	}
 
-	public boolean isSubMenu() {
+	public Boolean isSubMenu() {
 		return this.subMenuProperty().get();
 	}
 
-	public void setSubMenu(final boolean subMenu) {
-		this.subMenuProperty().set(subMenu);
+	public void setSubMenu(final Boolean subMenu) {
+
+		if (subMenu != null)
+			this.subMenuProperty().set(subMenu);
 	}
 
 	public IntegerProperty wartungArtProperty() {
 		return this.wartungArt;
 	}
 
-	public int getWartungArt() {
+	public Integer getWartungArt() {
 		return this.wartungArtProperty().get();
 	}
 
-	public void setWartungArt(final int wartungArt) {
-		this.wartungArtProperty().set(wartungArt);
+	public void setWartungArt(final Integer wartungArt) {
+		if (wartungArt != null)
+			this.wartungArtProperty().set(wartungArt);
 	}
 
 	public StringProperty wartungsPlanLinkProperty() {
@@ -309,23 +338,24 @@ public class Anlage {
 		return this.intervallDateUnit;
 	}
 
-	public int getIntervallDateUnit() {
+	public Integer getIntervallDateUnit() {
 		return this.intervallDateUnitProperty().get();
 	}
 
-	public void setIntervallDateUnit(final int intervallDateUnit) {
-		this.intervallDateUnitProperty().set(intervallDateUnit);
+	public void setIntervallDateUnit(final Integer intervallDateUnit) {
+		if (intervallDateUnit != null)
+			this.intervallDateUnitProperty().set(intervallDateUnit);
 	}
 
 	public IntegerProperty warnungDateUnitProperty() {
 		return this.warnungDateUnit;
 	}
 
-	public int getWarnungDateUnit() {
+	public Integer getWarnungDateUnit() {
 		return this.warnungDateUnitProperty().get();
 	}
 
-	public void setWarnungDateUnit(final int warnungDateUnit) {
+	public void setWarnungDateUnit(final Integer warnungDateUnit) {
 		this.warnungDateUnitProperty().set(warnungDateUnit);
 	}
 
@@ -333,24 +363,26 @@ public class Anlage {
 		return this.wartungUeberfaellig;
 	}
 
-	public int getWartungUeberfaellig() {
+	public Integer getWartungUeberfaellig() {
 		return this.wartungUeberfaelligProperty().get();
 	}
 
-	public void setWartungUeberfaellig(final int wartungUeberfaellig) {
-		this.wartungUeberfaelligProperty().set(wartungUeberfaellig);
+	public void setWartungUeberfaellig(final Integer wartungUeberfaellig) {
+		if (wartungUeberfaellig != null)
+			this.wartungUeberfaelligProperty().set(wartungUeberfaellig);
 	}
 
 	public BooleanProperty mailSentProperty() {
 		return this.mailSent;
 	}
 
-	public boolean isMailSent() {
+	public Boolean isMailSent() {
 		return this.mailSentProperty().get();
 	}
 
-	public void setMailSent(final boolean mailSent) {
-		this.mailSentProperty().set(mailSent);
+	public void setMailSent(final Boolean mailSent) {
+		if (mailSent != null)
+			this.mailSentProperty().set(mailSent);
 	}
 
 	public ObjectProperty<Date> createDateProperty() {

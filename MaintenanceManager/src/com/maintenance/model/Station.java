@@ -64,11 +64,11 @@ public class Station {
 	@Id
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	public int getId() {
+	public Integer getId() {
 		return this.idProperty().get();
 	}
 
-	public void setId(final int id) {
+	public void setId(final Integer id) {
 		this.idProperty().set(id);
 	}
 
@@ -126,11 +126,13 @@ public class Station {
 		return this.wartungStueckIntervall;
 	}
 
-	public int getWartungStueckIntervall() {
+	public Integer getWartungStueckIntervall() {
 		return this.wartungStueckIntervallProperty().get();
 	}
 
-	public void setWartungStueckIntervall(final int wartungStueckIntervall) {
+	public void setWartungStueckIntervall(final Integer wartungStueckIntervall) {
+		
+		if (wartungStueckIntervall != null)
 		this.wartungStueckIntervallProperty().set(wartungStueckIntervall);
 	}
 
@@ -138,11 +140,13 @@ public class Station {
 		return this.wartungDateIntervall;
 	}
 
-	public int getWartungDateIntervall() {
+	public Integer getWartungDateIntervall() {
 		return this.wartungDateIntervallProperty().get();
 	}
 
-	public void setWartungDateIntervall(final int wartungDateIntervall) {
+	public void setWartungDateIntervall(final Integer wartungDateIntervall) {
+		
+		if (wartungDateIntervall != null)
 		this.wartungDateIntervallProperty().set(wartungDateIntervall);
 	}
 
@@ -150,12 +154,14 @@ public class Station {
 		return this.lastWartungStueck;
 	}
 
-	public int getLastWartungStueck() {
+	public Integer getLastWartungStueck() {
 		return this.lastWartungStueckProperty().get();
 	}
 
-	public void setLastWartungStueck(final int lastWartungStueck) {
-		this.lastWartungStueckProperty().set(lastWartungStueck);
+	public void setLastWartungStueck(final Integer lastWartungStueck) {
+
+		if (lastWartungStueck != null)
+			this.lastWartungStueckProperty().set(lastWartungStueck);
 	}
 
 	public ObjectProperty<Date> lastWartungDateProperty() {
@@ -174,11 +180,13 @@ public class Station {
 		return this.wartungStueckWarnung;
 	}
 
-	public int getWartungStueckWarnung() {
+	public Integer getWartungStueckWarnung() {
 		return this.wartungStueckWarnungProperty().get();
 	}
 
-	public void setWartungStueckWarnung(final int wartungStueckWarnung) {
+	public void setWartungStueckWarnung(final Integer wartungStueckWarnung) {
+		
+		if (wartungStueckWarnung != null)
 		this.wartungStueckWarnungProperty().set(wartungStueckWarnung);
 	}
 
@@ -186,11 +194,13 @@ public class Station {
 		return this.wartungStueckFehler;
 	}
 
-	public int getWartungStueckFehler() {
+	public Integer getWartungStueckFehler() {
 		return this.wartungStueckFehlerProperty().get();
 	}
 
-	public void setWartungStueckFehler(final int wartungStueckFehler) {
+	public void setWartungStueckFehler(final Integer wartungStueckFehler) {
+		
+		if (wartungStueckFehler != null)
 		this.wartungStueckFehlerProperty().set(wartungStueckFehler);
 	}
 
@@ -198,11 +208,13 @@ public class Station {
 		return this.wartungDateWarnung;
 	}
 
-	public int getWartungDateWarnung() {
+	public Integer getWartungDateWarnung() {
 		return this.wartungDateWarnungProperty().get();
 	}
 
-	public void setWartungDateWarnung(final int wartungDateWarnung) {
+	public void setWartungDateWarnung(final Integer wartungDateWarnung) {
+		
+		if (wartungDateWarnung != null)
 		this.wartungDateWarnungProperty().set(wartungDateWarnung);
 	}
 
@@ -210,11 +222,11 @@ public class Station {
 		return this.auswertung;
 	}
 
-	public boolean isAuswertung() {
+	public Boolean isAuswertung() {
 		return this.auswertungProperty().get();
 	}
 
-	public void setAuswertung(final boolean auswertung) {
+	public void setAuswertung(final Boolean auswertung) {
 		this.auswertungProperty().set(auswertung);
 	}
 
@@ -222,11 +234,11 @@ public class Station {
 		return this.status;
 	}
 
-	public boolean isStatus() {
+	public Boolean isStatus() {
 		return this.statusProperty().get();
 	}
 
-	public void setStatus(final boolean status) {
+	public void setStatus(final Boolean status) {
 		this.statusProperty().set(status);
 	}
 
@@ -234,23 +246,26 @@ public class Station {
 		return this.tpm;
 	}
 
-	public boolean isTpm() {
+	public Boolean isTpm() {
 		return this.tpmProperty().get();
 	}
 
-	public void setTpm(final boolean tpm) {
-		this.tpmProperty().set(tpm);
+	public void setTpm(final Boolean tpm) {
+		if (tpm != null)
+			this.tpmProperty().set(tpm);
 	}
 
 	public IntegerProperty wartungArtProperty() {
 		return this.wartungArt;
 	}
 
-	public int getWartungArt() {
+	public Integer getWartungArt() {
 		return this.wartungArtProperty().get();
 	}
 
-	public void setWartungArt(final int wartungArt) {
+	public void setWartungArt(final Integer wartungArt) {
+		
+		if (wartungArt !=null)
 		this.wartungArtProperty().set(wartungArt);
 	}
 
@@ -270,11 +285,13 @@ public class Station {
 		return this.intervallDateUnit;
 	}
 
-	public int getIntervallDateUnit() {
+	public Integer getIntervallDateUnit() {
 		return this.intervallDateUnitProperty().get();
 	}
 
-	public void setIntervallDateUnit(final int intervallDateUnit) {
+	public void setIntervallDateUnit(final Integer intervallDateUnit) {
+		
+		if (intervallDateUnit != null)
 		this.intervallDateUnitProperty().set(intervallDateUnit);
 	}
 
@@ -282,11 +299,13 @@ public class Station {
 		return this.warnungDateUnit;
 	}
 
-	public int getWarnungDateUnit() {
+	public Integer getWarnungDateUnit() {
 		return this.warnungDateUnitProperty().get();
 	}
 
-	public void setWarnungDateUnit(final int warnungDateUnit) {
+	public void setWarnungDateUnit(final Integer warnungDateUnit) {
+		
+		if (warnungDateUnit != null)
 		this.warnungDateUnitProperty().set(warnungDateUnit);
 	}
 
@@ -294,12 +313,13 @@ public class Station {
 		return this.mailSent;
 	}
 
-	public boolean isMailSent() {
+	public Boolean isMailSent() {
 		return this.mailSentProperty().get();
 	}
 
-	public void setMailSent(final boolean mailSent) {
-		this.mailSentProperty().set(mailSent);
+	public void setMailSent(final Boolean mailSent) {
+		if (mailSent != null)
+			this.mailSentProperty().set(mailSent);
 	}
 
 	public ObjectProperty<Date> createDateProperty() {

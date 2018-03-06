@@ -83,6 +83,37 @@ public class ProzentCalc {
 		return Math.round(prozent);
 	}
 
+	public static float calcProzent(com.maintenance.model.Station station) {
+
+		float prozent = 0;
+		float prozentUeberproduktion = 0;
+		int produziert;
+		int ueberproduktion;
+
+		produziert = station.getAnlage().getAktuelleStueck() - station.getLastWartungStueck();
+
+		prozent = (float) 100 * produziert / station.getWartungStueckIntervall();
+
+		ueberproduktion = produziert - station.getWartungStueckIntervall();
+		prozentUeberproduktion = (float) 100 * ueberproduktion / station.getWartungStueckIntervall();
+
+		if (prozent >= 100) {
+			prozent = 100 + prozentUeberproduktion;
+		}
+
+		if (prozent >= 200) {
+			prozent = 200 + prozentUeberproduktion;
+		}
+
+		// if (prozent > 100.0f)
+		// prozent = 100.0f;
+		//
+		if (prozent < 0.0f)
+			prozent = 0.0f;
+
+		return Math.round(prozent);
+	}
+
 	public static float calcProzent(long lastWartung, long nextWartung) {
 
 		float prozent = 0;

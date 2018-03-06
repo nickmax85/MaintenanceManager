@@ -2,8 +2,9 @@ package com.maintenance.db.dao;
 
 import java.util.List;
 
-import com.maintenance.db.dto.Anlage;
+
 import com.maintenance.db.util.DAOException;
+import com.maintenance.model.Anlage;
 
 public interface AnlageHibernateDAO {
 

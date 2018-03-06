@@ -40,7 +40,12 @@ public class EmailUtil {
 		Session session = Session.getInstance(props, null);
 		session.setDebug(true);
 
-		sendEmail(session, from, to, null, betreff, text, null);
+		try {
+			sendEmail(session, from, to, null, betreff, text, null);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 
@@ -53,64 +58,60 @@ public class EmailUtil {
 	 * @param text
 	 */
 	public static void sendEmail(Session session, String from, String to, String cc, String betreff, String text,
-			File file) {
-		try {
-			MimeMessage msg = new MimeMessage(session);
+			File file) throws Exception {
 
-			// set message headers
-			msg.addHeader("Content-type", "text/HTML; charset=UTF-8");
-			msg.addHeader("format", "flowed");
-			msg.addHeader("Content-Transfer-Encoding", "8bit");
+		MimeMessage msg = new MimeMessage(session);
 
-			msg.setFrom(new InternetAddress(from, from));
+		// set message headers
+		msg.addHeader("Content-type", "text/HTML; charset=UTF-8");
+		msg.addHeader("format", "flowed");
+		msg.addHeader("Content-Transfer-Encoding", "8bit");
 
-			// msg.setReplyTo(InternetAddress.parse("no_reply@journaldev.com", false));
+		msg.setFrom(new InternetAddress(from, from));
 
-			msg.setSubject(betreff, "UTF-8");
+		// msg.setReplyTo(InternetAddress.parse("no_reply@journaldev.com", false));
 
-			msg.setText(text, "UTF-8");
+		msg.setSubject(betreff, "UTF-8");
 
-			msg.setSentDate(new Date());
+		msg.setText(text, "UTF-8");
 
-			msg.setRecipients(Message.RecipientType.TO, to);
+		msg.setSentDate(new Date());
 
-			if (!cc.isEmpty())
-				msg.setRecipients(Message.RecipientType.CC, InternetAddress.parse(cc, false));
+		msg.setRecipients(Message.RecipientType.TO, to);
 
-			// Create the message part
-			BodyPart messageBodyPart = new MimeBodyPart();
+		// if (!cc.isEmpty())
+		// msg.setRecipients(Message.RecipientType.CC, InternetAddress.parse(cc,
+		// false));
 
-			// Fill the message
-			messageBodyPart.setText(text);
+		// Create the message part
+		BodyPart messageBodyPart = new MimeBodyPart();
 
-			// Create a multipar message
-			Multipart multipart = new MimeMultipart();
+		// Fill the message
+		messageBodyPart.setText(text);
 
-			// Set text message part
-			multipart.addBodyPart(messageBodyPart);
+		// Create a multipar message
+		Multipart multipart = new MimeMultipart();
 
-			// Part two is attachment
-			// messageBodyPart = new MimeBodyPart();
-			// String filename = file.getAbsolutePath();
-			// DataSource source = new FileDataSource(filename);
-			// messageBodyPart.setDataHandler(new DataHandler(source));
-			// messageBodyPart.setFileName(file.getName());
-			// multipart.addBodyPart(messageBodyPart);
+		// Set text message part
+		multipart.addBodyPart(messageBodyPart);
 
-			// Send the complete message parts
-			msg.setContent(multipart);
+		// Part two is attachment
+		// messageBodyPart = new MimeBodyPart();
+		// String filename = file.getAbsolutePath();
+		// DataSource source = new FileDataSource(filename);
+		// messageBodyPart.setDataHandler(new DataHandler(source));
+		// messageBodyPart.setFileName(file.getName());
+		// multipart.addBodyPart(messageBodyPart);
 
-			System.out.println("Nachricht ist bereit");
+		// Send the complete message parts
+		msg.setContent(multipart);
 
-			Transport.send(msg);
+		System.out.println("Nachricht ist bereit");
 
-			System.out.println("Nachricht wurde erfolgreich versendet");
+		Transport.send(msg);
 
-		} catch (Exception e) {
+		System.out.println("Nachricht wurde erfolgreich versendet");
 
-			System.out.println("Fehler beim Senden der Nachricht");
-			e.printStackTrace();
-		}
 	}
 
 }

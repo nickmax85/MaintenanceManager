@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import com.maintenance.db.dto.Anlage;
 import com.maintenance.db.service.Service;
+import com.maintenance.model.Anlage;
 import com.maintenance.model.User;
 
 import javafx.fxml.FXML;

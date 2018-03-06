@@ -10,7 +10,8 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
-import com.maintenance.db.dto.Anlage;
+import com.maintenance.model.Anlage;
+import com.maintenance.model.Station;
 import com.maintenance.model.User;
 import com.maintenance.util.ApplicationProperties;
 
@@ -45,7 +46,7 @@ public class HibernateUtil {
 
 				registry = registryBuilder.build();
 
-				MetadataSources sources = new MetadataSources(registry).addAnnotatedClass(Anlage.class)
+				MetadataSources sources = new MetadataSources(registry).addAnnotatedClass(Anlage.class).addAnnotatedClass(Station.class)
 						.addAnnotatedClass(User.class);
 
 				Metadata metadata = sources.getMetadataBuilder().build();

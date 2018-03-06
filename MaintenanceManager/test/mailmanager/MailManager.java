@@ -8,11 +8,11 @@ import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import com.maintenance.db.dto.Anlage;
-import com.maintenance.db.dto.Station;
 import com.maintenance.db.dto.Wartung.EWartungArt;
 import com.maintenance.db.service.Service;
 import com.maintenance.db.util.HibernateUtil;
+import com.maintenance.model.Anlage;
+import com.maintenance.model.Station;
 import com.maintenance.model.User;
 import com.maintenance.util.ApplicationProperties;
 import com.maintenance.util.ProzentCalc;
@@ -27,7 +27,7 @@ public class MailManager {
 	private static String ip;
 	private static String userHome;
 
-	private List<Station> stationenForMail = new ArrayList<>();
+	private List<Station> stationenForMail;
 
 	public static void main(String[] args) {
 
@@ -42,47 +42,26 @@ public class MailManager {
 
 	public MailManager() {
 
-		init();
+		// init();
 
-		for (Anlage anlage : Service.getInstance().getAllAnlageLeerflaecheAbteilungPanelFormat()) {
-
-			for (Station station : Service.getInstance().getStationenFromAnlage(anlage)) {
-
-				if (station.isTpm())
-					if (checkStationElapsed(station))
-						stationenForMail.add(station);
-
-			}
-		}
-
-		for (Station station : stationenForMail) {
-
-			System.out
-					.println("Anlage: " + station.getAnlage().getName() + "; \t\t\t" + "Station: " + station.getName());
-
-			for (User user : station.getAnlage().getUsers()) {
-
-				System.out.println(user.getMail());
-
-			}
-
-		}
+		// HibernateUtil.getSessionFactory().close();
 
 	}
 
 	private void init() {
 
 		userHome = System.getProperty("user.home");
+
 		ApplicationProperties.configure("application.properties",
 				userHome + File.separator + resources.getString("appname"), "application.properties");
 		ApplicationProperties.getInstance().setup();
-
-		HibernateUtil.getSessionFactory();
 
 		if (ip != null) {
 			ApplicationProperties.getInstance().edit("db_host", ip);
 
 		}
+
+		HibernateUtil.getSessionFactory();
 	}
 
 	private boolean checkStationElapsed(Station station) {
@@ -144,6 +123,43 @@ public class MailManager {
 
 	private void requestMail(Station station, float prozent, String remark) {
 
+	}
+
+	public List<Station> getStationenForMail() {
+		
+		stationenForMail = new ArrayList<>();
+
+		for (Anlage anlage : Service.getInstance().getAnlageService().findAll()) {
+
+			System.out.println(anlage.getName());
+
+			for (Station station : anlage.getStationen()) {
+
+				if (station.isTpm()) {
+
+					System.out.println(station.getName());
+					if (checkStationElapsed(station))
+						stationenForMail.add(station);
+
+				}
+
+			}
+		}
+
+		for (Station station : stationenForMail) {
+
+			System.out
+					.println("Anlage: " + station.getAnlage().getName() + "; \t\t\t" + "Station:" + station.getName());
+
+			for (User user : station.getAnlage().getUsers()) {
+
+				System.out.println(user.getMail());
+
+			}
+
+		}
+
+		return stationenForMail;
 	}
 
 }

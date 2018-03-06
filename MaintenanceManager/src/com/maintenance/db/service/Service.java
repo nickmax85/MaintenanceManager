@@ -57,6 +57,7 @@ public class Service {
 	private boolean errorStatus = false;
 
 	private AnlageService anlageService;
+	private StationService stationService;
 	private UserService userService;
 
 	private SystemDAO systemDAO;
@@ -104,6 +105,7 @@ public class Service {
 	private Service() {
 
 		anlageService = new AnlageService();
+		stationService = new StationService();
 		userService = new UserService();
 
 		DAOFactory daoFactory;
@@ -1355,6 +1357,10 @@ public class Service {
 
 	public UserService getUserService() {
 		return userService;
+	}
+
+	public StationService getStationService() {
+		return stationService;
 	}
 
 }

@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.ResourceBundle;
 
 import com.maintenance.Main;
-import com.maintenance.db.dto.Anlage;
+import com.maintenance.model.Anlage;
 import com.maintenance.db.service.Service;
 import com.maintenance.util.Constants;
 import com.maintenance.view.alert.DeleteYesNoAlert;
