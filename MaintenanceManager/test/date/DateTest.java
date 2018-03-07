@@ -36,6 +36,13 @@ public class DateTest {
 		System.out.println(df3.format(dt3.getTime()));
 		System.out.println(dt3);
 
+		String text = null;
+		text += "Nächste Wartung ist fällig am : " + df.format(dt3);
+		text += "\n";
+		text += "Diese Nachricht wurde an folgende Adressen versendet: " + "13453542546";
+		
+		System.out.println(text);
+
 	}
 
 	private void printDifference(Calendar today, Calendar past) {

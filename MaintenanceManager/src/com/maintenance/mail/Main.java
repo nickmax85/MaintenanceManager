@@ -36,8 +36,8 @@ import javafx.stage.WindowEvent;
 public class Main extends Application {
 
 	private ResourceBundle resources = ResourceBundle.getBundle("language");
-	
-	private	long sleep = 3600000 * 1; // Stunden in Millisekungen umrechnen
+
+	private long sleep = 3600000 * 1; // Stunden in Millisekungen umrechnen
 	private static String ip;
 
 	private Stage primaryStage;
@@ -146,6 +146,7 @@ public class Main extends Application {
 							} catch (Exception e) {
 
 								addListElement(getCurrentTimeStamp() + " Nachrichten konnten nicht versendet werden");
+								addListElement(getCurrentTimeStamp() + " Exception Message: " + e.getMessage());
 								e.printStackTrace();
 							}
 						}
@@ -209,8 +210,13 @@ public class Main extends Application {
 		text += "Anlage: " + station.getAnlage().getName() + "\n";
 		text += "Komponente: " + station.getName() + "\n";
 
-		Date nextWartungDate = ProzentCalc.calcNextWartungDate(station.getLastWartungDate(),
-				station.getIntervallDateUnit(), station.getWartungDateIntervall());
+		Date nextWartungDate;
+		if (station.getLastWartungDate() != null)
+			nextWartungDate = ProzentCalc.calcNextWartungDate(station.getLastWartungDate(),
+					station.getIntervallDateUnit(), station.getWartungDateIntervall());
+		else
+			nextWartungDate = ProzentCalc.calcNextWartungDate(station.getCreateDate(), station.getIntervallDateUnit(),
+					station.getWartungDateIntervall());
 
 		SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
 
