@@ -30,6 +30,7 @@ public class Station {
 	private IntegerProperty wartungDateWarnung = new SimpleIntegerProperty();
 	private BooleanProperty status = new SimpleBooleanProperty();
 	private BooleanProperty tpm = new SimpleBooleanProperty();
+	private BooleanProperty mailSent = new SimpleBooleanProperty();
 	private IntegerProperty wartungArt = new SimpleIntegerProperty();
 	private IntegerProperty intervallDateUnit = new SimpleIntegerProperty();
 	private IntegerProperty warnungDateUnit = new SimpleIntegerProperty();
@@ -374,6 +375,18 @@ public class Station {
 
 	public void setTpm(final boolean tpm) {
 		this.tpmProperty().set(tpm);
+	}
+
+	public BooleanProperty mailSentProperty() {
+		return this.mailSent;
+	}
+
+	public boolean isMailSent() {
+		return this.mailSentProperty().get();
+	}
+
+	public void setMailSent(final boolean mailSent) {
+		this.mailSentProperty().set(mailSent);
 	}
 
 }

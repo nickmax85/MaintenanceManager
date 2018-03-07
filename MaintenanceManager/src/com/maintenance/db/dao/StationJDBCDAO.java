@@ -26,9 +26,9 @@ public class StationJDBCDAO implements StationDAO {
 
 	private final static String GET_ALLSTATIONEN_FROM_ANLAGE = "SELECT * FROM station where anlageId = ? ORDER BY name ASC";
 	private final static String GET_STATION = "SELECT * FROM station WHERE id = ?";
-	private final static String UPDATE_STATION = "UPDATE station SET name = ?, equipment = ?, auftragNr = ?, wartungStueckIntervall = ?, wartungDateIntervall = ?, intervallDateUnit = ?, lastWartungStueck = ?, lastWartungDate = ?, wartungStueckWarnung = ?, wartungStueckFehler = ?, wartungDateWarnung = ?, warnungDateUnit = ?, auswertung = ?, wartungArt = ?, wartungsPlanLink = ?, createDate = ?, timestamp = ?, user = ?, status = ?, tpm = ? WHERE id = ?";
+	private final static String UPDATE_STATION = "UPDATE station SET name = ?, equipment = ?, auftragNr = ?, wartungStueckIntervall = ?, wartungDateIntervall = ?, intervallDateUnit = ?, lastWartungStueck = ?, lastWartungDate = ?, wartungStueckWarnung = ?, wartungStueckFehler = ?, wartungDateWarnung = ?, warnungDateUnit = ?, auswertung = ?, wartungArt = ?, wartungsPlanLink = ?, createDate = ?, timestamp = ?, user = ?, status = ?, tpm = ?, mailSent = ? WHERE id = ?";
 	private final static String UPDATE_STATIONSTATUS = "UPDATE station SET status = ? WHERE id = ?";
-	private final static String INSERT_STATION = "INSERT INTO station(name, equipment, auftragNr, wartungStueckIntervall, wartungDateIntervall, intervallDateUnit, lastWartungStueck, lastWartungDate, wartungStueckWarnung, wartungStueckFehler, wartungDateWarnung, warnungDateUnit, auswertung, wartungArt, wartungsPlanLink, createDate, timestamp, user, status, tpm, anlageId, panelFormatId) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	private final static String INSERT_STATION = "INSERT INTO station(name, equipment, auftragNr, wartungStueckIntervall, wartungDateIntervall, intervallDateUnit, lastWartungStueck, lastWartungDate, wartungStueckWarnung, wartungStueckFehler, wartungDateWarnung, warnungDateUnit, auswertung, wartungArt, wartungsPlanLink, createDate, timestamp, user, status, tpm, mailSent, anlageId, panelFormatId) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	private final static String DELETE_STATION = "DELETE FROM station WHERE id= ?";
 
 	private final static String GET_WARTUNGENSTATION_DATE = "SELECT * FROM wartung WHERE (faellig BETWEEN ? AND ?) AND (station_id = ?) ";
@@ -65,6 +65,7 @@ public class StationJDBCDAO implements StationDAO {
 		station.setAuswertung(rs.getBoolean("auswertung"));
 		station.setStatus(rs.getBoolean("status"));
 		station.setTpm(rs.getBoolean("tpm"));
+		station.setMailSent(rs.getBoolean("mailSent"));
 
 		station.setWartungArt(rs.getInt("wartungArt"));
 		station.setWartungsplanLink(rs.getString("wartungsPlanLink"));
@@ -266,9 +267,10 @@ public class StationJDBCDAO implements StationDAO {
 			ps.setString(18, System.getProperty("user.name"));
 			ps.setBoolean(19, station.isStatus());
 			ps.setBoolean(20, station.isTpm());
+			ps.setBoolean(21, station.isMailSent());
 
-			ps.setInt(21, station.getAnlageId());
-			ps.setInt(22, station.getPanelFormatId());
+			ps.setInt(22, station.getAnlageId());
+			ps.setInt(23, station.getPanelFormatId());
 
 			ps.executeUpdate();
 
@@ -353,8 +355,9 @@ public class StationJDBCDAO implements StationDAO {
 				ps.setString(18, System.getProperty("user.name"));
 				ps.setBoolean(19, station.isStatus());
 				ps.setBoolean(20, station.isTpm());
+				ps.setBoolean(21, station.isMailSent());
 
-				ps.setInt(21, station.getId());
+				ps.setInt(22, station.getId());
 
 				ps.executeUpdate();
 

@@ -13,7 +13,7 @@ public interface AnhangDAO {
 
 	public List<Anhang> getAnhangList(Wartung wartung) throws DAOException;
 
-	public List<Anhang> getAnhangList(Station station) throws DAOException;
+	public List<Anhang> getAnhangList(int stationId) throws DAOException;
 
 	public void insertAnhang(Anhang anhang) throws DAOException;
 

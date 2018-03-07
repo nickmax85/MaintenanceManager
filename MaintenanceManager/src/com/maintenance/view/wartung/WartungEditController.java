@@ -156,6 +156,7 @@ public class WartungEditController {
 
 					}
 					anlage.setLastWartungDate(wartung.getDate());
+
 					Service.getInstance().updateAnlage(anlage);
 
 				} else
@@ -177,6 +178,7 @@ public class WartungEditController {
 
 					}
 					station.setLastWartungDate(wartung.getDate());
+					station.setMailSent(false);
 					Service.getInstance().updateStation(station);
 
 				} else

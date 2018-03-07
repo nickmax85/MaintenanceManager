@@ -660,8 +660,23 @@ public class Service {
 	public List<Anhang> getAnhangList(Station station) {
 
 		try {
-			anhangList = anhangDAO.getAnhangList(station);
+			anhangList = anhangDAO.getAnhangList(station.getId());
 			station.setAnhangList(anhangList);
+			errorStatus = false;
+		} catch (DAOException e) {
+			e.printStackTrace();
+			showExceptionAlertDialog(e);
+		}
+
+		return anhangList;
+
+	}
+
+	public List<Anhang> getAnhangListStation(com.maintenance.model.Station station) {
+
+		try {
+			anhangList = anhangDAO.getAnhangList(station.getId());
+
 			errorStatus = false;
 		} catch (DAOException e) {
 			e.printStackTrace();

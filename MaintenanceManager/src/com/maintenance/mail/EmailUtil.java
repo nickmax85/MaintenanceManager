@@ -1,9 +1,13 @@
-package mailmanager;
+package com.maintenance.mail;
 
 import java.io.File;
 import java.util.Date;
+import java.util.List;
 import java.util.Properties;
 
+import javax.activation.DataHandler;
+import javax.activation.DataSource;
+import javax.activation.FileDataSource;
 import javax.mail.BodyPart;
 import javax.mail.Message;
 import javax.mail.Multipart;
@@ -58,7 +62,7 @@ public class EmailUtil {
 	 * @param text
 	 */
 	public static void sendEmail(Session session, String from, String to, String cc, String betreff, String text,
-			File file) throws Exception {
+			List<File> files) throws Exception {
 
 		MimeMessage msg = new MimeMessage(session);
 
@@ -96,12 +100,17 @@ public class EmailUtil {
 		multipart.addBodyPart(messageBodyPart);
 
 		// Part two is attachment
-		// messageBodyPart = new MimeBodyPart();
-		// String filename = file.getAbsolutePath();
-		// DataSource source = new FileDataSource(filename);
-		// messageBodyPart.setDataHandler(new DataHandler(source));
-		// messageBodyPart.setFileName(file.getName());
-		// multipart.addBodyPart(messageBodyPart);
+		if (files != null) {
+
+			for (File file : files) {
+				messageBodyPart = new MimeBodyPart();
+				String filename = file.getAbsolutePath();
+				DataSource source = new FileDataSource(filename);
+				messageBodyPart.setDataHandler(new DataHandler(source));
+				messageBodyPart.setFileName(file.getName());
+				multipart.addBodyPart(messageBodyPart);
+			}
+		}
 
 		// Send the complete message parts
 		msg.setContent(multipart);

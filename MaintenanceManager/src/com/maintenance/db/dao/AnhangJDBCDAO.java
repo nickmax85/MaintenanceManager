@@ -238,7 +238,7 @@ public class AnhangJDBCDAO implements AnhangDAO {
 	}
 
 	@Override
-	public List<Anhang> getAnhangList(Station station) throws DAOException {
+	public List<Anhang> getAnhangList(int stationId) throws DAOException {
 		ResultSet rs = null;
 		PreparedStatement ps = null;
 		Connection con = null;
@@ -247,7 +247,7 @@ public class AnhangJDBCDAO implements AnhangDAO {
 
 		try {
 
-			File dir = new File(System.getProperty("user.home") + File.separator + "MaintenanceVisualization",
+			File dir = new File(System.getProperty("user.home") + File.separator + "MaintenanceManager",
 					"pictures");
 			dir.mkdirs();
 
@@ -255,7 +255,7 @@ public class AnhangJDBCDAO implements AnhangDAO {
 			con = ConnectionManager.getInstance().getConnection();
 			ps = con.prepareStatement(GET_ALL_ATTACHMENT_FROM_STATION);
 
-			ps.setInt(1, station.getId());
+			ps.setInt(1, stationId);
 			rs = ps.executeQuery();
 
 			while (rs.next()) {
@@ -280,7 +280,7 @@ public class AnhangJDBCDAO implements AnhangDAO {
 				// ===================================================================================
 				anhang.setTimestamp(rs.getTimestamp("timestamp"));
 				anhang.setUser(rs.getString("user"));
-				anhang.setStationId(station.getId());
+				anhang.setStationId(stationId);
 				attachmentList.add(anhang);
 			}
 
