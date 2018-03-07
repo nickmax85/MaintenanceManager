@@ -435,7 +435,7 @@ public class Main extends Application {
 			Stage dialogStage = new Stage();
 			dialogStage.getIcons().addAll(primaryStage.getIcons());
 			dialogStage.centerOnScreen();
-			dialogStage.initModality(Modality.APPLICATION_MODAL);
+			//dialogStage.initModality(Modality.APPLICATION_MODAL);
 			dialogStage.setTitle("Übersicht: Anlagen");
 			dialogStage.initOwner(primaryStage);
 
@@ -444,7 +444,7 @@ public class Main extends Application {
 			dialogStage.setScene(scene);
 
 			AnlageUserOverviewController controller = loader.getController();
-			controller.setDialogStage(primaryStage);
+			controller.setDialogStage(dialogStage);
 			controller.setData();
 
 			dialogStage.showAndWait();
@@ -467,7 +467,7 @@ public class Main extends Application {
 			Stage dialogStage = new Stage();
 			dialogStage.getIcons().addAll(primaryStage.getIcons());
 			dialogStage.centerOnScreen();
-			dialogStage.initModality(Modality.APPLICATION_MODAL);
+			//dialogStage.initModality(Modality.APPLICATION_MODAL);
 			dialogStage.setTitle("Übersicht: User");
 			dialogStage.initOwner(primaryStage);
 
@@ -476,7 +476,7 @@ public class Main extends Application {
 			dialogStage.setScene(scene);
 
 			UserOverviewController controller = loader.getController();
-			controller.setDialogStage(primaryStage);
+			controller.setDialogStage(dialogStage);
 			controller.setData();
 
 			dialogStage.showAndWait();

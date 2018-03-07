@@ -13,11 +13,11 @@
    <children>
       <VBox spacing="10.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
          <children>
-            <Label text="Anlagen - User">
+            <Label text="Mailverteiler - TPM">
                <graphic>
-                  <ImageView pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../resource/icons/machine48.png" />
+                        <Image url="@../../resource/icons/mail48.png" />
                      </image>
                   </ImageView>
                </graphic>

@@ -36,6 +36,8 @@ import javafx.stage.WindowEvent;
 public class Main extends Application {
 
 	private ResourceBundle resources = ResourceBundle.getBundle("language");
+	
+	private	long sleep = 3600000 * 1; // Stunden in Millisekungen umrechnen
 	private static String ip;
 
 	private Stage primaryStage;
@@ -43,7 +45,7 @@ public class Main extends Application {
 	private List<Station> stationenForMail;
 	private ListView<String> listView;
 
-	Thread thread;
+	private Thread thread;
 
 	@Override
 	public void start(Stage primaryStage) {
@@ -148,7 +150,7 @@ public class Main extends Application {
 							}
 						}
 
-						Thread.sleep(5000);
+						Thread.sleep(sleep);
 
 					} catch (InterruptedException e) {
 
@@ -200,8 +202,21 @@ public class Main extends Application {
 
 		}
 
-		String betreff = "MaintenanceManager: " + station.getAnlage().getName() + "; " + station.getName();
-		String text = "Diese Nachricht wurde an folgende Adressen versendet: " + to;
+		String betreff = "MaintenanceManager: TPM Wartungsanforderung für " + station.getAnlage().getName() + "; "
+				+ station.getName();
+
+		String text = "";
+		text += "Anlage: " + station.getAnlage().getName() + "\n";
+		text += "Komponente: " + station.getName() + "\n";
+
+		Date nextWartungDate = ProzentCalc.calcNextWartungDate(station.getLastWartungDate(),
+				station.getIntervallDateUnit(), station.getWartungDateIntervall());
+
+		SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+
+		text += "Nächste Wartung ist fällig am : " + df.format(nextWartungDate);
+		text += "\n";
+		text += "Diese Nachricht wurde an folgende Adressen versendet: " + to;
 
 		Properties props = System.getProperties();
 		props.put("mail.smtp.host", smtpHostServer);

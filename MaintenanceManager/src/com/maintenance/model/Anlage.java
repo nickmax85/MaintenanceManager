@@ -191,7 +191,8 @@ public class Anlage {
 	}
 
 	public void setWartungDateIntervall(final Integer wartungDateIntervall) {
-		this.wartungDateIntervallProperty().set(wartungDateIntervall);
+		if (wartungDateIntervall != null)
+			this.wartungDateIntervallProperty().set(wartungDateIntervall);
 	}
 
 	public IntegerProperty lastWartungStueckProperty() {
@@ -216,7 +217,8 @@ public class Anlage {
 	}
 
 	public void setLastWartungDate(final Date lastWartungDate) {
-		this.lastWartungDateProperty().set(lastWartungDate);
+		if (lastWartungDate != null)
+			this.lastWartungDateProperty().set(lastWartungDate);
 	}
 
 	public IntegerProperty wartungStueckWarnungProperty() {
@@ -355,7 +357,8 @@ public class Anlage {
 	}
 
 	public void setWarnungDateUnit(final Integer warnungDateUnit) {
-		this.warnungDateUnitProperty().set(warnungDateUnit);
+		if (warnungDateUnit != null)
+			this.warnungDateUnitProperty().set(warnungDateUnit);
 	}
 
 	public IntegerProperty wartungUeberfaelligProperty() {
