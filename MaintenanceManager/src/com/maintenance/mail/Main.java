@@ -27,7 +27,6 @@ import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
@@ -87,7 +86,7 @@ public class Main extends Application {
 
 	private void initRootLayout() {
 
-		primaryStage.setTitle(resources.getString("appname") + " " + "@"
+		primaryStage.setTitle("MaintenanceTPMMailChannel" + " " + "@"
 				+ ApplicationProperties.getInstance().getProperty("db_host"));
 
 		primaryStage.getIcons().add(new Image(getClass().getClassLoader().getResourceAsStream(Constants.APP_ICON)));
@@ -119,9 +118,10 @@ public class Main extends Application {
 
 				while (!Thread.currentThread().isInterrupted()) {
 
-					addListElement(getCurrentTimeStamp() + " Thread is running: ID=" + Thread.currentThread().getId());
-
 					try {
+
+						addListElement(
+								getCurrentTimeStamp() + " Thread is running: ID=" + Thread.currentThread().getId());
 
 						for (Station station : getStationenForMail()) {
 
@@ -136,10 +136,12 @@ public class Main extends Application {
 									station.setMailSent(true);
 									Service.getInstance().getStationService().update(station);
 
+									String userText = "";
 									for (User user : station.getAnlage().getUsers()) {
-										addListElement(getCurrentTimeStamp() + " " + user.getMail());
+										userText += user.getMail() + ", ";
 
 									}
+									addListElement(getCurrentTimeStamp() + " " + userText);
 
 								}
 
