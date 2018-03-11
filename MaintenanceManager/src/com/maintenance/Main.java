@@ -31,6 +31,7 @@ import com.maintenance.view.leerflaeche.LeerflaechenOverviewController;
 import com.maintenance.view.mesanlage.MESAnlagenOverviewController;
 import com.maintenance.view.report.WartungReportController;
 import com.maintenance.view.root.LayoutController;
+import com.maintenance.view.root.LoginDialog;
 import com.maintenance.view.root.SettingsController;
 import com.maintenance.view.station.StationEditController;
 import com.maintenance.view.station.StationOverviewController;
@@ -187,14 +188,10 @@ public class Main extends Application {
 
 				if (actProgress == 1) {
 					updateProgress(actProgress, maxProgress);
-					updateMessage(
-							actProgress + " von " + maxProgress + ": " + "Initialisiere Programmeinstellungen. . .");
+					updateMessage(actProgress + " von " + maxProgress + ": "
+							+ "Initialisiere Einstellungen, Datenbank . . .");
 
-					String userHome = System.getProperty("user.home");
-
-					ApplicationProperties.configure("application.properties",
-							userHome + File.separator + resources.getString("appname"), "application.properties");
-					ApplicationProperties.getInstance().setup();
+					initProperties();
 
 					Thread.sleep(threadSplashSleepTime);
 					actProgress++;
@@ -202,24 +199,10 @@ public class Main extends Application {
 
 				if (actProgress == 2) {
 					updateProgress(actProgress, maxProgress);
-					updateMessage(actProgress + " von " + maxProgress + ": "
-							+ "Initialisiere Visualisierung, Datenbank, Schnittstellen. . .");
+					updateMessage(
+							actProgress + " von " + maxProgress + ": " + "Initialisiere Benutzeroberfläche . . .");
 
-					HibernateUtil.getSessionFactory();
-
-					primaryStage.setTitle(resources.getString("appname") + " Build " + BUILD.replace("$", " "));
-					primaryStage.setMaximized(true);
-					primaryStage.getIcons()
-							.add(new Image(getClass().getClassLoader().getResourceAsStream(Main.APP_ICON)));
-					primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-						@Override
-						public void handle(WindowEvent event) {
-
-							Platform.exit();
-							System.exit(0);
-
-						}
-					});
+					initGraphics();
 
 					Thread.sleep(threadSplashSleepTime);
 					actProgress++;
@@ -234,13 +217,47 @@ public class Main extends Application {
 
 	}
 
+	private void initProperties() {
+
+		String userHome = System.getProperty("user.home");
+
+		ApplicationProperties.configure("application.properties",
+				userHome + File.separator + resources.getString("appname"), "application.properties");
+		ApplicationProperties.getInstance().setup();
+
+		if (ip != null) {
+			ApplicationProperties.getInstance().edit("db_host", ip);
+			LoginDialog.loggedIn = true;
+		}
+
+		HibernateUtil.getSessionFactory();
+
+	}
+
+	private void initGraphics() {
+
+		primaryStage.setTitle(resources.getString("appname") + " Build " + BUILD.replace("$", " "));
+		primaryStage.setMaximized(true);
+		primaryStage.getIcons().add(new Image(getClass().getClassLoader().getResourceAsStream(Main.APP_ICON)));
+		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+			@Override
+			public void handle(WindowEvent event) {
+
+				Platform.exit();
+				System.exit(0);
+
+			}
+		});
+
+	}
+
 	public void updateRootLayout() {
 
 		rootLayout.setCenter(initHalleOverviewPane());
 
 	}
 
-	public void initRootLayout() {
+	private void initRootLayout() {
 
 		try {
 			FXMLLoader loader = new FXMLLoader();
@@ -264,7 +281,7 @@ public class Main extends Application {
 			uiUpdateThread = new Thread(new UIUpdateThread());
 			uiUpdateThread.start();
 
-			this.primaryStage.show();
+			primaryStage.show();
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -967,7 +984,7 @@ public class Main extends Application {
 		sb.append(resources.getString("appname"));
 		sb.append(" (Version 1.0)");
 
-		appInfo.setFont(Font.font("System", FontWeight.BOLD, 11));
+		appInfo.setFont(Font.font("System", FontWeight.BOLD, 15));
 		appInfo.setTextFill(Color.DARKGREY);
 		appInfo.setText(sb.toString().replace("$", ""));
 
