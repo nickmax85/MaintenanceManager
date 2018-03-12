@@ -9,7 +9,7 @@ public class Constants {
 	public final static int SPLASH_WIDTH = 960;
 	public final static int SPLASH_HEIGHT = 340;
 	public final static int THREAD_SPLASH_SLEEP_TIME = 250;
-	public final static double FADE_TRANSITIONS_TIME = 5.0;
+	public final static double FADE_TRANSITIONS_TIME = 2.0;
 	public final static boolean SHOW_SPLASH_SCREEN = true;
 
 }
