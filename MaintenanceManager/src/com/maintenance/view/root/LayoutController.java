@@ -232,9 +232,7 @@ public class LayoutController implements Initializable {
 
 		StringBuilder sb = new StringBuilder();
 
-		sb.append(Main.VERSION + "\n");
-		sb.append(Main.BUILD + "\n");
-		sb.append(Main.DATE.substring(0, 26) + " $" + "\n");
+		sb.append("Version: " + Main.VERSION + "\n");
 		sb.append("Entwicklung mit JDK: " + Main.JDK + "\n");
 		sb.append("Ausfuehrende JRE: " + System.getProperty("java.version"));
 
