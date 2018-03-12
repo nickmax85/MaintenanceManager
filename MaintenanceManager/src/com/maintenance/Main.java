@@ -1015,7 +1015,7 @@ public class Main extends Application {
 		});
 
 		Scene splashScene = new Scene(splashLayout, Color.TRANSPARENT);
-		final Rectangle2D bounds = Screen.getPrimary().getBounds();
+		final Rectangle2D bounds = Screen.getPrimary().getVisualBounds();
 		initStage.setScene(splashScene);
 		initStage.setX(bounds.getMinX() + bounds.getWidth() / 2 - Constants.SPLASH_WIDTH / 2);
 		initStage.setY(bounds.getMinY() + bounds.getHeight() / 2 - Constants.SPLASH_HEIGHT / 2);
