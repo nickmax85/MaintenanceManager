@@ -968,7 +968,7 @@ public class Main extends Application {
 		ImageView splash = new ImageView(new Image(SPLASH_IMAGE));
 
 		loadProgress = new ProgressBar();
-		loadProgress.setPrefWidth(Constants.SPLASH_WIDTH - 20);
+		loadProgress.setPrefWidth(Constants.SPLASH_WIDTH - 0);
 
 		progressText = new Label("");
 		progressText.setAlignment(Pos.CENTER);
