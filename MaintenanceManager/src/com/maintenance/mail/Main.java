@@ -86,8 +86,8 @@ public class Main extends Application {
 
 	private void initRootLayout() {
 
-		primaryStage.setTitle("MaintenanceTPMMailChannel" + " " + "@"
-				+ ApplicationProperties.getInstance().getProperty("db_host"));
+		primaryStage.setTitle(
+				"MaintenanceTPMMailChannel" + " " + "@" + ApplicationProperties.getInstance().getProperty("db_host"));
 
 		primaryStage.getIcons().add(new Image(getClass().getClassLoader().getResourceAsStream(Constants.APP_ICON)));
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
@@ -223,6 +223,10 @@ public class Main extends Application {
 		SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
 
 		text += "Nächste Wartung ist fällig am : " + df.format(nextWartungDate);
+		text += "\n";
+		text += "Link für Wartungsrückmeldung: " + "http://"
+				+ ApplicationProperties.getInstance().getProperty("db_host")
+				+ ":8080/MaintenanceMonitor/faces/tpmWartungen.xhtml";
 		text += "\n";
 		text += "Diese Nachricht wurde an folgende Adressen versendet: " + to;
 
