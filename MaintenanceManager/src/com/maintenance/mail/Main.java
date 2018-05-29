@@ -222,13 +222,12 @@ public class Main extends Application {
 
 		SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
 
-		text += "Nächste Wartung ist fällig am : " + df.format(nextWartungDate);
-		text += "\n";
-		text += "Link für Wartungsrückmeldung: " + "http://"
-				+ ApplicationProperties.getInstance().getProperty("db_host")
-				+ ":8080/MaintenanceMonitor/faces/tpmWartungen.xhtml";
-		text += "\n";
+		text += "Wartung ist fällig am : " + df.format(nextWartungDate);
+		text += "\n\n";
+		text += "Software für Wartungsrückmeldung: " + "http://10.176.45.4/software/TPMTool.jar";
+		text += "\n\n";
 		text += "Diese Nachricht wurde an folgende Adressen versendet: " + to;
+		text += "\n\n\n\n\n";
 
 		Properties props = System.getProperties();
 		props.put("mail.smtp.host", smtpHostServer);
