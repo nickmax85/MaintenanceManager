@@ -26,8 +26,23 @@
 }
 
 .text-area > .scroll-pane:disabled {
-    -fx-opacity: 1;
+    -fx-opacity: 1.0;
 }
+
+/*******************************************************************************
+ *                                                                             *
+ * Text Field                                                               *
+ *                                                                             *
+ ******************************************************************************/
+
+
+
+/*******************************************************************************
+ *                                                                             *
+ * Label                                                              *
+ *                                                                             *
+ ******************************************************************************/
+
 
 /*******************************************************************************
  *                                                                             *
@@ -539,6 +554,7 @@
     -fx-background-color: transparent, #bababa, transparent, white;
     -fx-background-radius: 0.0, 0.0, 0.0, 0.0;
     -fx-padding: 0.166667em; /* 2 */
+    -fx-font-size: 13.0;	
 }
 
 .combo-box-base:hover {
@@ -554,6 +570,7 @@
 
 .combo-box-base:disabled {
     -fx-opacity: 0.4;
+    
 }
 
 /* ------- OPEN BUTTON ------- */
@@ -581,18 +598,25 @@
     -fx-background-color: #55c4fe;
 }
 
+
+.combo-box .list-cell:selected:empty{
+ -fx-font-size: 13.0;	
+}
+
 .combo-box .list-cell:focused:filled:selected:even{
- -fx-font-size: 10.0pt;	
+ -fx-font-size: 13.0;	
 }
 
 .combo-box-popup .list-view .list-cell:filled:selected:hover {
     -fx-background-color: #6dcdff;
+    -fx-font-size: 13.0;	
 }
 
 .combo-box-popup .list-view .list-cell:filled:pressed, .combo-box-popup .list-view .list-cell:filled:selected:pressed
 {
     -fx-background-color: #d3d3d3;
     -fx-text-fill: #1d1d1d;
+    -fx-font-size: 13.0;	
 }
 
 

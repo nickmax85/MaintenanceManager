@@ -59,7 +59,7 @@
                               <RowConstraints />
                               <RowConstraints />
                               <RowConstraints />
-                              <RowConstraints minHeight="25.0" />
+                              <RowConstraints />
                               <RowConstraints minHeight="25.0" />
                               <RowConstraints minHeight="25.0" />
                               <RowConstraints minHeight="25.0" />
@@ -111,7 +111,7 @@
                                  <font>
                                     <Font size="13.0" />
                                  </font></TextArea>
-                              <ComboBox fx:id="abteilungComboBox" prefHeight="31.0" prefWidth="163.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <ComboBox fx:id="abteilungComboBox" prefWidth="163.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                               <Label text="Untermenü" GridPane.rowIndex="4">
                                  <font>
                                     <Font size="13.0" />
@@ -140,7 +140,7 @@
                                  <font>
                                     <Font size="13.0" />
                                  </font></Label>
-                              <ComboBox fx:id="wartungArtComboBox" onAction="#wartungArtComboBoxEvent" prefHeight="31.0" prefWidth="185.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <ComboBox fx:id="wartungArtComboBox" onAction="#wartungArtComboBoxEvent" prefWidth="185.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                               <Hyperlink fx:id="wartungsPlanLink" text="öffnen" GridPane.columnIndex="3" GridPane.rowIndex="8">
                                  <font>
                                     <Font size="13.0" />
@@ -347,9 +347,9 @@
                                        </columnConstraints>
                                        <rowConstraints>
                                           <RowConstraints />
-                                          <RowConstraints minHeight="10.0" />
-                                          <RowConstraints minHeight="10.0" />
-                                          <RowConstraints minHeight="10.0" />
+                                          <RowConstraints />
+                                          <RowConstraints />
+                                          <RowConstraints />
                                        </rowConstraints>
                                        <children>
                                           <Label text="Zeitintervall" underline="true">
