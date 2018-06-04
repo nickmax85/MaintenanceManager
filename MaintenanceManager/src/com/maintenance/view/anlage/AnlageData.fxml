@@ -291,8 +291,8 @@
                                     <GridPane fx:id="calendarWartungGridPane" hgap="5.0" vgap="5.0">
                                       <columnConstraints>
                                         <ColumnConstraints />
-                                        <ColumnConstraints />
-                                          <ColumnConstraints />
+                                        <ColumnConstraints maxWidth="120.0" minWidth="74.0" prefWidth="74.0" />
+                                          <ColumnConstraints maxWidth="87.0" minWidth="41.0" prefWidth="87.0" />
                                       </columnConstraints>
                                       <rowConstraints>
                                         <RowConstraints />
@@ -325,7 +325,7 @@
                                              <font>
                                                 <Font size="13.0" />
                                              </font></Label>
-                                          <TextField fx:id="wartungUberfaelligField" maxWidth="50.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                          <TextField fx:id="wartungUberfaelligField" maxWidth="74.0" prefHeight="29.0" prefWidth="74.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                              <font>
                                                 <Font size="13.0" />
                                              </font></TextField>

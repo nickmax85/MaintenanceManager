@@ -581,6 +581,10 @@
     -fx-background-color: #55c4fe;
 }
 
+.combo-box .list-cell:focused:filled:selected:even{
+ -fx-font-size: 10.0pt;	
+}
+
 .combo-box-popup .list-view .list-cell:filled:selected:hover {
     -fx-background-color: #6dcdff;
 }
