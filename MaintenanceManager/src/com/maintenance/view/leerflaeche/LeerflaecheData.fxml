@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.maintenance.view.leerflaeche.LeerflaecheDataController">
+<AnchorPane xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.maintenance.view.leerflaeche.LeerflaecheDataController">
    <children>
       <VBox spacing="10.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
          <children>
@@ -36,8 +36,14 @@
                   <RowConstraints vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <Label text="Name" />
-                  <TextField fx:id="nameField" prefHeight="25.0" prefWidth="133.0" GridPane.columnIndex="1" />
+                  <Label text="Name">
+                     <font>
+                        <Font size="13.0" />
+                     </font></Label>
+                  <TextField fx:id="nameField" prefHeight="25.0" prefWidth="133.0" GridPane.columnIndex="1">
+                     <font>
+                        <Font size="13.0" />
+                     </font></TextField>
                </children>
             </GridPane>
          </children>
