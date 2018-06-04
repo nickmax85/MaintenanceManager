@@ -311,7 +311,7 @@ public class Main extends Application {
 
 			for (Station station : anlage.getStationen()) {
 
-				if (station.isTpm()) {
+				if (station.isStatus() && station.isTpm()) {
 
 					if (checkStationElapsed(station))
 						stationenForMail.add(station);
