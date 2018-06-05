@@ -226,7 +226,7 @@ public class Main extends Application {
 		text += "\n\n";
 		text += "Software für Wartungsrückmeldung: " + "http://10.176.45.4/software/TPMTool.jar";
 		text += "\n\n";
-		text += "Diese Nachricht wurde an folgende Adressen versendet: " + to;
+		text += "Diese Nachricht wurde an folgende Adressen versendet: " + to.replaceAll(",", "; ");
 		text += "\n\n\n\n\n";
 
 		Properties props = System.getProperties();
