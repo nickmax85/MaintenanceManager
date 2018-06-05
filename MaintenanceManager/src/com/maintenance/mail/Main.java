@@ -309,16 +309,17 @@ public class Main extends Application {
 
 		for (Anlage anlage : Service.getInstance().getAnlageService().findAll()) {
 
-			for (Station station : anlage.getStationen()) {
+			if (anlage.isStatus())
+				for (Station station : anlage.getStationen()) {
 
-				if (station.isStatus() && station.isTpm()) {
+					if (station.isStatus() && station.isTpm()) {
 
-					if (checkStationElapsed(station))
-						stationenForMail.add(station);
+						if (checkStationElapsed(station))
+							stationenForMail.add(station);
+
+					}
 
 				}
-
-			}
 		}
 
 		return stationenForMail;
