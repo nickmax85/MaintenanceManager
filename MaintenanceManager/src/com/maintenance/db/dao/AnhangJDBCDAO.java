@@ -106,7 +106,7 @@ public class AnhangJDBCDAO implements AnhangDAO {
 			}
 
 			if (logger.isInfoEnabled()) {
-				logger.info(attachmentList);
+				logger.info("Anhaenge: " + attachmentList);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -247,8 +247,7 @@ public class AnhangJDBCDAO implements AnhangDAO {
 
 		try {
 
-			File dir = new File(System.getProperty("user.home") + File.separator + "MaintenanceManager",
-					"pictures");
+			File dir = new File(System.getProperty("user.home") + File.separator + "MaintenanceManager", "pictures");
 			dir.mkdirs();
 
 			dir.deleteOnExit();
@@ -285,7 +284,7 @@ public class AnhangJDBCDAO implements AnhangDAO {
 			}
 
 			if (logger.isInfoEnabled()) {
-				// logger.info(attachmentList);
+				logger.info("Anhaenge: " + attachmentList);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
