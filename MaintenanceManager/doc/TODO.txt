@@ -1,0 +1,3 @@
+13.06.2018
+Wartungsplan Link
+Sind im Pfad 2 Leerzeichen vorhanden, werden die Eigenen Dateien geöffnet und nicht der Ordnerpfad
