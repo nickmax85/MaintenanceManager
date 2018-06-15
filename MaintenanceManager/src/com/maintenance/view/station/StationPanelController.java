@@ -19,6 +19,7 @@ import com.maintenance.util.ProzentCalc;
 import com.maintenance.view.anhang.AnhangOverviewController;
 import com.maintenance.view.root.LoginDialog;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -147,6 +148,8 @@ public class StationPanelController {
 		anhaenge.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
+
+				logger.info(event);
 
 				handleAnhaenge();
 
@@ -325,6 +328,8 @@ public class StationPanelController {
 	@FXML
 	private boolean handleAnhaenge() {
 
+		logger.info("Methode: handleAnhaenge() Start");
+
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(com.maintenance.Main.class.getResource("view/anhang/AnhangOverview.fxml"));
@@ -349,11 +354,19 @@ public class StationPanelController {
 
 			dialogStage.showAndWait();
 
+			logger.info("Methode: handleAnhaenge() Ende");
+
 			return controller.isOkClicked();
+
 		} catch (IOException e) {
+
 			e.printStackTrace();
+
+			logger.error(e.getMessage());
+
 			return false;
 		}
+
 	}
 
 	public void setDialogStage(Stage dialogStage) {

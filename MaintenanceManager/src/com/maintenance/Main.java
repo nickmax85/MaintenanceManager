@@ -892,8 +892,8 @@ public class Main extends Application {
 
 			while (!Thread.currentThread().isInterrupted()) {
 
-				logger.info(getClass().getSimpleName() + "; " + Thread.currentThread().getName() + "; Status: "
-						+ Thread.currentThread().getState() + ";");
+			//	logger.info(getClass().getSimpleName() + "; " + Thread.currentThread().getName() + "; Status: "
+					//	+ Thread.currentThread().getState() + ";");
 
 				Platform.runLater(new Runnable() {
 					@Override

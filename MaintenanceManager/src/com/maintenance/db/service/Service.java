@@ -664,6 +664,7 @@ public class Service {
 			station.setAnhangList(anhangList);
 			errorStatus = false;
 		} catch (DAOException e) {
+			
 			e.printStackTrace();
 			showExceptionAlertDialog(e);
 		}

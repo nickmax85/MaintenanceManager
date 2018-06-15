@@ -4,6 +4,8 @@ import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 
+import org.apache.log4j.Logger;
+
 import com.maintenance.db.dto.Anhang;
 import com.maintenance.db.dto.Station;
 import com.maintenance.db.dto.Wartung;
@@ -11,14 +13,18 @@ import com.maintenance.db.service.Service;
 import com.maintenance.util.Constants;
 import com.maintenance.view.alert.GeneralInfoAlert;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.DialogPane;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.KeyCode;
@@ -26,10 +32,14 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 public class AnhangOverviewController {
+
+	private static final Logger logger = Logger.getLogger(AnhangOverviewController.class);
 
 	@FXML
 	private AnchorPane pane;
@@ -56,21 +66,21 @@ public class AnhangOverviewController {
 
 					Anhang a = anhangListView.getSelectionModel().getSelectedItem();
 					Service.getInstance().deleteAnhang(anhangListView.getSelectionModel().getSelectedItem());
-					anhangListView.getItems().remove(a);
+					anhangList.remove(a);
 
 				}
 
 				if (event.getCode() == KeyCode.F5) {
 
-					if (wartung != null) {
-						anhangList.setAll(Service.getInstance().getAnhangList(wartung));
-					}
-
 					if (station != null) {
-						anhangList.setAll(Service.getInstance().getAnhangList(station));
+						setData(station);
+
 					}
 
-					anhangListView.setItems(anhangList);
+					if (wartung != null) {
+						setData(wartung);
+
+					}
 
 				}
 			}
@@ -159,8 +169,8 @@ public class AnhangOverviewController {
 						Service.getInstance().insertAnhang(anhang);
 						if (!Service.getInstance().isErrorStatus()) {
 							anhangListView.getItems().add(anhang);
-							new GeneralInfoAlert(dialogStage, "Speichern", "Anhang speichern",
-									"Der Anhang wurde in der Datenbank gespeichert.").showAndWait();
+							// new GeneralInfoAlert(dialogStage, "Speichern", "Anhang speichern",
+							// "Der Anhang wurde in der Datenbank gespeichert.").showAndWait();
 						}
 
 					}
@@ -180,19 +190,75 @@ public class AnhangOverviewController {
 
 	public void setData(Object data) {
 
-		anhangList = FXCollections.observableArrayList();
+		logger.info("Methode setData(Object data) Start");
 
-		if (data instanceof Wartung) {
-			this.wartung = (Wartung) data;
-			anhangList.setAll(Service.getInstance().getAnhangList(wartung));
-		}
+		ProgressIndicator progress = new ProgressIndicator();
+		progress.setMinWidth(Constants.PROGRESSINDICATOR_SIZE);
+		progress.setMinHeight(Constants.PROGRESSINDICATOR_SIZE);
+		progress.setMaxWidth(Constants.PROGRESSINDICATOR_SIZE);
+		progress.setMaxHeight(Constants.PROGRESSINDICATOR_SIZE);
 
-		if (data instanceof Station) {
-			this.station = (Station) data;
-			anhangList.setAll(Service.getInstance().getAnhangList(station));
-		}
+		Label label = new Label();
+		label.setFont(new Font("Arial", 18));
+		label.setText("Daten werden aus Datenbank geladen ...");
 
-		anhangListView.setItems(anhangList);
+		VBox vBox = new VBox();
+		vBox.setSpacing(10);
+		vBox.setAlignment(Pos.CENTER);
+		vBox.getChildren().add(progress);
+		vBox.getChildren().add(label);
+
+		Thread th = new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+
+				Platform.runLater(new Runnable() {
+
+					@Override
+					public void run() {
+						anhangListView.setItems(null);
+						anhangListView.setPlaceholder(vBox);
+					}
+				});
+
+				if (data instanceof Station) {
+
+					station = (Station) data;
+
+					logger.info("Methode setData(Object data) Anhänge aus Datenbank auslesen START");
+					anhangList = FXCollections.observableArrayList(Service.getInstance().getAnhangList(station));
+					logger.info("Methode setData(Object data) Anhänge aus Datenbank auslesen ENDE");
+				}
+				if (data instanceof Wartung) {
+
+					wartung = (Wartung) data;
+
+					logger.info("Methode setData(Object data) Anhänge aus Datenbank auslesen START");
+					anhangList = FXCollections.observableArrayList(Service.getInstance().getAnhangList(wartung));
+					logger.info("Methode setData(Object data) Anhänge aus Datenbank auslesen ENDE");
+				}
+
+				Platform.runLater(new Runnable() {
+
+					@Override
+					public void run() {
+
+						anhangListView.setItems(anhangList);
+						anhangListView.setPlaceholder(new Label("Keine Daten vorhanden"));
+
+						if (!anhangListView.getItems().isEmpty()) {
+							anhangListView.setItems(anhangList);
+
+						}
+					}
+				});
+
+			}
+		});
+		th.start();
+
+		logger.info("Methode setData(Object data) Ende");
 	}
 
 	public boolean isOkClicked() {
@@ -256,8 +322,8 @@ public class AnhangOverviewController {
 			Service.getInstance().insertAnhang(anhang);
 			if (!Service.getInstance().isErrorStatus()) {
 				anhangListView.getItems().add(anhang);
-				new GeneralInfoAlert(dialogStage, "Speichern", "Anhang speichern",
-						"Der Anhang wurde in der Datenbank gespeichert.").showAndWait();
+				// new GeneralInfoAlert(dialogStage, "Speichern", "Anhang speichern",
+				// "Der Anhang wurde in der Datenbank gespeichert.").showAndWait();
 			}
 
 		}
