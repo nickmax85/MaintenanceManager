@@ -36,6 +36,7 @@ import com.maintenance.db.util.DAOException;
 import com.maintenance.model.User;
 import com.maintenance.util.Constants;
 
+import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.DialogPane;
@@ -666,7 +667,16 @@ public class Service {
 		} catch (DAOException e) {
 			
 			e.printStackTrace();
-			showExceptionAlertDialog(e);
+			
+			Platform.runLater(new Runnable() {
+				
+				@Override
+				public void run() {
+					showExceptionAlertDialog(e);
+					
+				}
+			});
+			
 		}
 
 		return anhangList;

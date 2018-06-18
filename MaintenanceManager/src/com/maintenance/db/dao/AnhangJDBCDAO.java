@@ -16,6 +16,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import com.maintenance.Main;
 import com.maintenance.db.dto.Anhang;
 import com.maintenance.db.dto.Station;
 import com.maintenance.db.dto.Wartung;
@@ -264,17 +265,19 @@ public class AnhangJDBCDAO implements AnhangDAO {
 				anhang.setName(rs.getString("name"));
 				// ===================================================================================
 				File file = new File(dir.getAbsolutePath() + File.separator + anhang.getName());
-				file.createNewFile();
+				if (!file.exists()) {
+					file.createNewFile();
 
-				FileOutputStream fos = new FileOutputStream(file);
-				byte[] buffer = new byte[1];
+					FileOutputStream fos = new FileOutputStream(file);
+					byte[] buffer = new byte[1];
 
-				InputStream is = rs.getBinaryStream("file");
-				while (is.read(buffer) > 0) {
-					fos.write(buffer);
+					InputStream is = rs.getBinaryStream("file");
+					while (is.read(buffer) > 0) {
+						fos.write(buffer);
+					}
+					file.deleteOnExit();
+					fos.close();
 				}
-				file.deleteOnExit();
-				fos.close();
 				anhang.setFile(file);
 				// ===================================================================================
 				anhang.setTimestamp(rs.getTimestamp("timestamp"));
@@ -289,9 +292,10 @@ public class AnhangJDBCDAO implements AnhangDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new DAOException(e);
-		} catch (IOException e) {
 
+		} catch (IOException e) {
 			e.printStackTrace();
+			throw new DAOException(e.getMessage());
 		}
 
 		return attachmentList;

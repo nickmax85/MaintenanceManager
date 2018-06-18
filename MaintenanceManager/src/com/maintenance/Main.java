@@ -1,7 +1,10 @@
 package com.maintenance;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -50,15 +53,21 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -76,7 +85,6 @@ public class Main extends Application {
 
 	// Java Entwicklungsversion
 	public final static String JDK = "1.8.0_152";
-	
 
 	private static final Logger logger = Logger.getLogger(Main.class);
 	private ResourceBundle resources = ResourceBundle.getBundle("language");
@@ -892,8 +900,9 @@ public class Main extends Application {
 
 			while (!Thread.currentThread().isInterrupted()) {
 
-			//	logger.info(getClass().getSimpleName() + "; " + Thread.currentThread().getName() + "; Status: "
-					//	+ Thread.currentThread().getState() + ";");
+				// logger.info(getClass().getSimpleName() + "; " +
+				// Thread.currentThread().getName() + "; Status: "
+				// + Thread.currentThread().getState() + ";");
 
 				Platform.runLater(new Runnable() {
 					@Override
