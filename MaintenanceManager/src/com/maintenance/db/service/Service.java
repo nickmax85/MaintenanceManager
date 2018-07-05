@@ -657,6 +657,31 @@ public class Service {
 		return anhangList;
 
 	}
+	
+	public List<Anhang> getAnhangList() {
+
+		try {
+			anhangList = anhangDAO.getAnhangList();
+		
+			errorStatus = false;
+		} catch (DAOException e) {
+			
+			e.printStackTrace();
+			
+			Platform.runLater(new Runnable() {
+				
+				@Override
+				public void run() {
+					showExceptionAlertDialog(e);
+					
+				}
+			});
+			
+		}
+
+		return anhangList;
+
+	}
 
 	public List<Anhang> getAnhangList(Station station) {
 

@@ -10,6 +10,8 @@ import com.maintenance.db.util.DAOException;
 public interface AnhangDAO {
 
 	public void deleteAnhang(Anhang anhang) throws DAOException;
+	
+	public List<Anhang> getAnhangList() throws DAOException;
 
 	public List<Anhang> getAnhangList(Wartung wartung) throws DAOException;
 

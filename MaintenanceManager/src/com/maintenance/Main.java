@@ -23,6 +23,7 @@ import com.maintenance.util.ApplicationProperties;
 import com.maintenance.util.Constants;
 import com.maintenance.util.DragResizeMod;
 import com.maintenance.view.abteilung.AbteilungenOverviewController;
+import com.maintenance.view.anhang.AnhangOverviewController;
 import com.maintenance.view.anlage.AnlageEditController;
 import com.maintenance.view.anlage.AnlagePanelController;
 import com.maintenance.view.anlage.AnlagenOverviewController;
@@ -49,6 +50,7 @@ import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.concurrent.Worker;
 import javafx.event.EventHandler;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
@@ -578,6 +580,39 @@ public class Main extends Application {
 
 		}
 
+	}
+
+	public boolean showAllgemeineAnhaenge() {
+
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(com.maintenance.Main.class.getResource("view/anhang/AnhangOverview.fxml"));
+
+			AnchorPane page = (AnchorPane) loader.load();
+
+			Stage dialogStage = new Stage();
+
+			dialogStage.centerOnScreen();
+			dialogStage.initOwner(primaryStage);
+			dialogStage.initModality(Modality.APPLICATION_MODAL);
+			dialogStage.getIcons().addAll(primaryStage.getIcons());
+			dialogStage.setTitle("Anhänge (1 Anhang max. 10MB)");
+
+			Scene scene = new Scene(page);
+			scene.getStylesheets().add(Constants.STYLESHEET);
+			dialogStage.setScene(scene);
+
+			AnhangOverviewController controller = loader.getController();
+			controller.setDialogStage(dialogStage);
+			controller.setData(null);
+
+			dialogStage.showAndWait();
+
+			return controller.isOkClicked();
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	public void showUserOverviewDialog() {

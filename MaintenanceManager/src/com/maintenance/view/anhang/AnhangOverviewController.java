@@ -72,12 +72,11 @@ public class AnhangOverviewController {
 
 				if (event.getCode() == KeyCode.F5) {
 
-					if (station != null) {
+					if (station == null && wartung == null)
+						setData(null);
+					else if (station != null) {
 						setData(station);
-
-					}
-
-					if (wartung != null) {
+					} else if (wartung != null) {
 						setData(wartung);
 
 					}
@@ -221,6 +220,14 @@ public class AnhangOverviewController {
 						anhangListView.setPlaceholder(vBox);
 					}
 				});
+
+				if (data == null) {
+
+					logger.info("Methode setData(Object data) Anhänge aus Datenbank auslesen START");
+					anhangList = FXCollections.observableArrayList(Service.getInstance().getAnhangList());
+					logger.info("Methode setData(Object data) Anhänge aus Datenbank auslesen ENDE");
+
+				}
 
 				if (data instanceof Station) {
 

@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +28,7 @@ public class AnhangJDBCDAO implements AnhangDAO {
 
 	private static final Logger logger = Logger.getLogger(AnhangJDBCDAO.class);
 
+	private final static String GET_ALL_ATTACHMENT = "SELECT * FROM anhang where wartung_id is null and station_id is null ORDER BY name ASC";
 	private final static String GET_ALL_ATTACHMENT_FROM_WARTUNG = "SELECT * FROM anhang where wartung_id = ? ORDER BY name ASC";
 	private final static String GET_ALL_ATTACHMENT_FROM_STATION = "SELECT * FROM anhang where station_id = ? ORDER BY name ASC";
 	private final static String INSERT_ATTACHMENT = "INSERT INTO anhang(name, file, timestamp, user, wartung_Id, station_Id) VALUES (?, ?, ?, ?, ?, ?)";
@@ -69,8 +71,7 @@ public class AnhangJDBCDAO implements AnhangDAO {
 
 		try {
 
-			File dir = new File(System.getProperty("user.home") + File.separator + "MaintenanceVisualization",
-					"pictures");
+			File dir = new File(System.getProperty("user.home") + File.separator + "MaintenanceManager", "anhaenge");
 			dir.mkdirs();
 
 			dir.deleteOnExit();
@@ -134,11 +135,13 @@ public class AnhangJDBCDAO implements AnhangDAO {
 			ps.setTimestamp(3, anhang.getTimestamp());
 			ps.setString(4, System.getProperty("user.name"));
 
-			if (anhang.getWartungId() == 0) {
+			if (anhang.getWartungId() == 0 && anhang.getStationId() == 0) {
+				ps.setNull(5, anhang.getWartungId());
+				ps.setNull(6, anhang.getStationId());
+			} else if (anhang.getWartungId() == 0) {
 				ps.setNull(5, anhang.getWartungId());
 				ps.setInt(6, anhang.getStationId());
-			}
-			if (anhang.getStationId() == 0) {
+			} else if (anhang.getStationId() == 0) {
 				ps.setInt(5, anhang.getWartungId());
 				ps.setNull(6, anhang.getStationId());
 			}
@@ -248,7 +251,7 @@ public class AnhangJDBCDAO implements AnhangDAO {
 
 		try {
 
-			File dir = new File(System.getProperty("user.home") + File.separator + "MaintenanceManager", "pictures");
+			File dir = new File(System.getProperty("user.home") + File.separator + "MaintenanceManager", "anhaenge");
 			dir.mkdirs();
 
 			dir.deleteOnExit();
@@ -283,6 +286,67 @@ public class AnhangJDBCDAO implements AnhangDAO {
 				anhang.setTimestamp(rs.getTimestamp("timestamp"));
 				anhang.setUser(rs.getString("user"));
 				anhang.setStationId(stationId);
+				attachmentList.add(anhang);
+			}
+
+			if (logger.isInfoEnabled()) {
+				logger.info("Anhaenge: " + attachmentList);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DAOException(e);
+
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw new DAOException(e.getMessage());
+		}
+
+		return attachmentList;
+	}
+
+	@Override
+	public List<Anhang> getAnhangList() throws DAOException {
+		ResultSet rs = null;
+		Connection con = null;
+		Statement statement = null;
+
+		List<Anhang> attachmentList = new ArrayList<Anhang>();
+
+		try {
+
+			File dir = new File(System.getProperty("user.home") + File.separator + "MaintenanceManager", "anhaenge");
+			dir.mkdirs();
+
+			dir.deleteOnExit();
+			con = ConnectionManager.getInstance().getConnection();
+
+			statement = con.createStatement();
+			rs = statement.executeQuery(GET_ALL_ATTACHMENT);
+
+			while (rs.next()) {
+
+				Anhang anhang = new Anhang();
+				anhang.setId(rs.getInt("id"));
+				anhang.setName(rs.getString("name"));
+				// ===================================================================================
+				File file = new File(dir.getAbsolutePath() + File.separator + anhang.getName());
+				if (!file.exists()) {
+					file.createNewFile();
+
+					FileOutputStream fos = new FileOutputStream(file);
+					byte[] buffer = new byte[1];
+
+					InputStream is = rs.getBinaryStream("file");
+					while (is.read(buffer) > 0) {
+						fos.write(buffer);
+					}
+					file.deleteOnExit();
+					fos.close();
+				}
+				anhang.setFile(file);
+				// ===================================================================================
+				anhang.setTimestamp(rs.getTimestamp("timestamp"));
+				anhang.setUser(rs.getString("user"));
 				attachmentList.add(anhang);
 			}
 

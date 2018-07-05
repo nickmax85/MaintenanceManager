@@ -32,7 +32,7 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
-public class Main extends Application {
+public class MaintenanceMailNotifier extends Application {
 
 	private ResourceBundle resources = ResourceBundle.getBundle("language");
 
@@ -87,7 +87,7 @@ public class Main extends Application {
 	private void initRootLayout() {
 
 		primaryStage.setTitle(
-				"MaintenanceTPMMailChannel" + " " + "@" + ApplicationProperties.getInstance().getProperty("db_host"));
+				"MaintenanceMailNotifier" + " " + "@" + ApplicationProperties.getInstance().getProperty("db_host"));
 
 		primaryStage.getIcons().add(new Image(getClass().getClassLoader().getResourceAsStream(Constants.APP_ICON)));
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
@@ -195,6 +195,12 @@ public class Main extends Application {
 		List<File> files = new ArrayList<>();
 
 		for (Anhang anhang : Service.getInstance().getAnhangListStation(station)) {
+
+			files.add(anhang.getFile());
+
+		}
+
+		for (Anhang anhang : Service.getInstance().getAnhangList()) {
 
 			files.add(anhang.getFile());
 

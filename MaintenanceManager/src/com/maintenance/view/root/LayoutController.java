@@ -121,6 +121,14 @@ public class LayoutController implements Initializable {
 	}
 
 	@FXML
+	private void handleAllgemeineAnhaenge() {
+
+		if (LoginDialog.isLoggedIn(main.getPrimaryStage()))
+			main.showAllgemeineAnhaenge();
+
+	}
+
+	@FXML
 	private void handleStueckzahlenImport() {
 
 		if (LoginDialog.isLoggedIn(main.getPrimaryStage()))
