@@ -1,6 +1,15 @@
-13.06.2018
-Wartungsplan Link
-Sind im Pfad 2 Leerzeichen vorhanden, werden die Eigenen Dateien geöffnet und nicht der Ordnerpfad
-
 21.06.2018 Werner
 Kopierfunktion für Stationen, Komponenten
+
+April 2018 Wartungskalender Bernhard
+MaintenanceManager soll in Wartungskalender integriert werden
+
+06.07.2018 Werner
+Allgemeine Anhänge welche mit TPM mitversendet werden, damit man nur 1 Dokument anpassen muss und nicht in jeder Station
+
+17.07.2018 Werner
+Suchfunktion für Anlagen und Stationen
+
+17.07.2018 Werner
+Anlagenmitarbeiter sollen auch vorausschauend Wartungen planen können und nicht erst bei Mailversand
+Entweder Zugriff auf MaintenanceManager oder übersichtliche Darstellung der nächsten Wartungsintervalle im TPMTool.
