@@ -340,7 +340,7 @@ public class ProzentCalc {
 
 		for (Station station : stationen) {
 
-			if (station.isStatus()) {
+			if (station.isStatus() && !station.isTpm()) {
 
 				float prozent = ProzentCalc.calcProzent(station);
 
@@ -430,7 +430,7 @@ public class ProzentCalc {
 
 		for (Station station : stationen) {
 
-			if (station.isStatus()) {
+			if (station.isStatus()  && !station.isTpm()) {
 
 				float prozent = ProzentCalc.calcProzent(station);
 
