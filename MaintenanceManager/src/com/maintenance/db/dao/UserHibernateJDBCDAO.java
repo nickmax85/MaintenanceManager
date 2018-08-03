@@ -52,7 +52,7 @@ public class UserHibernateJDBCDAO implements UserHibernateDAO {
 
 			Root<User> root = query.from(User.class);
 			query.select(root);
-			query.orderBy(builder.asc(root.get("name")), builder.asc(root.get("mail")));
+			query.orderBy(builder.asc(root.get("lastName")), builder.asc(root.get("mail")));
 
 			Query<User> q = currentSession.createQuery(query);
 			List<User> data = q.getResultList();

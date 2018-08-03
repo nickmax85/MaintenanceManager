@@ -30,7 +30,8 @@ import javafx.beans.property.StringProperty;
 public class User {
 
 	private IntegerProperty id = new SimpleIntegerProperty();
-	private StringProperty name = new SimpleStringProperty();
+	private StringProperty firstName = new SimpleStringProperty();
+	private StringProperty lastName = new SimpleStringProperty();
 	private StringProperty mail = new SimpleStringProperty();
 
 	private List<Anlage> anlagen;
@@ -52,16 +53,16 @@ public class User {
 		this.idProperty().set(id);
 	}
 
-	public StringProperty nameProperty() {
-		return this.name;
+	public StringProperty firstNameProperty() {
+		return this.firstName;
 	}
 
-	public String getName() {
-		return this.nameProperty().get();
+	public String getFirstName() {
+		return this.firstNameProperty().get();
 	}
 
-	public void setName(final String name) {
-		this.nameProperty().set(name);
+	public void setFirstName(final String firstName) {
+		this.firstNameProperty().set(firstName);
 	}
 
 	public StringProperty mailProperty() {
@@ -99,6 +100,18 @@ public class User {
 
 	public void setActive(final boolean active) {
 		this.activeProperty().set(active);
+	}
+
+	public StringProperty lastNameProperty() {
+		return this.lastName;
+	}
+
+	public String getLastName() {
+		return this.lastNameProperty().get();
+	}
+
+	public void setLastName(final String lastName) {
+		this.lastNameProperty().set(lastName);
 	}
 
 }

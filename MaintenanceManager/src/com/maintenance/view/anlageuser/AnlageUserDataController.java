@@ -33,7 +33,9 @@ public class AnlageUserDataController {
 	@FXML
 	private TableColumn<User, Boolean> auswahlColumn;
 	@FXML
-	private TableColumn<User, String> nameColumn;
+	private TableColumn<User, String> firstNameColumn;
+	@FXML
+	private TableColumn<User, String> lastNameColumn;
 	@FXML
 	private TableColumn<User, String> mailColumn;
 
@@ -74,8 +76,29 @@ public class AnlageUserDataController {
 			auswahlColumn.setCellFactory(CheckBoxTableCell.forTableColumn(auswahlColumn));
 			auswahlColumn.setEditable(true);
 
-			nameColumn.setCellValueFactory(new PropertyValueFactory<User, String>("name"));
-			nameColumn.setCellFactory(column -> {
+			firstNameColumn.setCellValueFactory(new PropertyValueFactory<User, String>("firstName"));
+			firstNameColumn.setCellFactory(column -> {
+				return new TableCell<User, String>() {
+
+					@Override
+					protected void updateItem(String item, boolean empty) {
+						super.updateItem(item, empty);
+
+						if (item == null || empty) {
+							setText(null);
+							setStyle("");
+						} else {
+							setText(item);
+
+						}
+					}
+
+				};
+
+			});
+			
+			lastNameColumn.setCellValueFactory(new PropertyValueFactory<User, String>("lastName"));
+			lastNameColumn.setCellFactory(column -> {
 				return new TableCell<User, String>() {
 
 					@Override

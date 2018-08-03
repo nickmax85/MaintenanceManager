@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -35,12 +36,17 @@
                <rowConstraints>
                   <RowConstraints vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <Label text="Name" />
-                  <TextField fx:id="nameField" prefHeight="25.0" prefWidth="250.0" GridPane.columnIndex="1" />
-                  <Label text="Mail" GridPane.rowIndex="1" />
-                  <TextField fx:id="mailField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Label text="Nachname" />
+                  <TextField fx:id="lastNameField" maxWidth="250.0" prefHeight="25.0" prefWidth="250.0" GridPane.columnIndex="1" />
+                  <Label text="Vorname" GridPane.rowIndex="1" />
+                  <TextField fx:id="firstNameField" maxWidth="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Label text="Mail" GridPane.rowIndex="3" />
+                  <TextField fx:id="mailField" prefWidth="350.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <Separator prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="2" />
                </children>
             </GridPane>
          </children>

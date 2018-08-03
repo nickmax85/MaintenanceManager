@@ -18,7 +18,9 @@ public class UserDataController {
 	private ResourceBundle resources;
 
 	@FXML
-	public TextField nameField;
+	public TextField firstNameField;
+	@FXML
+	public TextField lastNameField;
 	@FXML
 	public TextField mailField;
 
@@ -39,7 +41,8 @@ public class UserDataController {
 		user.setAll(Service.getInstance().getUserService().findAll());
 
 		if (data != null) {
-			nameField.setText(data.getName());
+			firstNameField.setText(data.getFirstName());
+			lastNameField.setText(data.getLastName());
 			mailField.setText(data.getMail());
 
 		} else {
@@ -51,14 +54,16 @@ public class UserDataController {
 
 	private void clearFields() {
 
-		nameField.setText("");
+		firstNameField.setText("");
+		lastNameField.setText("");
 		mailField.setText("");
 
 	}
 
 	public void setEditable(boolean editable) {
 
-		nameField.setDisable(!editable);
+		firstNameField.setDisable(!editable);
+		lastNameField.setDisable(!editable);
 		mailField.setDisable(!editable);
 
 	}
@@ -67,10 +72,13 @@ public class UserDataController {
 
 		String text = "";
 
-		if (nameField.getText() == null || nameField.getText().length() == 0)
-			text += "Kein gültiger Name!\n";
+		if (firstNameField.getText() == null || firstNameField.getText().length() == 0)
+			text += "Kein gültiger Vorname!\n";
+		
+		if (lastNameField.getText() == null || lastNameField.getText().length() == 0)
+			text += "Kein gültiger Nachname!\n";
 
-		if (mailField.getText() == null || mailField.getText().length() == 0)
+		if (mailField.getText() == null || mailField.getText().length() == 0 || mailField.getText().contains(" "))
 			text += "Keine gültige Mail!\n";
 
 		if (text.length() == 0) {

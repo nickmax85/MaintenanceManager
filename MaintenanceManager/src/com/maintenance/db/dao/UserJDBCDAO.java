@@ -21,10 +21,10 @@ public class UserJDBCDAO implements UserDAO {
 
 	private final static String TIMESTAMP_ERROR = "Ein Benutzer hat die Daten gerade verändert.\nBitte öffnen Sie das Fenster erneut oder drücken sie die F5 Taste.";
 
-	private final static String GET_ALL_USER = "SELECT * FROM user ORDER BY name ASC";
+	private final static String GET_ALL_USER = "SELECT * FROM user ORDER BY lastname ASC";
 	private final static String SELECT_USER = "SELECT * FROM user where id = ?";
-	private final static String INSERT_USER = "INSERT INTO user(name, mail, timestamp, user) VALUES (?, ?, ?, ?)";
-	private final static String UPDATE_USER = "UPDATE user SET name = ?, mail = ?, timestamp = ?, user = ? WHERE id = ?";
+	private final static String INSERT_USER = "INSERT INTO user(lastname, mail, timestamp, user) VALUES (?, ?, ?, ?)";
+	private final static String UPDATE_USER = "UPDATE user SET lastname = ?, mail = ?, timestamp = ?, user = ? WHERE id = ?";
 	private final static String DELETE_USER = "DELETE FROM user WHERE id= ?";
 
 	@Override
@@ -67,7 +67,7 @@ public class UserJDBCDAO implements UserDAO {
 			while (rs.next()) {
 				User user = new User();
 				user.setId(new Integer(rs.getInt("id")));
-				user.setName(rs.getString("name"));
+				user.setLastName(rs.getString("lastname"));
 				user.setMail(rs.getString("mail"));
 				abteilungList.add(user);
 			}
@@ -92,7 +92,7 @@ public class UserJDBCDAO implements UserDAO {
 		try {
 			ps = ConnectionManager.getInstance().getConnection().prepareStatement(INSERT_USER);
 
-			ps.setString(1, user.getName());
+			ps.setString(1, user.getLastName());
 			ps.setString(2, user.getMail());
 			ps.setString(4, System.getProperty("user.name"));
 			ps.executeUpdate();
@@ -151,7 +151,7 @@ public class UserJDBCDAO implements UserDAO {
 
 			user = new User();
 			user.setId(new Integer(rs.getInt("id")));
-			user.setName(rs.getString("name"));
+			user.setLastName(rs.getString("lastname"));
 			user.setMail(rs.getString("mail"));
 
 			if (logger.isInfoEnabled()) {
@@ -175,7 +175,7 @@ public class UserJDBCDAO implements UserDAO {
 
 			PreparedStatement ps = ConnectionManager.getInstance().getConnection().prepareStatement(UPDATE_USER);
 
-			ps.setString(1, user.getName());
+			ps.setString(1, user.getLastName());
 			ps.setString(2, user.getMail());
 			ps.setTimestamp(3, timestamp);
 			ps.setString(4, System.getProperty("user.name"));

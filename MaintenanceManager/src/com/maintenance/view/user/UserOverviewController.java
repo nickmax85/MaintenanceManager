@@ -34,7 +34,9 @@ public class UserOverviewController {
 	@FXML
 	private TableView<User> table;
 	@FXML
-	private TableColumn<User, String> nameColumn;
+	private TableColumn<User, String> firstNameColumn;
+	@FXML
+	private TableColumn<User, String> lastNameColumn;
 	@FXML
 	private TableColumn<User, String> mailColumn;
 
@@ -49,7 +51,8 @@ public class UserOverviewController {
 	@FXML
 	private void initialize() {
 
-		nameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
+		firstNameColumn.setCellValueFactory(cellData -> cellData.getValue().firstNameProperty());
+		lastNameColumn.setCellValueFactory(cellData -> cellData.getValue().lastNameProperty());
 		mailColumn.setCellValueFactory(cellData -> cellData.getValue().mailProperty());
 
 		showDetails(null);

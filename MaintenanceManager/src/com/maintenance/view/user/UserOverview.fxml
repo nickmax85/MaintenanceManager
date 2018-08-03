@@ -24,7 +24,8 @@
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                            </columnResizePolicy>
                            <columns>
-                              <TableColumn fx:id="nameColumn" minWidth="-Infinity" prefWidth="300.0" text="Name" />
+                              <TableColumn fx:id="lastNameColumn" prefWidth="75.0" text="Nachname" />
+                              <TableColumn fx:id="firstNameColumn" minWidth="-Infinity" prefWidth="300.0" text="Vorname" />
                               <TableColumn fx:id="mailColumn" minWidth="-Infinity" prefWidth="400.0" text="Mail" />
                            </columns>
                         </TableView>

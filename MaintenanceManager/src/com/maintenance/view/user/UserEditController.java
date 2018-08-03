@@ -53,7 +53,8 @@ public class UserEditController {
 			data = new User();
 
 		if (data != null) {
-			data.setName(userDataController.nameField.getText());
+			data.setFirstName(userDataController.firstNameField.getText());
+			data.setLastName(userDataController.lastNameField.getText());
 			data.setMail(userDataController.mailField.getText());
 
 		}
