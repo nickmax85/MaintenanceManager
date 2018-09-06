@@ -64,7 +64,7 @@
                               <RowConstraints minHeight="25.0" />
                               <RowConstraints minHeight="25.0" />
                               <RowConstraints />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" />
+                              <RowConstraints minHeight="10.0" />
                            </rowConstraints>
                            <children>
                               <Label text="Name">
@@ -128,23 +128,20 @@
                                  <font>
                                     <Font size="13.0" />
                                  </font></TextField>
-                              <Label text="Wartungsplan" GridPane.rowIndex="8">
+                              <Label text="Wartungsplan" GridPane.rowIndex="8" GridPane.valignment="TOP">
                                  <font>
                                     <Font size="13.0" />
                                  </font></Label>
-                              <TextField fx:id="wartungsPlanField" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="8">
-                                 <font>
-                                    <Font size="13.0" />
-                                 </font></TextField>
                               <Label text="Wartungsart" GridPane.rowIndex="3">
                                  <font>
                                     <Font size="13.0" />
                                  </font></Label>
                               <ComboBox fx:id="wartungArtComboBox" onAction="#wartungArtComboBoxEvent" prefWidth="185.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                              <Hyperlink fx:id="wartungsPlanLink" text="öffnen" GridPane.columnIndex="3" GridPane.rowIndex="8">
+                              <Hyperlink fx:id="wartungsPlanLink" text="öffnen" GridPane.columnIndex="3" GridPane.rowIndex="8" GridPane.valignment="TOP">
                                  <font>
                                     <Font size="13.0" />
                                  </font></Hyperlink>
+                              <TextArea fx:id="wartungsPlanField" prefHeight="80.0" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="8" />
                            </children>
                         </GridPane>
                      </children>
