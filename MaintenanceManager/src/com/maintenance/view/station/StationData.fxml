@@ -8,6 +8,7 @@
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -55,7 +56,7 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" />
                   <RowConstraints minHeight="10.0" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" />
+                  <RowConstraints minHeight="10.0" />
                </rowConstraints>
                <children>
                   <Label text="Name">
@@ -111,15 +112,11 @@
                      <font>
                         <Font size="13.0" />
                      </font></Button>
-                  <Label text="Wartungsplan" GridPane.rowIndex="7">
+                  <Label text="Wartungsplan&#10;Web - Link&#10;" wrapText="true" GridPane.rowIndex="7" GridPane.valignment="TOP">
                      <font>
                         <Font size="13.0" />
                      </font></Label>
-                  <TextField fx:id="wartungsPlanField" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="7">
-                     <font>
-                        <Font size="13.0" />
-                     </font></TextField>
-                  <Hyperlink fx:id="wartungsPlanLink" text="öffnen" GridPane.columnIndex="3" GridPane.rowIndex="7">
+                  <Hyperlink fx:id="wartungsPlanLink" text="öffnen" GridPane.columnIndex="3" GridPane.rowIndex="7" GridPane.valignment="TOP">
                      <font>
                         <Font size="13.0" />
                      </font></Hyperlink>
@@ -131,6 +128,7 @@
                      <font>
                         <Font size="13.0" />
                      </font></CheckBox>
+                  <TextArea fx:id="wartungsPlanField" maxWidth="400.0" prefHeight="80.0" wrapText="true" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="7" />
                </children>
             </GridPane>
             <Separator prefWidth="200.0" />

@@ -91,27 +91,12 @@ public class ApplicationProperties {
 		// create application properties with default
 		applicationProperties = new Properties(defaultProperties);
 
-		// now load properties
-		// from last invocation
-		try {
-			createFiles();
-
-			in = new FileInputStream(file);
-
-			applicationProperties.load(in);
-			// Damit man im propertie file backslash setzen kann, noch zum
-			// testen
-			// applicationProperties.load(new
-			// StringReader(in.toString().replace("\\", "\\\\")));
-			in.close();
-			return true;
-		} catch (FileNotFoundException e) {
-			// TODO Automatisch generierter Erfassungsblock
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Automatisch generierter Erfassungsblock
-			e.printStackTrace();
-		}
+		// Damit man im propertie file backslash setzen kann, noch zum
+		// testen
+		// applicationProperties.load(new
+		// StringReader(in.toString().replace("\\", "\\\\")));
+//	in.close();
+		
 		return false;
 
 	}

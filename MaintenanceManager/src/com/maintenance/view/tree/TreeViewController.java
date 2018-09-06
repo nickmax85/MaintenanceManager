@@ -153,12 +153,12 @@ public class TreeViewController implements Initializable {
 		root.setExpanded(true);
 
 		// Wartungsvorschau
-		TreeItem<Object> itemWartungVorschau = new TreeItem<>("Wartungsvorschau");
-		itemWartungVorschau.setGraphic(new ImageView(new Image(
-				getClass().getClassLoader().getResourceAsStream("com/maintenance/resource/icons/next24.png"))));
-		itemWartungVorschau.setExpanded(false);
+//		TreeItem<Object> itemWartungVorschau = new TreeItem<>("Wartungsvorschau");
+//		itemWartungVorschau.setGraphic(new ImageView(new Image(
+//				getClass().getClassLoader().getResourceAsStream("com/maintenance/resource/icons/next24.png"))));
+//		itemWartungVorschau.setExpanded(false);
 
-		root.getChildren().add(itemWartungVorschau);
+		//root.getChildren().add(itemWartungVorschau);
 
 		// Anlagen
 		TreeItem<Object> itemAnlagen = new TreeItem<>("Anlagen");
