@@ -87,7 +87,7 @@ public class MaintenanceMailNotifier extends Application {
 	private void initRootLayout() {
 
 		primaryStage.setTitle(
-				"MaintenanceMailNotifier" + " " + "@" + ApplicationProperties.getInstance().getProperty("db_host"));
+				"MaintenanceMailNotifier" + " " + "@" + ApplicationProperties.getInstance().getProperty("db_host") + "/" + ApplicationProperties.getInstance().getProperty("db_model"));
 
 		primaryStage.getIcons().add(new Image(getClass().getClassLoader().getResourceAsStream(Constants.APP_ICON)));
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
