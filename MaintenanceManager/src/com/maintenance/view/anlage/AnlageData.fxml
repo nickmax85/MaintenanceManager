@@ -128,7 +128,7 @@
                                  <font>
                                     <Font size="13.0" />
                                  </font></TextField>
-                              <Label text="Wartungsplan" GridPane.rowIndex="8" GridPane.valignment="TOP">
+                              <Label text="Wartungsplan&#10;Web Link" wrapText="true" GridPane.rowIndex="8" GridPane.valignment="TOP">
                                  <font>
                                     <Font size="13.0" />
                                  </font></Label>

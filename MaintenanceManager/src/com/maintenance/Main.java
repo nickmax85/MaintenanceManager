@@ -242,7 +242,7 @@ public class Main extends Application {
 	private void initGraphics() {
 
 		primaryStage.setTitle(
-				resources.getString("appname") + "@" + ApplicationProperties.getInstance().getProperty("db_host"));
+				resources.getString("appname") + "@" + ApplicationProperties.getInstance().getProperty("db_host") + "/" + ApplicationProperties.getInstance().getProperty("db_model"));
 		primaryStage.setMaximized(true);
 		primaryStage.getIcons().add(new Image(getClass().getClassLoader().getResourceAsStream(Main.APP_ICON)));
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
