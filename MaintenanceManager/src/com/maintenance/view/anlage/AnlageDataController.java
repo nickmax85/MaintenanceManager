@@ -193,7 +193,10 @@ public class AnlageDataController {
 						System.out.println(wartungsPlanField.getText());
 						// Runtime.getRuntime().exec("explorer " + wartungsPlanField.getText());
 						try {
-							openWebpage(new URL(wartungsPlanField.getText()).toURI());
+
+							String link = wartungsPlanField.getText().replace("{", "%7B");
+							link = link.replace("}", "%7D");
+							openWebpage(new URL(link).toURI());
 						} catch (URISyntaxException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
