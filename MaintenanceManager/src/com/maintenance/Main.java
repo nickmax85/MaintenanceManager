@@ -83,7 +83,9 @@ import javafx.util.Duration;
 
 public class Main extends Application {
 
-	public final static String VERSION = "1.0";
+	public final static String VERSION_HAUPT = "1";
+	public final static String VERSION_NEBEN = "0";
+	public final static String REVISION = "1";
 
 	// Java Entwicklungsversion
 	public final static String JDK = "1.8.0_152";
@@ -241,8 +243,9 @@ public class Main extends Application {
 
 	private void initGraphics() {
 
-		primaryStage.setTitle(
-				resources.getString("appname") + "@" + ApplicationProperties.getInstance().getProperty("db_host") + "/" + ApplicationProperties.getInstance().getProperty("db_model"));
+		primaryStage.setTitle(resources.getString("appname") + " " + Main.VERSION_HAUPT + "." + Main.VERSION_NEBEN + "."
+				+ Main.REVISION + "@" + ApplicationProperties.getInstance().getProperty("db_host") + "/"
+				+ ApplicationProperties.getInstance().getProperty("db_model"));
 		primaryStage.setMaximized(true);
 		primaryStage.getIcons().add(new Image(getClass().getClassLoader().getResourceAsStream(Main.APP_ICON)));
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
