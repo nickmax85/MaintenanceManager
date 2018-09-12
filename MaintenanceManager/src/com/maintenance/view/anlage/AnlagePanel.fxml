@@ -24,7 +24,7 @@
                         <Font size="10.0" />
                      </font>
                   </Label>
-                  <Label fx:id="aktuelleStueckLabel" alignment="CENTER" styleClass="label-view" text="...">
+                  <Label fx:id="aktuelleStueckLabel" alignment="CENTER" styleClass="label-view" text="Datum/Stueck">
                      <font>
                         <Font size="10.0" />
                      </font>

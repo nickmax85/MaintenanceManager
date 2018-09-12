@@ -1,10 +1,7 @@
 package com.maintenance;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -50,26 +47,19 @@ import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.concurrent.Worker;
 import javafx.event.EventHandler;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -85,7 +75,7 @@ public class Main extends Application {
 
 	public final static String VERSION_HAUPT = "1";
 	public final static String VERSION_NEBEN = "0";
-	public final static String REVISION = "1";
+	public final static String REVISION = "2";
 
 	// Java Entwicklungsversion
 	public final static String JDK = "1.8.0_152";
@@ -125,7 +115,11 @@ public class Main extends Application {
 			ip = args[0];
 
 		}
-
+		
+		threadSplashSleepTime = 0;
+		fadeTransitionsTime = 0;
+		showSplashScreen = false;
+		
 		launch(args);
 
 	}
