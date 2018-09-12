@@ -77,6 +77,7 @@ public class Main extends Application {
 	public final static String VERSION_NEBEN = "0";
 	public final static String REVISION = "2";
 
+	
 	// Java Entwicklungsversion
 	public final static String JDK = "1.8.0_152";
 
