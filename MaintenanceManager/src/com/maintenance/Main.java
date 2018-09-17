@@ -75,7 +75,7 @@ public class Main extends Application {
 
 	public final static String VERSION_HAUPT = "1";
 	public final static String VERSION_NEBEN = "0";
-	public final static String REVISION = "2";
+	public final static String REVISION = "3";
 
 	
 	// Java Entwicklungsversion
@@ -114,12 +114,14 @@ public class Main extends Application {
 		ip = null;
 		if (args.length == 1) {
 			ip = args[0];
+			
+			threadSplashSleepTime = 0;
+			fadeTransitionsTime = 0;
+			showSplashScreen = false;
 
 		}
 		
-		threadSplashSleepTime = 0;
-		fadeTransitionsTime = 0;
-		showSplashScreen = false;
+		
 		
 		launch(args);
 

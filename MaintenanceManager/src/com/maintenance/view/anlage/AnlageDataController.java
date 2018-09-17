@@ -191,17 +191,20 @@ public class AnlageDataController {
 					try {
 
 						System.out.println(wartungsPlanField.getText());
-						// Runtime.getRuntime().exec("explorer " + wartungsPlanField.getText());
-						try {
 
-							String link = wartungsPlanField.getText().replace("{", "%7B");
-							link = link.replace("}", "%7D");
-							openWebpage(new URL(link).toURI());
-						} catch (URISyntaxException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-						// Desktop.getDesktop().browse(new URI(wartungsPlanField.getText()));
+						if (wartungsPlanField.getText().contains("http"))
+							try {
+
+								String link = wartungsPlanField.getText().replace("{", "%7B");
+								link = link.replace("}", "%7D");
+								openWebpage(new URL(link).toURI());
+							} catch (URISyntaxException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+						else
+							Runtime.getRuntime().exec("explorer " + wartungsPlanField.getText());
+
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
