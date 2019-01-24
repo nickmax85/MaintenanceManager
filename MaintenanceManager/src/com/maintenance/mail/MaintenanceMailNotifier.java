@@ -230,7 +230,9 @@ public class MaintenanceMailNotifier extends Application {
 
 		text += "Wartung ist fällig am : " + df.format(nextWartungDate);
 		text += "\n\n";
-		text += "Software für Wartungsrückmeldung: " + "http://10.176.45.4/software/TPMMaintenance.exe";
+		//text += "Software für Wartungsrückmeldung: " + "http://10.176.45.4/software/TPMTool.jar";
+		text += "Software für Wartungsrückmeldung: " + "http://10.176.45.4/tpm.html";
+
 		text += "\n\n";
 		text += "Diese Nachricht wurde an folgende Adressen versendet: " + to.replaceAll(",", "; ");
 		text += "\n\n\n\n\n";
