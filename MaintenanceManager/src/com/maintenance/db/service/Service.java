@@ -382,6 +382,8 @@ public class Service {
 	public List<Anlage> getAllAnlageLeerflaecheAbteilungPanelFormat() {
 
 		int stueck = 0;
+		
+		updateAnlageStueckzahlen();
 
 		try {
 			anlageList = anlageDAO.getAllAnlagen();
@@ -392,7 +394,6 @@ public class Service {
 			doAnlageAbteilungPanelFormatMapping();
 
 			for (Anlage anlage : anlageList) {
-				stueck = 0;
 
 				// logger.info("Anlage: " + anlage.getName());
 				anlage.setMesAnlagen(mesAnlageDAO.getMESAnlagen(anlage));
@@ -401,9 +402,42 @@ public class Service {
 					stueck = mes.getProdStueck() + stueck;
 					anlage.setAktuelleStueck(stueck);
 				}
-				// logger.info("Importierte Anlagen: " +
-				// anlage.getMesAnlagen());
+				// logger.info("Importierte Anlagen: " + anlage.getMesAnlagen());
 				// logger.info("Stueck: " + stueck);
+
+			}
+
+			errorStatus = false;
+		} catch (DAOException e) {
+			e.printStackTrace();
+			showExceptionAlertDialog(e);
+		}
+
+		return anlageList;
+
+	}
+
+	// TODO
+	public List<Anlage> updateAnlageStueckzahlen() {
+
+		int stueck = 0;
+
+		try {
+			anlageList = anlageDAO.getAllAnlagen();
+
+			for (Anlage anlage : anlageList) {
+				 stueck = anlage.getAktuelleStueck();
+
+				logger.info("Anlage: " + anlage.getName());
+				anlage.setMesAnlagen(mesAnlageDAO.getMESAnlagen(anlage));
+
+				for (MESAnlage mes : anlage.getMesAnlagen()) {
+					stueck = mes.getProdStueck() + stueck;
+					anlage.setAktuelleStueck(stueck);
+				}
+				// logger.info("Importierte Anlagen: " + anlage.getMesAnlagen());
+				logger.info("Stueck: " + stueck);
+
 			}
 
 			errorStatus = false;
