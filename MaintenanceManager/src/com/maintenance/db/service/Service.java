@@ -603,10 +603,11 @@ public class Service {
 
 	}
 
-	public List<AnlageUser> getAnlagenUser(int anlageId) {
+	public List<User> getAnlagenUser(int anlageId) {
 
 		List<AnlageUser> anlagenUser;
 		List<User> users;
+		List<User> userList = new ArrayList<>();
 
 		List<AnlageUser> mergedAnlagenUser = new ArrayList<AnlageUser>();
 
@@ -618,6 +619,7 @@ public class Service {
 			for (User user : users) {
 				if (user.getId() == anlageUser.getUserId()) {
 					anlageUser.setBenutzer(user);
+					userList.add(user);
 				}
 
 			}
@@ -625,7 +627,7 @@ public class Service {
 
 		}
 
-		return mergedAnlagenUser;
+		return userList;
 	}
 
 	public List<User> getUsers() {
@@ -657,26 +659,26 @@ public class Service {
 		return anhangList;
 
 	}
-	
+
 	public List<Anhang> getAnhangList() {
 
 		try {
 			anhangList = anhangDAO.getAnhangList();
-		
+
 			errorStatus = false;
 		} catch (DAOException e) {
-			
+
 			e.printStackTrace();
-			
+
 			Platform.runLater(new Runnable() {
-				
+
 				@Override
 				public void run() {
 					showExceptionAlertDialog(e);
-					
+
 				}
 			});
-			
+
 		}
 
 		return anhangList;
@@ -690,18 +692,18 @@ public class Service {
 			station.setAnhangList(anhangList);
 			errorStatus = false;
 		} catch (DAOException e) {
-			
+
 			e.printStackTrace();
-			
+
 			Platform.runLater(new Runnable() {
-				
+
 				@Override
 				public void run() {
 					showExceptionAlertDialog(e);
-					
+
 				}
 			});
-			
+
 		}
 
 		return anhangList;

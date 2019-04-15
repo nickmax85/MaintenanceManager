@@ -430,7 +430,7 @@ public class ProzentCalc {
 
 		for (Station station : stationen) {
 
-			if (station.isStatus()  && !station.isTpm()) {
+			if (station.isStatus() && !station.isTpm()) {
 
 				float prozent = ProzentCalc.calcProzent(station);
 
@@ -463,6 +463,16 @@ public class ProzentCalc {
 		}
 
 		return false;
+
+	}
+
+	public static int calcNextWartungStueck(Station station) {
+
+		int produziert;
+
+		produziert = (station.getAnlage().getAktuelleStueck() - station.getLastWartungStueckzahl());
+
+		return station.getWartungStueckIntervall() - produziert;
 
 	}
 

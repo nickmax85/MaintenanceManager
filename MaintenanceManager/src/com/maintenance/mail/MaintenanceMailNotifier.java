@@ -12,6 +12,7 @@ import java.util.ResourceBundle;
 import javax.mail.Session;
 
 import com.maintenance.db.dto.Anhang;
+import com.maintenance.db.dto.AnlageUser;
 import com.maintenance.db.dto.Wartung.EWartungArt;
 import com.maintenance.db.service.Service;
 import com.maintenance.db.util.HibernateUtil;
@@ -42,6 +43,7 @@ public class MaintenanceMailNotifier extends Application {
 	private Stage primaryStage;
 
 	private List<Station> stationenForMail;
+	private List<com.maintenance.db.dto.Station> stationenForMail2;
 	private ListView<String> listView;
 
 	private Thread thread;
@@ -87,7 +89,8 @@ public class MaintenanceMailNotifier extends Application {
 	private void initRootLayout() {
 
 		primaryStage.setTitle(
-				"MaintenanceMailNotifier" + " " + "@" + ApplicationProperties.getInstance().getProperty("db_host") + "/" + ApplicationProperties.getInstance().getProperty("db_model"));
+				"MaintenanceMailNotifier" + " " + "@" + ApplicationProperties.getInstance().getProperty("db_host") + "/"
+						+ ApplicationProperties.getInstance().getProperty("db_model"));
 
 		primaryStage.getIcons().add(new Image(getClass().getClassLoader().getResourceAsStream(Constants.APP_ICON)));
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
@@ -124,7 +127,6 @@ public class MaintenanceMailNotifier extends Application {
 								getCurrentTimeStamp() + " Thread is running: ID=" + Thread.currentThread().getId());
 
 						for (Station station : getStationenForMail()) {
-
 							try {
 
 								if (!station.isMailSent()) {
@@ -132,15 +134,46 @@ public class MaintenanceMailNotifier extends Application {
 									addListElement(getCurrentTimeStamp() + " " + station.getAnlage().getName() + ": "
 											+ station.getName());
 
-									requestMail(station, ProzentCalc.calcProzent(station), "");
-									station.setMailSent(true);
-									Service.getInstance().getStationService().update(station);
+									requestMailDate(station, ProzentCalc.calcProzent(station), "");
 
 									String userText = "";
 									for (User user : station.getAnlage().getUsers()) {
 										userText += user.getMail() + ", ";
 
 									}
+
+									station.setMailSent(true);
+									Service.getInstance().getStationService().update(station);
+									addListElement(getCurrentTimeStamp() + " " + userText);
+
+								}
+
+							} catch (Exception e) {
+
+								addListElement(getCurrentTimeStamp() + " Nachrichten konnten nicht versendet werden");
+								addListElement(getCurrentTimeStamp() + " Exception Message: " + e.getMessage());
+								e.printStackTrace();
+							}
+						}
+
+						for (com.maintenance.db.dto.Station station : getStationenForMail2()) {
+							try {
+
+								if (!station.isMailSent()) {
+
+									addListElement(getCurrentTimeStamp() + " " + station.getAnlage().getName() + ": "
+											+ station.getName());
+
+									requestMailStueckzahl(station, ProzentCalc.calcProzent(station), "");
+
+									String userText = "";
+									for (User user : station.getAnlage().getUsers()) {
+										userText += user.getMail() + ", ";
+
+									}
+
+									station.setMailSent(true);
+									Service.getInstance().updateStation(station);
 									addListElement(getCurrentTimeStamp() + " " + userText);
 
 								}
@@ -184,7 +217,7 @@ public class MaintenanceMailNotifier extends Application {
 
 	}
 
-	private void requestMail(Station station, float prozent, String remark) throws Exception {
+	private void requestMailDate(Station station, float prozent, String remark) throws Exception {
 
 		String smtpHostServer = "10.176.199.45";
 		String from = "mpt_ilz_sys_maplat@magna.com";
@@ -211,8 +244,8 @@ public class MaintenanceMailNotifier extends Application {
 
 		}
 
-		String betreff = "MaintenanceManager: TPM Wartungsanforderung für " + station.getAnlage().getName() + "; "
-				+ station.getName();
+		String betreff = "MaintenanceManager: Autonomes TPM -  Wartungsanforderung für " + station.getAnlage().getName()
+				+ "; " + station.getName();
 
 		String text = "";
 		text += "Anlage: " + station.getAnlage().getName() + "\n";
@@ -230,7 +263,63 @@ public class MaintenanceMailNotifier extends Application {
 
 		text += "Wartung ist fällig am : " + df.format(nextWartungDate);
 		text += "\n\n";
-		//text += "Software für Wartungsrückmeldung: " + "http://10.176.45.4/software/TPMTool.jar";
+		// text += "Software für Wartungsrückmeldung: " +
+		// "http://10.176.45.4/software/TPMTool.jar";
+		text += "Software für Wartungsrückmeldung: " + "http://10.176.45.4/tpm.html";
+
+		text += "\n\n";
+		text += "Diese Nachricht wurde an folgende Adressen versendet: " + to.replaceAll(",", "; ");
+		text += "\n\n\n\n\n";
+
+		Properties props = System.getProperties();
+		props.put("mail.smtp.host", smtpHostServer);
+		props.put("mail.smtp.auth", "false");
+
+		Session session = Session.getInstance(props, null);
+		session.setDebug(true);
+
+		EmailUtil.sendEmail(session, from, to, null, betreff, text, files);
+
+	}
+
+	private void requestMailStueckzahl(com.maintenance.db.dto.Station station, float prozent, String remark)
+			throws Exception {
+
+		String smtpHostServer = "10.176.199.45";
+		String from = "mpt_ilz_sys_maplat@magna.com";
+
+		String to = "";
+		// String to = "markus.thaler@magna.com,markus.thaler@gmx.at";
+
+		List<File> files = new ArrayList<>();
+
+		for (Anhang anhang : Service.getInstance().getAnhangList(station)) {
+
+			files.add(anhang.getFile());
+
+		}
+
+		for (Anhang anhang : Service.getInstance().getAnhangList()) {
+
+			files.add(anhang.getFile());
+
+		}
+
+		for (User user : station.getAnlage().getUsers()) {
+			to += user.getMail() + ",";
+
+		}
+
+		String betreff = "MaintenanceManager: Autonomes TPM - Wartungsanforderung für " + station.getAnlage().getName()
+				+ "; " + station.getName();
+
+		String text = "";
+		text += "Anlage: " + station.getAnlage().getName() + "\n";
+		text += "Komponente: " + station.getName() + "\n";
+
+		text += "Wartung ist fällig in " + ProzentCalc.calcNextWartungStueck(station) + " Stück";
+
+		text += "\n\n";
 		text += "Software für Wartungsrückmeldung: " + "http://10.176.45.4/tpm.html";
 
 		text += "\n\n";
@@ -259,17 +348,6 @@ public class MaintenanceMailNotifier extends Application {
 		String remark = null;
 		float prozent = 0;
 		boolean maintenanceElapsed = false;
-
-		if (station.getWartungArt() == EWartungArt.STUECKZAHL.ordinal()) {
-
-			prozent = ProzentCalc.calcProzent(station);
-
-			if (prozent >= station.getWartungStueckWarnung() && prozent < station.getWartungStueckFehler())
-				maintenanceElapsed = true;
-
-			else if (prozent >= station.getWartungStueckFehler())
-				maintenanceElapsed = true;
-		}
 
 		if (station.getWartungArt() == EWartungArt.TIME_INTERVALL.ordinal()) {
 
@@ -311,6 +389,28 @@ public class MaintenanceMailNotifier extends Application {
 
 	}
 
+	private boolean checkStationElapsed(com.maintenance.db.dto.Station station) {
+
+		String remark = null;
+		float prozent = 0;
+		boolean maintenanceElapsed = false;
+
+		if (station.getWartungArt() == EWartungArt.STUECKZAHL.ordinal()) {
+
+			prozent = ProzentCalc.calcProzent(station);
+
+			if (prozent >= station.getWartungStueckWarnung() && prozent < station.getWartungStueckFehler())
+				maintenanceElapsed = true;
+
+			else if (prozent >= station.getWartungStueckFehler())
+				maintenanceElapsed = true;
+
+		}
+
+		return maintenanceElapsed;
+
+	}
+
 	public List<Station> getStationenForMail() {
 
 		stationenForMail = new ArrayList<>();
@@ -331,6 +431,34 @@ public class MaintenanceMailNotifier extends Application {
 		}
 
 		return stationenForMail;
+	}
+
+	private List<com.maintenance.db.dto.Station> getStationenForMail2() {
+
+		stationenForMail2 = new ArrayList<>();
+
+		for (com.maintenance.db.dto.Anlage anlage : Service.getInstance()
+				.getAllAnlageLeerflaecheAbteilungPanelFormat()) {
+
+			if (anlage.isStatus())
+				for (com.maintenance.db.dto.Station station : Service.getInstance().getStationenFromAnlage(anlage)) {
+
+					station.getAnlage().setAktuelleStueck(anlage.getAktuelleStueck());
+
+					if (station.isStatus() && station.isTpm()) {
+
+						if (checkStationElapsed(station)) {
+
+							stationenForMail2.add(station);
+
+							List<User> users = Service.getInstance().getAnlagenUser(anlage.getId());
+							station.getAnlage().setUsers(users);
+						}
+					}
+				}
+
+		}
+		return stationenForMail2;
 	}
 
 }
