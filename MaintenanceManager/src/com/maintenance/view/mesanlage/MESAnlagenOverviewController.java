@@ -149,6 +149,13 @@ public class MESAnlagenOverviewController {
 	}
 
 	@FXML
+	private void handleUpdateAktuelleStueckzahlen() {
+
+		Service.getInstance().updateAnlageStueckzahlen();
+
+	}
+
+	@FXML
 	private void handleDelete() {
 		MESAnlage data;
 		int selectedIndex = table.getSelectionModel().getSelectedIndex();

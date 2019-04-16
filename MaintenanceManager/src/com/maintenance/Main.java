@@ -77,7 +77,6 @@ public class Main extends Application {
 	public final static String VERSION_NEBEN = "0";
 	public final static String REVISION = "3";
 
-	
 	// Java Entwicklungsversion
 	public final static String JDK = "1.8.0_152";
 
@@ -114,15 +113,13 @@ public class Main extends Application {
 		ip = null;
 		if (args.length == 1) {
 			ip = args[0];
-			
+
 			threadSplashSleepTime = 0;
 			fadeTransitionsTime = 0;
 			showSplashScreen = false;
 
 		}
-		
-		
-		
+
 		launch(args);
 
 	}

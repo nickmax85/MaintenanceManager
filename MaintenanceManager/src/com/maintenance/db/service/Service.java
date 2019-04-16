@@ -382,8 +382,6 @@ public class Service {
 	public List<Anlage> getAllAnlageLeerflaecheAbteilungPanelFormat() {
 
 		int stueck = 0;
-		
-		updateAnlageStueckzahlen();
 
 		try {
 			anlageList = anlageDAO.getAllAnlagen();
@@ -398,45 +396,15 @@ public class Service {
 				// logger.info("Anlage: " + anlage.getName());
 				anlage.setMesAnlagen(mesAnlageDAO.getMESAnlagen(anlage));
 
+				stueck = anlage.getAktuelleStueck();
+
 				for (MESAnlage mes : anlage.getMesAnlagen()) {
 					stueck = mes.getProdStueck() + stueck;
-					anlage.setAktuelleStueck(stueck);
+
 				}
-				// logger.info("Importierte Anlagen: " + anlage.getMesAnlagen());
+
+				anlage.setAktuelleStueck(stueck);
 				// logger.info("Stueck: " + stueck);
-
-			}
-
-			errorStatus = false;
-		} catch (DAOException e) {
-			e.printStackTrace();
-			showExceptionAlertDialog(e);
-		}
-
-		return anlageList;
-
-	}
-
-	// TODO
-	public List<Anlage> updateAnlageStueckzahlen() {
-
-		int stueck = 0;
-
-		try {
-			anlageList = anlageDAO.getAllAnlagen();
-
-			for (Anlage anlage : anlageList) {
-				 stueck = anlage.getAktuelleStueck();
-
-				logger.info("Anlage: " + anlage.getName());
-				anlage.setMesAnlagen(mesAnlageDAO.getMESAnlagen(anlage));
-
-				for (MESAnlage mes : anlage.getMesAnlagen()) {
-					stueck = mes.getProdStueck() + stueck;
-					anlage.setAktuelleStueck(stueck);
-				}
-				// logger.info("Importierte Anlagen: " + anlage.getMesAnlagen());
-				logger.info("Stueck: " + stueck);
 
 			}
 
@@ -485,6 +453,8 @@ public class Service {
 			anlage.setPanelFormat(panelFormatDAO.getPanelFormat(anlage.getPanelFormatId()));
 
 			anlage.setMesAnlagen(mesAnlageDAO.getMESAnlagen(anlage));
+
+			stueck = anlage.getAktuelleStueck();
 
 			for (MESAnlage mes : anlage.getMesAnlagen()) {
 				stueck = mes.getProdStueck() + stueck;
@@ -1322,6 +1292,46 @@ public class Service {
 			showExceptionAlertDialog(e);
 			e.printStackTrace();
 		}
+
+	}
+
+	// TODO
+	public List<Anlage> updateAnlageStueckzahlen() {
+
+		int stueck = 0;
+
+		try {
+			anlageList = anlageDAO.getAllAnlagen();
+
+			for (Anlage anlage : anlageList) {
+				stueck = 0;
+
+				if (anlage.getName().equalsIgnoreCase("Panda Kupplung"))
+					System.out.println("stop");
+
+				logger.info("Anlage: " + anlage.getName());
+				anlage.setMesAnlagen(mesAnlageDAO.getMESAnlagen(anlage));
+
+				for (MESAnlage mes : anlage.getMesAnlagen()) {
+					stueck = mes.getProdStueck() + stueck;
+					anlage.setAktuelleStueck(stueck);
+				}
+
+				if (!anlage.getMesAnlagen().isEmpty())
+					Service.getInstance().updateAnlage(anlage);
+
+				// logger.info("Importierte Anlagen: " + anlage.getMesAnlagen());
+				logger.info("Stueck: " + stueck);
+
+			}
+
+			errorStatus = false;
+		} catch (DAOException e) {
+			e.printStackTrace();
+			showExceptionAlertDialog(e);
+		}
+
+		return anlageList;
 
 	}
 
