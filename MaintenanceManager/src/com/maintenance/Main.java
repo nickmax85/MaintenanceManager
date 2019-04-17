@@ -75,7 +75,7 @@ public class Main extends Application {
 
 	public final static String VERSION_HAUPT = "1";
 	public final static String VERSION_NEBEN = "0";
-	public final static String REVISION = "3";
+	public final static String REVISION = "4";
 
 	// Java Entwicklungsversion
 	public final static String JDK = "1.8.0_152";
@@ -1019,7 +1019,7 @@ public class Main extends Application {
 		appInfo = new Label("");
 
 		sb.append(resources.getString("appname"));
-		sb.append(" (Version 1.0)");
+		sb.append(" (Version " + VERSION_HAUPT + "." + VERSION_NEBEN + "." + REVISION + ")");
 
 		appInfo.setFont(Font.font("System", FontWeight.BOLD, 15));
 		appInfo.setTextFill(Color.DARKGREY);
