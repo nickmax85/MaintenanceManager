@@ -280,6 +280,18 @@ public class MaintenanceMailNotifier extends Application {
 
 		EmailUtil.sendEmail(session, from, to, null, betreff, text, files);
 
+		deleteFiles(files);
+
+	}
+
+	private void deleteFiles(List<File> files) {
+
+		for (File f : files) {
+
+			f.delete();
+
+		}
+
 	}
 
 	private void requestMailStueckzahl(com.maintenance.db.dto.Station station, float prozent, String remark)
@@ -334,6 +346,8 @@ public class MaintenanceMailNotifier extends Application {
 		session.setDebug(true);
 
 		EmailUtil.sendEmail(session, from, to, null, betreff, text, files);
+
+		deleteFiles(files);
 
 	}
 
