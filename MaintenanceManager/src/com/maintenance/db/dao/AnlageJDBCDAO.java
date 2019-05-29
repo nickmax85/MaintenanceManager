@@ -428,8 +428,11 @@ public class AnlageJDBCDAO implements AnlageDAO {
 				ps.setString(3, anlage.getAuftrag());
 
 				if (anlage.getWartungArt() == EWartungArt.STUECKZAHL.ordinal()) {
+					// TODO
+					// die Stückzahlen dürfen nicht überschrieben werden, ausser es wird vom 2017+2018 importiert
 					ps.setInt(4, anlage.getJahresStueck());
-					ps.setInt(5, anlage.getAktuelleStueck());
+					//ps.setInt(5, anlage.getAktuelleStueck());
+					ps.setInt(5, getAnlage(anlage.getId()).getAktuelleStueck());
 
 					ps.setInt(6, anlage.getWartungStueckIntervall());
 					ps.setNull(7, anlage.getWartungDateIntervall());
@@ -453,7 +456,10 @@ public class AnlageJDBCDAO implements AnlageDAO {
 				if (anlage.getWartungArt() == EWartungArt.TIME_INTERVALL.ordinal()) {
 
 					ps.setNull(4, anlage.getJahresStueck());
-					ps.setNull(5, anlage.getAktuelleStueck());
+					// TODO
+					// die Stückzahlen dürfen nicht überschrieben werden, ausser es wird vom 2017+2018 importiert
+					//ps.setInt(5, anlage.getAktuelleStueck());
+					ps.setNull(5, getAnlage(anlage.getId()).getAktuelleStueck());
 
 					ps.setNull(6, anlage.getWartungStueckIntervall());
 					ps.setInt(7, anlage.getWartungDateIntervall());
