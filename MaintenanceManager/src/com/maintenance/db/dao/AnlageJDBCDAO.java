@@ -428,7 +428,6 @@ public class AnlageJDBCDAO implements AnlageDAO {
 				ps.setString(3, anlage.getAuftrag());
 
 				if (anlage.getWartungArt() == EWartungArt.STUECKZAHL.ordinal()) {
-					// TODO
 					// die Stückzahlen dürfen nicht überschrieben werden, ausser es wird vom 2017+2018 importiert
 					ps.setInt(4, anlage.getJahresStueck());
 					//ps.setInt(5, anlage.getAktuelleStueck());
@@ -455,11 +454,118 @@ public class AnlageJDBCDAO implements AnlageDAO {
 
 				if (anlage.getWartungArt() == EWartungArt.TIME_INTERVALL.ordinal()) {
 
-					ps.setNull(4, anlage.getJahresStueck());
-					// TODO
+					ps.setNull(4, anlage.getJahresStueck());				
 					// die Stückzahlen dürfen nicht überschrieben werden, ausser es wird vom 2017+2018 importiert
-					//ps.setInt(5, anlage.getAktuelleStueck());
+					//ps.setNull(5, anlage.getAktuelleStueck());
 					ps.setNull(5, getAnlage(anlage.getId()).getAktuelleStueck());
+
+					ps.setNull(6, anlage.getWartungStueckIntervall());
+					ps.setInt(7, anlage.getWartungDateIntervall());
+					ps.setInt(8, anlage.getIntervallDateUnit());
+
+					ps.setNull(9, anlage.getLastWartungStueckzahl());
+
+					if (anlage.getLastWartungDate() != null) {
+						java.sql.Date date = new java.sql.Date(anlage.getLastWartungDate().getTime());
+						ps.setDate(10, date);
+					} else
+						ps.setDate(10, null);
+
+					ps.setNull(11, anlage.getWartungStueckWarnung());
+					ps.setNull(12, anlage.getWartungStueckFehler());
+					ps.setInt(13, anlage.getWartungDateWarnung());
+					ps.setInt(14, anlage.getWarnungDateUnit());
+				}
+
+				ps.setInt(15, anlage.getWartungUeberfaellig());
+				ps.setBoolean(16, anlage.isAuswertung());
+				ps.setBoolean(17, anlage.isSubMenu());
+				ps.setInt(18, anlage.getWartungArt());
+				ps.setString(19, anlage.getWartungsplanLink());
+
+				if (anlage.getCreateDate() != null) {
+					ps.setDate(20, new java.sql.Date(anlage.getCreateDate().getTime()));
+				} else
+					ps.setDate(20, null);
+
+				anlage.setTimestampSql(timestamp);
+				ps.setTimestamp(21, anlage.getTimestampSql());
+
+				ps.setString(22, System.getProperty("user.name"));
+				ps.setBoolean(23, anlage.isStatus());
+				ps.setString(24, anlage.getProdukte());
+
+				ps.setInt(25, anlage.getPanelFormatId());
+				ps.setInt(26, anlage.getAbteilungId());
+
+				ps.setInt(27, anlage.getId());
+
+				ps.executeUpdate();
+				// Zeitstempel erst beschreiben, wenn der Befehl erfolgreich
+				// ausgeführt wurde
+				anlage.setTimestampSql(timestamp);
+
+				if (logger.isInfoEnabled()) {
+					logger.info(anlage.getName());
+				}
+			} else
+				throw new DAOException(TIMESTAMP_ERROR);
+		} catch (SQLException e) {
+			throw new DAOException(e);
+		}
+
+	}
+	
+	@Override
+	public void updateAnlageStueckzahl(Anlage anlage) throws DAOException {
+
+		PreparedStatement ps = null;
+
+		Timestamp timestamp = new Timestamp(System.currentTimeMillis() / 1000 * 1000);
+
+		try {
+
+			Anlage anlageInDB = getAnlage(anlage.getId());
+
+			if (compareTimestamp(anlageInDB.getTimestampSql(), anlage.getTimestampSql())) {
+
+				ps = ConnectionManager.getInstance().getConnection().prepareStatement(UPDATE_ANLAGE);
+
+				ps.setString(1, anlage.getName());
+				ps.setString(2, anlage.getEquipment());
+				ps.setString(3, anlage.getAuftrag());
+
+				if (anlage.getWartungArt() == EWartungArt.STUECKZAHL.ordinal()) {				
+					// die Stückzahlen dürfen nicht überschrieben werden, ausser es wird vom 2017+2018 importiert
+					ps.setInt(4, anlage.getJahresStueck());
+					ps.setInt(5, anlage.getAktuelleStueck());
+					//ps.setInt(5, getAnlage(anlage.getId()).getAktuelleStueck());
+
+					ps.setInt(6, anlage.getWartungStueckIntervall());
+					ps.setNull(7, anlage.getWartungDateIntervall());
+					ps.setNull(8, anlage.getIntervallDateUnit());
+
+					ps.setInt(9, anlage.getLastWartungStueckzahl());
+
+					if (anlage.getLastWartungDate() != null) {
+						java.sql.Date date = new java.sql.Date(anlage.getLastWartungDate().getTime());
+						ps.setDate(10, date);
+					} else
+						ps.setDate(10, null);
+
+					ps.setInt(11, anlage.getWartungStueckWarnung());
+					ps.setInt(12, anlage.getWartungStueckFehler());
+
+					ps.setNull(13, anlage.getWartungDateWarnung());
+					ps.setNull(14, anlage.getWarnungDateUnit());
+				}
+
+				if (anlage.getWartungArt() == EWartungArt.TIME_INTERVALL.ordinal()) {
+
+					ps.setNull(4, anlage.getJahresStueck());					
+					// die Stückzahlen dürfen nicht überschrieben werden, ausser es wird vom 2017+2018 importiert
+					ps.setNull(5, anlage.getAktuelleStueck());
+					//ps.setNull(5, getAnlage(anlage.getId()).getAktuelleStueck());
 
 					ps.setNull(6, anlage.getWartungStueckIntervall());
 					ps.setInt(7, anlage.getWartungDateIntervall());

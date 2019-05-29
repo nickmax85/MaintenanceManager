@@ -24,6 +24,8 @@ public interface AnlageDAO {
 	public void insertAnlage(Anlage anlage) throws DAOException;
 
 	public void updateAnlage(Anlage anlage) throws DAOException;
+	
+	public void updateAnlageStueckzahl(Anlage anlage) throws DAOException;
 
 	public void updateAnlagenStatus(Anlage anlage) throws DAOException;
 

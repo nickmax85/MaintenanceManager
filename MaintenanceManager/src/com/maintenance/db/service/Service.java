@@ -1211,6 +1211,18 @@ public class Service {
 		}
 
 	}
+	
+	public void updateAnlageStueckzahl(Anlage anlage) {
+
+		try {
+			anlageDAO.updateAnlageStueckzahl(anlage);
+			errorStatus = false;
+		} catch (DAOException e) {
+			e.printStackTrace();
+			showExceptionAlertDialog(e);
+		}
+
+	}
 
 	public void updateMESAnlage(MESAnlage mesAnlage) {
 
@@ -1317,8 +1329,8 @@ public class Service {
 					anlage.setAktuelleStueck(stueck);
 				}
 
-				if (!anlage.getMesAnlagen().isEmpty())
-					Service.getInstance().updateAnlage(anlage);
+				if (!anlage.getMesAnlagen().isEmpty())				
+					Service.getInstance().updateAnlageStueckzahl(anlage);
 
 				// logger.info("Importierte Anlagen: " + anlage.getMesAnlagen());
 				logger.info("Stueck: " + stueck);
