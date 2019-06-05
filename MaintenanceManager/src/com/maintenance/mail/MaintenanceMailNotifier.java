@@ -248,7 +248,7 @@ public class MaintenanceMailNotifier extends Application {
 				+ "; " + station.getName();
 
 		String text = "";
-		text += "Anlage: " + station.getAnlage().getName() + "\n";
+		text += "Anlage: " + station.getAnlage().getEquipment() + " - " + station.getAnlage().getName() + "\n";
 		text += "Komponente: " + station.getName() + "\n";
 
 		Date nextWartungDate;
