@@ -1,6 +1,7 @@
 package com.maintenance.view.station;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -16,7 +17,9 @@ import com.maintenance.db.dto.Wartung.EWartungArt;
 import com.maintenance.db.service.Service;
 import com.maintenance.util.Constants;
 import com.maintenance.util.ProzentCalc;
+import com.maintenance.view.alert.InfoAlert;
 import com.maintenance.view.anhang.AnhangOverviewController;
+import com.maintenance.view.anlage.AnlageDataController;
 import com.maintenance.view.root.LoginDialog;
 
 import javafx.application.Platform;
@@ -64,6 +67,8 @@ public class StationPanelController {
 	private Label aktuelleStueckLabel;
 	@FXML
 	private ImageView anhangImage;
+	@FXML
+	private ImageView linkImage;
 
 	@FXML
 	private ProgressBar prozentProgressBar;
@@ -79,6 +84,7 @@ public class StationPanelController {
 	private MenuItem anhaenge = new MenuItem();
 	private MenuItem info = new MenuItem();
 	private MenuItem settings = new MenuItem();
+	private MenuItem link = new MenuItem();
 
 	private Main main;
 	private Station station;
@@ -173,6 +179,46 @@ public class StationPanelController {
 			}
 		});
 
+		ImageView linkImage = new ImageView(
+				new Image(Main.class.getResourceAsStream("/com/maintenance/resource/icons/link16.png")));
+		linkImage.setFitWidth(24);
+		linkImage.setFitHeight(24);
+
+		link.setGraphic(linkImage);
+		link.setText("Wartungsplan");
+		link.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				if (station.getWartungsplanLink().isEmpty()) {
+					new InfoAlert(null).showAndWait();
+				}
+
+				else {
+					try {
+
+						System.out.println(station.getWartungsplanLink());
+
+						if (station.getWartungsplanLink().contains("http"))
+							try {
+
+								String link = station.getWartungsplanLink().replace("{", "%7B");
+								link = link.replace("}", "%7D");
+								AnlageDataController.openWebpage(new URL(link).toURI());
+							} catch (URISyntaxException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+						else
+							Runtime.getRuntime().exec("explorer " + station.getWartungsplanLink());
+
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
+		});
+
 		ImageView infoImage = new ImageView(
 				new Image(Main.class.getResourceAsStream("/com/maintenance/resource/icons/info48.png")));
 		infoImage.setFitWidth(24);
@@ -227,7 +273,8 @@ public class StationPanelController {
 			}
 		});
 
-		contextMenu.getItems().addAll(newWartung, wartungen, anhaenge, new SeparatorMenuItem(), settings, info);
+		contextMenu.getItems().addAll(newWartung, wartungen, new SeparatorMenuItem(), link, anhaenge,
+				new SeparatorMenuItem(), settings, info);
 
 	}
 
@@ -245,6 +292,20 @@ public class StationPanelController {
 			anhangImage.setVisible(true);
 		else
 			anhangImage.setVisible(false);
+
+		if (this.station.getWartungsplanLink() != null)
+			if (this.station.getWartungsplanLink().isEmpty()) {
+				linkImage.setVisible(false);
+				link.setDisable(true);
+			} else {
+				linkImage.setVisible(true);
+				link.setDisable(false);
+			}
+		else {
+			linkImage.setVisible(false);
+			link.setDisable(true);
+
+		}
 
 		// if (station.getAnlage().getName().contains("CTC50 Wellenzelle"))
 		// logger.info(station.getName() + ": " + prozent);

@@ -18,6 +18,13 @@
                      <font>
                         <Font size="10.0" />
                      </font>
+                     <graphic>
+                        <ImageView fx:id="linkImage" fitHeight="12.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../resource/icons/link16.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
                   </Label>
                   <Label fx:id="auftragLabel" alignment="CENTER" styleClass="label-view" text="Auftragsnummer">
                      <font>

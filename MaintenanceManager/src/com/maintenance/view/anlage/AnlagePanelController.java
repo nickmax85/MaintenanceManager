@@ -1,5 +1,7 @@
 package com.maintenance.view.anlage;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -16,8 +18,10 @@ import com.maintenance.db.dto.Station;
 import com.maintenance.db.dto.Wartung;
 import com.maintenance.db.dto.Wartung.EWartungArt;
 import com.maintenance.db.service.Service;
+import com.maintenance.util.ApplicationProperties;
 import com.maintenance.util.Constants;
 import com.maintenance.util.ProzentCalc;
+import com.maintenance.view.alert.InfoAlert;
 import com.maintenance.view.root.LoginDialog;
 
 import javafx.event.ActionEvent;
@@ -67,12 +71,15 @@ public class AnlagePanelController implements Initializable {
 	private float prozent;
 	@FXML
 	private ImageView tpmImage;
+	@FXML
+	private ImageView linkImage;
 
 	private ContextMenu contextMenu = new ContextMenu();
 	private MenuItem wartungen = new MenuItem();
 	private MenuItem newWartung = new MenuItem();
 	private MenuItem info = new MenuItem();
 	private MenuItem settings = new MenuItem();
+	private MenuItem link = new MenuItem();
 
 	private Main main;
 
@@ -193,8 +200,48 @@ public class AnlagePanelController implements Initializable {
 			}
 		});
 
-		contextMenu.getItems().addAll(newWartung, wartungen, new SeparatorMenuItem(), settings, new SeparatorMenuItem(),
-				info);
+		ImageView linkImage = new ImageView(
+				new Image(Main.class.getResourceAsStream("/com/maintenance/resource/icons/link16.png")));
+		linkImage.setFitWidth(24);
+		linkImage.setFitHeight(24);
+
+		link.setGraphic(linkImage);
+		link.setText("Wartungsplan");
+		link.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				if (anlage.getWartungsplanLink().isEmpty()) {
+					new InfoAlert(null).showAndWait();
+				}
+
+				else {
+					try {
+
+						System.out.println(anlage.getWartungsplanLink());
+
+						if (anlage.getWartungsplanLink().contains("http"))
+							try {
+
+								String link = anlage.getWartungsplanLink().replace("{", "%7B");
+								link = link.replace("}", "%7D");
+								AnlageDataController.openWebpage(new URL(link).toURI());
+							} catch (URISyntaxException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+						else
+							Runtime.getRuntime().exec("explorer " + anlage.getWartungsplanLink());
+
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
+		});
+
+		contextMenu.getItems().addAll(newWartung, wartungen, new SeparatorMenuItem(), link, new SeparatorMenuItem(),
+				settings, new SeparatorMenuItem(), info);
 
 	}
 
@@ -221,6 +268,20 @@ public class AnlagePanelController implements Initializable {
 
 		// if (anlage.getName().equalsIgnoreCase("atc 350"))
 		// logger.error(anlage.getName() + ": " + anlage.hashCode());
+
+		if (this.anlage.getWartungsplanLink() != null)
+			if (this.anlage.getWartungsplanLink().isEmpty()) {
+				linkImage.setVisible(false);
+				link.setDisable(true);
+			} else {
+				linkImage.setVisible(true);
+				link.setDisable(false);
+			}
+		else {
+			linkImage.setVisible(false);
+			link.setDisable(true);
+			
+		}
 
 		nameLabel.setText(anlage.getName());
 		auftragLabel.setText(anlage.getAuftrag());
