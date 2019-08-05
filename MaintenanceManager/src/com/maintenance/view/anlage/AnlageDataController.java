@@ -543,7 +543,7 @@ public class AnlageDataController {
 		}
 		if (wartungDateUnitComboBox.getSelectionModel().getSelectedItem() == EIntervallDateUnit.WEEK) {
 
-			for (int i = 0; i < 4; i++) {
+			for (int i = 0; i < 13; i++) {
 
 				l.add(i);
 			}
@@ -612,7 +612,7 @@ public class AnlageDataController {
 		}
 		if (warnungDateUnitComboBox.getSelectionModel().getSelectedItem() == EIntervallDateUnit.WEEK) {
 
-			for (int i = 0; i < 4; i++) {
+			for (int i = 0; i < 13; i++) {
 
 				l.add(i);
 			}
