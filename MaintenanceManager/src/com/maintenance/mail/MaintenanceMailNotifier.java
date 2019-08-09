@@ -58,6 +58,8 @@ public class MaintenanceMailNotifier extends Application {
 		initRootLayout();
 
 		generateThread();
+
+		generateSystemThread();
 	}
 
 	public static void main(String[] args) {
@@ -201,6 +203,44 @@ public class MaintenanceMailNotifier extends Application {
 
 		thread.start();
 
+	}
+
+	private void generateSystemThread() {
+	
+		Thread thread = new Thread(new Runnable() {
+	
+			@Override
+			public void run() {
+	
+				while (!Thread.currentThread().isInterrupted()) {
+	
+					try {
+						
+						addListElement(
+								getCurrentTimeStamp() + " System Mail Thread is running: ID=" + Thread.currentThread().getId());
+	
+						requestSystemMail("");
+	
+						// alle 24 Stunden
+						Thread.sleep(86400000);
+	
+					} catch (InterruptedException e) {
+	
+						Thread.currentThread().interrupt();
+						e.printStackTrace();
+					} catch (Exception e) {
+						addListElement(getCurrentTimeStamp() + " Nachrichten konnten nicht versendet werden");
+						addListElement(getCurrentTimeStamp() + " Exception Message: " + e.getMessage());
+						e.printStackTrace();
+					}
+	
+				}
+	
+			}
+		});
+	
+		thread.start();
+	
 	}
 
 	private void addListElement(String text) {
@@ -473,6 +513,37 @@ public class MaintenanceMailNotifier extends Application {
 
 		}
 		return stationenForMail2;
+	}
+
+	private void requestSystemMail(String remark) throws Exception {
+
+		String smtpHostServer = "10.176.199.45";
+		String from = "mpt_ilz_sys_maplat@magna.com";
+		String text = "";
+		// String to = "";
+		String to = "werner.janisch@magna.com,markus.thaler@magna.com";
+
+		SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+
+		text += "MaintenanceMailNotifier is running ...";
+		// text += "Software für Wartungsrückmeldung: " +
+		// "http://10.176.45.4/software/TPMTool.jar";
+
+		text += "\n\n";
+		text += "Diese Nachricht wurde an folgende Adressen versendet: " + to.replaceAll(",", "; ");
+		text += "\n\n\n\n\n";
+
+		String betreff = "MaintenanceManager";
+
+		Properties props = System.getProperties();
+		props.put("mail.smtp.host", smtpHostServer);
+		props.put("mail.smtp.auth", "false");
+
+		Session session = Session.getInstance(props, null);
+		session.setDebug(true);
+
+		EmailUtil.sendEmail(session, from, to, null, betreff, text, null);
+
 	}
 
 }
