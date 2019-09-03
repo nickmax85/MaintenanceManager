@@ -73,6 +73,8 @@ public class AnlagePanelController implements Initializable {
 	private ImageView tpmImage;
 	@FXML
 	private ImageView linkImage;
+	@FXML
+	private ImageView tpmExistsImage;
 
 	private ContextMenu contextMenu = new ContextMenu();
 	private MenuItem wartungen = new MenuItem();
@@ -280,7 +282,7 @@ public class AnlagePanelController implements Initializable {
 		else {
 			linkImage.setVisible(false);
 			link.setDisable(true);
-			
+
 		}
 
 		nameLabel.setText(anlage.getName());
@@ -298,6 +300,13 @@ public class AnlagePanelController implements Initializable {
 				tpmImage.setVisible(true);
 			else
 				tpmImage.setVisible(false);
+
+			tpmExistsImage.setVisible(false);
+			for (Station s : stationen) {
+				if (s.isTpm())
+					tpmExistsImage.setVisible(true);
+
+			}
 
 		}
 
@@ -341,6 +350,13 @@ public class AnlagePanelController implements Initializable {
 				tpmImage.setVisible(true);
 			else
 				tpmImage.setVisible(false);
+
+			tpmExistsImage.setVisible(false);
+			for (Station s : stationen) {
+				if (s.isTpm())
+					tpmExistsImage.setVisible(true);
+
+			}
 
 			outerPane.setId(innerPane.getId());
 		}
