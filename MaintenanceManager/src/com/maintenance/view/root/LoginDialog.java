@@ -99,7 +99,7 @@ public class LoginDialog {
 			// System.out.println("Username=" + usernamePassword.getKey() + ",
 			// Password=" + usernamePassword.getValue());
 
-			if (usernamePassword.getValue().equals("admin")) {
+			if (usernamePassword.getValue().equals("garfield")) {
 				loggedIn = true;
 			} else
 				loggedIn = false;
