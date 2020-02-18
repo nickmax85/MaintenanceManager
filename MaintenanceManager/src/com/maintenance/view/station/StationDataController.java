@@ -73,6 +73,8 @@ public class StationDataController {
 	public Button anhaengeButton;
 	@FXML
 	public CheckBox tpmCheckBox;
+	@FXML
+	public CheckBox mailSentCheckBox;
 
 	@FXML
 	public ComboBox<EWartungArt> wartungArtComboBox;
@@ -197,27 +199,27 @@ public class StationDataController {
 			}
 		});
 	}
-	
+
 	public static boolean openWebpage(URI uri) {
-	    Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
-	    if (desktop != null && desktop.isSupported(Desktop.Action.BROWSE)) {
-	        try {
-	            desktop.browse(uri);
-	            return true;
-	        } catch (Exception e) {
-	            e.printStackTrace();
-	        }
-	    }
-	    return false;
+		Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
+		if (desktop != null && desktop.isSupported(Desktop.Action.BROWSE)) {
+			try {
+				desktop.browse(uri);
+				return true;
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return false;
 	}
 
 	public static boolean openWebpage(URL url) {
-	    try {
-	        return openWebpage(url.toURI());
-	    } catch (URISyntaxException e) {
-	        e.printStackTrace();
-	    }
-	    return false;
+		try {
+			return openWebpage(url.toURI());
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 
 	public void setData(Station data) {
@@ -259,6 +261,7 @@ public class StationDataController {
 			statusCheckBox.setSelected(data.isStatus());
 			tpmCheckBox.setSelected(data.isTpm());
 			auswertungCheckBox.setSelected(data.isAuswertung());
+			mailSentCheckBox.setSelected(data.isMailSent());
 
 			wartungArtComboBox.getSelectionModel().select(data.getWartungArt());
 			wartungsPlanField.setText(data.getWartungsplanLink());
@@ -313,6 +316,7 @@ public class StationDataController {
 
 		lastWartungDateField.setValue(null);
 		// createDateField.setValue(null);
+		mailSentCheckBox.setSelected(false);
 
 		wartungDateUnitComboBox.getSelectionModel().clearSelection();
 		warnungDateUnitComboBox.getSelectionModel().clearSelection();
@@ -333,6 +337,7 @@ public class StationDataController {
 		auftragField.setDisable(!editable);
 		statusCheckBox.setDisable(!editable);
 		tpmCheckBox.setDisable(!editable);
+		mailSentCheckBox.setDisable(!editable);
 
 		wartungStueckIntervallField.setDisable(!editable);
 		warnungStueckField.setDisable(!editable);

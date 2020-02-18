@@ -74,6 +74,7 @@ public class StationEditController {
 		station.setAuswertung(stationDataController.auswertungCheckBox.isSelected());
 		station.setWartungArt(stationDataController.wartungArtComboBox.getSelectionModel().getSelectedItem().ordinal());
 		station.setWartungsplanLink(stationDataController.wartungsPlanField.getText());
+		station.setMailSent(stationDataController.mailSentCheckBox.isSelected());
 
 		if (stationDataController.createDateField.getValue() != null) {
 			Date date = Date
