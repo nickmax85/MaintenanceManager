@@ -7,6 +7,7 @@ import java.io.IOException;
 import org.apache.log4j.Logger;
 
 import com.maintenance.db.dto.Anhang;
+import com.maintenance.db.dto.Anlage;
 import com.maintenance.db.dto.Station;
 import com.maintenance.db.dto.Wartung;
 import com.maintenance.db.service.Service;
@@ -53,6 +54,7 @@ public class AnhangOverviewController {
 
 	private Wartung wartung;
 	private Station station;
+	private Anlage anlage;
 
 	@FXML
 	private void initialize() {
@@ -72,13 +74,14 @@ public class AnhangOverviewController {
 
 				if (event.getCode() == KeyCode.F5) {
 
-					if (station == null && wartung == null)
+					if (station == null && wartung == null && anlage == null)
 						setData(null);
 					else if (station != null) {
 						setData(station);
 					} else if (wartung != null) {
 						setData(wartung);
-
+					} else if (anlage != null) {
+						setData(anlage);
 					}
 
 				}
@@ -165,6 +168,10 @@ public class AnhangOverviewController {
 							anhang.setStationId(station.getId());
 						}
 
+						if (anlage != null) {
+							anhang.setAnlageId(anlage.getId());
+						}
+
 						Service.getInstance().insertAnhang(anhang);
 						if (!Service.getInstance().isErrorStatus()) {
 							anhangListView.getItems().add(anhang);
@@ -235,6 +242,15 @@ public class AnhangOverviewController {
 
 					logger.info("Methode setData(Object data) Anhänge aus Datenbank auslesen START");
 					anhangList = FXCollections.observableArrayList(Service.getInstance().getAnhangList(station));
+					logger.info("Methode setData(Object data) Anhänge aus Datenbank auslesen ENDE");
+				}
+
+				if (data instanceof Anlage) {
+
+					anlage = (Anlage) data;
+
+					logger.info("Methode setData(Object data) Anhänge aus Datenbank auslesen START");
+					anhangList = FXCollections.observableArrayList(Service.getInstance().getAnhangList(anlage));
 					logger.info("Methode setData(Object data) Anhänge aus Datenbank auslesen ENDE");
 				}
 				if (data instanceof Wartung) {
@@ -324,6 +340,10 @@ public class AnhangOverviewController {
 
 			if (station != null) {
 				anhang.setStationId(station.getId());
+			}
+			
+			if (anlage != null) {
+				anhang.setAnlageId(anlage.getId());
 			}
 
 			Service.getInstance().insertAnhang(anhang);

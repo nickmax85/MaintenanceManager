@@ -394,7 +394,7 @@ public class Service {
 			for (Anlage anlage : anlageList) {
 
 				// logger.info("Anlage: " + anlage.getName());
-				anlage.setMesAnlagen(mesAnlageDAO.getMESAnlagen(anlage));
+				anlage.setMesAnlagen(mesAnlageDAO.getMESAnlagen(anlage));	
 
 				stueck = anlage.getAktuelleStueck();
 
@@ -572,6 +572,27 @@ public class Service {
 		return anhang;
 
 	}
+	
+	public boolean getAnhangAnzahlFromAnlage(Anlage anlage) {
+
+		boolean anhang = false;
+
+		try {
+			if (anhangDAO.getAnhangAnzahl(anlage))
+				anhang = true;
+			else
+				anhang = false;
+
+			errorStatus = false;
+
+		} catch (DAOException e) {
+			showExceptionAlertDialog(e);
+			e.printStackTrace();
+		}
+
+		return anhang;
+
+	}
 
 	public List<Wartung> getAllWartungenFromStation(Station station) {
 
@@ -654,6 +675,21 @@ public class Service {
 		try {
 			anhangList = anhangDAO.getAnhangList(wartung);
 			wartung.setAnhangList(anhangList);
+			errorStatus = false;
+		} catch (DAOException e) {
+			e.printStackTrace();
+			showExceptionAlertDialog(e);
+		}
+
+		return anhangList;
+
+	}
+	
+	public List<Anhang> getAnhangList(Anlage anlage) {
+
+		try {
+			anhangList = anhangDAO.getAnhangList(anlage);
+			anlage.setAnhangList(anhangList);
 			errorStatus = false;
 		} catch (DAOException e) {
 			e.printStackTrace();

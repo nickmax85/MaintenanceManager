@@ -22,12 +22,15 @@ import com.maintenance.util.ApplicationProperties;
 import com.maintenance.util.Constants;
 import com.maintenance.util.ProzentCalc;
 import com.maintenance.view.alert.InfoAlert;
+import com.maintenance.view.anhang.AnhangOverviewController;
 import com.maintenance.view.root.LoginDialog;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ContextMenu;
@@ -43,6 +46,7 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class AnlagePanelController implements Initializable {
@@ -72,6 +76,8 @@ public class AnlagePanelController implements Initializable {
 	@FXML
 	private ImageView tpmImage;
 	@FXML
+	private ImageView anhangImage;
+	@FXML
 	private ImageView linkImage;
 	@FXML
 	private ImageView tpmExistsImage;
@@ -79,6 +85,7 @@ public class AnlagePanelController implements Initializable {
 	private ContextMenu contextMenu = new ContextMenu();
 	private MenuItem wartungen = new MenuItem();
 	private MenuItem newWartung = new MenuItem();
+	private MenuItem anhaenge = new MenuItem();
 	private MenuItem info = new MenuItem();
 	private MenuItem settings = new MenuItem();
 	private MenuItem link = new MenuItem();
@@ -133,6 +140,23 @@ public class AnlagePanelController implements Initializable {
 			public void handle(ActionEvent event) {
 
 				main.showWartungenOverviewDialog(anlage, null);
+
+			}
+		});
+
+		ImageView anhangImage = new ImageView(
+				new Image(Main.class.getResourceAsStream("/com/maintenance/resource/icons/anhang48.png")));
+		anhangImage.setFitWidth(24);
+		anhangImage.setFitHeight(24);
+		anhaenge.setGraphic(anhangImage);
+		anhaenge.setText("Anhaenge");
+		anhaenge.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+
+				logger.info(event);
+
+				handleAnhaenge();
 
 			}
 		});
@@ -242,8 +266,8 @@ public class AnlagePanelController implements Initializable {
 			}
 		});
 
-		contextMenu.getItems().addAll(newWartung, wartungen, new SeparatorMenuItem(), link, new SeparatorMenuItem(),
-				settings, new SeparatorMenuItem(), info);
+		contextMenu.getItems().addAll(newWartung, wartungen, new SeparatorMenuItem(), anhaenge, link,
+				new SeparatorMenuItem(), settings, new SeparatorMenuItem(), info);
 
 	}
 
@@ -255,6 +279,50 @@ public class AnlagePanelController implements Initializable {
 				logger.info(anlage.getName());
 			}
 		}
+	}
+
+	@FXML
+	private boolean handleAnhaenge() {
+
+		logger.info("Methode: handleAnhaenge() Start");
+
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(com.maintenance.Main.class.getResource("view/anhang/AnhangOverview.fxml"));
+
+			AnchorPane page = (AnchorPane) loader.load();
+
+			Stage dialogStage = new Stage();
+
+			dialogStage.centerOnScreen();
+			dialogStage.initOwner(this.dialogStage);
+			dialogStage.initModality(Modality.APPLICATION_MODAL);
+			dialogStage.getIcons().addAll(this.dialogStage.getIcons());
+			dialogStage.setTitle("Anhänge (1 Anhang max. 10MB)");
+
+			Scene scene = new Scene(page);
+			scene.getStylesheets().add(Constants.STYLESHEET);
+			dialogStage.setScene(scene);
+
+			AnhangOverviewController controller = loader.getController();
+			controller.setDialogStage(dialogStage);
+			controller.setData(anlage);
+
+			dialogStage.showAndWait();
+
+			logger.info("Methode: handleAnhaenge() Ende");
+
+			return controller.isOkClicked();
+
+		} catch (IOException e) {
+
+			e.printStackTrace();
+
+			logger.error(e.getMessage());
+
+			return false;
+		}
+
 	}
 
 	public void initData(Anlage anlage) {
@@ -558,12 +626,19 @@ public class AnlagePanelController implements Initializable {
 
 		if (!Service.getInstance().isErrorStatus()) {
 			anlage = Service.getInstance().getAnlage(anlage);
+			if (Service.getInstance().getAnhangAnzahlFromAnlage(anlage))
+				anhangImage.setVisible(true);
+			else
+				anhangImage.setVisible(false);
+			
 			if (anlage.getLastWartungDate() != null)
 				cal = Service.getInstance().getNextCalendarWartung(anlage.getId(), anlage.getLastWartungDate());
 			else
 				cal = Service.getInstance().getNextCalendarWartung(anlage.getId(), anlage.getCreateDate());
 
 			stationen = Service.getInstance().getStationenFromAnlage(anlage);
+
+			
 		}
 	}
 

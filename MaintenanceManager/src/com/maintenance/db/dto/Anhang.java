@@ -11,6 +11,7 @@ public class Anhang {
 
 	private int wartungId;
 	private int stationId;
+	private int anlageId;
 
 	private Timestamp timestamp;
 	private String user;
@@ -69,6 +70,14 @@ public class Anhang {
 
 	public void setStationId(int stationId) {
 		this.stationId = stationId;
+	}
+
+	public int getAnlageId() {
+		return anlageId;
+	}
+
+	public void setAnlageId(int anlageId) {
+		this.anlageId = anlageId;
 	}
 
 	@Override

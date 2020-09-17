@@ -72,6 +72,9 @@ public class Anlage {
 	private int abteilungId;
 	private Abteilung abteilung;
 
+	private List<Anhang> anhangList;
+	private BooleanProperty anhang = new SimpleBooleanProperty();
+
 	private List<MESAnlage> mesAnlagen;
 
 	private List<User> users;
@@ -94,6 +97,14 @@ public class Anlage {
 
 	public void setAbteilung(Abteilung abteilung) {
 		this.abteilung = abteilung;
+	}
+
+	public List<Anhang> getAnhangList() {
+		return anhangList;
+	}
+
+	public void setAnhangList(List<Anhang> anhangList) {
+		this.anhangList = anhangList;
 	}
 
 	public int getPanelFormatId() {
@@ -283,6 +294,18 @@ public class Anlage {
 
 	public void setEquipment(final String equipment) {
 		this.equipmentProperty().set(equipment);
+	}
+
+	public BooleanProperty anhangProperty() {
+		return this.anhang;
+	}
+
+	public boolean isAnhang() {
+		return this.anhangProperty().get();
+	}
+
+	public void setAnhang(final boolean anhang) {
+		this.anhangProperty().set(anhang);
 	}
 
 	public IntegerProperty wartungArtProperty() {
