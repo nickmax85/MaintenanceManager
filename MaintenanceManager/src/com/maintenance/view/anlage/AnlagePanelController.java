@@ -364,7 +364,7 @@ public class AnlagePanelController implements Initializable {
 			styleInnerPane();
 			styleOuterPane();
 
-			if (ProzentCalc.isTPMStationWarning(stationen) || ProzentCalc.isTPMStationFehler(stationen))
+			if (ProzentCalc.isTPMStationFehler(stationen))
 				tpmImage.setVisible(true);
 			else
 				tpmImage.setVisible(false);
@@ -414,7 +414,7 @@ public class AnlagePanelController implements Initializable {
 			// if (anlage.getName().equalsIgnoreCase("tlc"))
 			// logger.error("Panel: " + visiblePanel);
 
-			if (ProzentCalc.isTPMStationWarning(stationen) || ProzentCalc.isTPMStationFehler(stationen))
+			if (ProzentCalc.isTPMStationFehler(stationen))
 				tpmImage.setVisible(true);
 			else
 				tpmImage.setVisible(false);
