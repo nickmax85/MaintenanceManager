@@ -371,7 +371,7 @@ public class AnlagePanelController implements Initializable {
 
 			tpmExistsImage.setVisible(false);
 			for (Station s : stationen) {
-				if (s.isTpm())
+				if (s.isTpm() && s.isStatus())
 					tpmExistsImage.setVisible(true);
 
 			}
@@ -421,7 +421,7 @@ public class AnlagePanelController implements Initializable {
 
 			tpmExistsImage.setVisible(false);
 			for (Station s : stationen) {
-				if (s.isTpm())
+				if (s.isTpm() && s.isStatus())
 					tpmExistsImage.setVisible(true);
 
 			}
