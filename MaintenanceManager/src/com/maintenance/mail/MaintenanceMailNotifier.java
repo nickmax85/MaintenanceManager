@@ -80,7 +80,7 @@ public class MaintenanceMailNotifier extends Application {
 				userHome + File.separator + resources.getString("appname"), "application.properties");
 		ApplicationProperties.getInstance().setup();
 
-		ApplicationProperties.getInstance().edit("db_host", "ilzmsih01");
+		ApplicationProperties.getInstance().edit("db_host", "ilzmsih01.prodln01.net");
 		
 		if (ip != null) {
 			ApplicationProperties.getInstance().edit("db_host", ip);

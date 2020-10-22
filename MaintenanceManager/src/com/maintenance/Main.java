@@ -226,7 +226,7 @@ public class Main extends Application {
 				userHome + File.separator + resources.getString("appname"), "application.properties");
 		ApplicationProperties.getInstance().setup();
 
-		ApplicationProperties.getInstance().edit("db_host", "ilzmsih01");
+		ApplicationProperties.getInstance().edit("db_host", "ilzmsih01.prodln01.net");
 		System.out.println(ApplicationProperties.getInstance().getProperty("db_host"));
 		if (ip != null) {
 			ApplicationProperties.getInstance().edit("db_host", ip);
