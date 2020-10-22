@@ -307,7 +307,7 @@ public class MaintenanceMailNotifier extends Application {
 		text += "\n\n";
 		// text += "Software für Wartungsrückmeldung: " +
 		// "http://10.176.45.4/software/TPMTool.jar";
-		text += "Software für Wartungsrückmeldung: " + "http://10.176.45.4/tpm.html";
+		text += "Software für Wartungsrückmeldung: " + "http://ilzmsih01.prodln01.net/tpm.html";
 
 		text += "\n\n";
 		text += "Diese Nachricht wurde an folgende Adressen versendet: " + to.replaceAll(",", "; ");
