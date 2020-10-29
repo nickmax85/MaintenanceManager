@@ -81,7 +81,7 @@ public class MaintenanceMailNotifier extends Application {
 		ApplicationProperties.getInstance().setup();
 
 		ApplicationProperties.getInstance().edit("db_host", "ilzmsih01.prodln01.net");
-		
+
 		if (ip != null) {
 			ApplicationProperties.getInstance().edit("db_host", ip);
 
@@ -208,26 +208,26 @@ public class MaintenanceMailNotifier extends Application {
 	}
 
 	private void generateSystemThread() {
-	
+
 		Thread thread = new Thread(new Runnable() {
-	
+
 			@Override
 			public void run() {
-	
+
 				while (!Thread.currentThread().isInterrupted()) {
-	
+
 					try {
-						
-						addListElement(
-								getCurrentTimeStamp() + " System Mail Thread is running: ID=" + Thread.currentThread().getId());
-	
+
+						addListElement(getCurrentTimeStamp() + " System Mail Thread is running: ID="
+								+ Thread.currentThread().getId());
+
 						requestSystemMail("");
-	
+
 						// alle 24 Stunden
 						Thread.sleep(86400000);
-	
+
 					} catch (InterruptedException e) {
-	
+
 						Thread.currentThread().interrupt();
 						e.printStackTrace();
 					} catch (Exception e) {
@@ -235,14 +235,14 @@ public class MaintenanceMailNotifier extends Application {
 						addListElement(getCurrentTimeStamp() + " Exception Message: " + e.getMessage());
 						e.printStackTrace();
 					}
-	
+
 				}
-	
+
 			}
 		});
-	
+
 		thread.start();
-	
+
 	}
 
 	private void addListElement(String text) {
@@ -374,7 +374,7 @@ public class MaintenanceMailNotifier extends Application {
 		text += "Wartung ist fällig in " + ProzentCalc.calcNextWartungStueck(station) + " Stück";
 
 		text += "\n\n";
-		text += "Software für Wartungsrückmeldung: " + "http://10.176.45.4/tpm.html";
+		text += "Software für Wartungsrückmeldung: " + "http://ilzmsih01.prodln01.net/tpm.html";
 
 		text += "\n\n";
 		text += "Diese Nachricht wurde an folgende Adressen versendet: " + to.replaceAll(",", "; ");
