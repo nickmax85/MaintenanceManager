@@ -52,6 +52,8 @@ public class StationOverviewController {
 	@FXML
 	private BorderPane tpmPane;
 	@FXML
+	private BorderPane robotPane;
+	@FXML
 	private CheckMenuItem dragResizeCheckMenuItem;
 
 	private Main main;
@@ -107,6 +109,10 @@ public class StationOverviewController {
 		ScrollPane sp1 = new ScrollPane();
 		sp1.setContent(getAnlageOverviewTPMPane(anlage));
 		tpmPane.setCenter(sp1);
+		
+		ScrollPane sp2 = new ScrollPane();
+		sp2.setContent(getAnlageOverviewRobotPane(anlage));
+		robotPane.setCenter(sp2);
 
 		// maintenancePane.setCenter(getAnlageOverviewPane(anlage));
 		// tpmPane.setCenter(getAnlageOverviewTPMPane(anlage));
@@ -162,7 +168,7 @@ public class StationOverviewController {
 		try {
 			for (Station station : Service.getInstance().getAnlageStationenPanelFormat(anlage)) {
 
-				if (!station.isTpm())
+				if (!station.isTpm() & !station.isRobot())
 					if (station.isStatus()) {
 
 						FXMLLoader loader = new FXMLLoader();
@@ -205,6 +211,48 @@ public class StationOverviewController {
 			for (Station station : Service.getInstance().getAnlageStationenPanelFormat(anlage)) {
 
 				if (station.isTpm())
+					if (station.isStatus()) {
+
+						FXMLLoader loader = new FXMLLoader();
+						loader.setResources(resources);
+						loader.setLocation(Main.class.getResource("view/station/StationPanel.fxml"));
+
+						AnchorPane pane = (AnchorPane) loader.load();
+						pane.setUserData(station);
+						overviewPane.getChildren().add(pane);
+
+						StationPanelController controller = loader.getController();
+						controller.setMain(main);
+						controller.setData(station);
+						controller.setDialogStage(dialogStage);
+
+						stationPanelControllerList.add(controller);
+
+						DragResizeMod.makeResizable(pane);
+
+					}
+			}
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		// sp.setContent(overviewPane);
+		return overviewPane;
+	}
+	
+	private AnchorPane getAnlageOverviewRobotPane(Anlage anlage) {
+
+		// ScrollPane sp = new ScrollPane();
+		AnchorPane overviewPane = new AnchorPane();
+
+		stationPanelControllerList = new ArrayList<>();
+
+		try {
+			for (Station station : Service.getInstance().getAnlageStationenPanelFormat(anlage)) {
+
+				if (station.isRobot())
 					if (station.isStatus()) {
 
 						FXMLLoader loader = new FXMLLoader();

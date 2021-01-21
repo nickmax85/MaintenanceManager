@@ -43,6 +43,7 @@ public class Station {
 	private BooleanProperty auswertung = new SimpleBooleanProperty();
 	private BooleanProperty status = new SimpleBooleanProperty();
 	private BooleanProperty tpm = new SimpleBooleanProperty();
+	private BooleanProperty robot = new SimpleBooleanProperty();
 
 	private IntegerProperty wartungArt = new SimpleIntegerProperty();
 	private StringProperty wartungsPlanLink = new SimpleStringProperty();
@@ -253,6 +254,18 @@ public class Station {
 	public void setTpm(final Boolean tpm) {
 		if (tpm != null)
 			this.tpmProperty().set(tpm);
+	}
+	
+	public BooleanProperty robotProperty() {
+		return this.robot;
+	}
+
+	public boolean isRobot() {
+		return this.robotProperty().get();
+	}
+
+	public void setRobot(final boolean robot) {
+		this.robotProperty().set(robot);
 	}
 
 	public IntegerProperty wartungArtProperty() {

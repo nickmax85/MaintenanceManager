@@ -71,6 +71,18 @@
                   </ImageView>
                </graphic>
             </Tab>
+            <Tab closable="false" text="Robotic">
+              <content>
+                  <BorderPane fx:id="robotPane" />
+              </content>
+               <graphic>
+                  <ImageView fitHeight="25.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../resource/icons/robot.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Tab>
          </tabs>
       </TabPane>
    </center>

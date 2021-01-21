@@ -16,6 +16,7 @@ import java.util.ResourceBundle;
 
 import com.maintenance.db.dto.Station;
 import com.maintenance.db.dto.Wartung.EWartungArt;
+import com.maintenance.db.dto.Wartung.EWartungTyp;
 import com.maintenance.util.Constants;
 import com.maintenance.view.alert.InfoAlert;
 import com.maintenance.view.alert.InputValidatorAlert;
@@ -71,13 +72,14 @@ public class StationDataController {
 	public Hyperlink wartungsPlanLink;
 	@FXML
 	public Button anhaengeButton;
-	@FXML
-	public CheckBox tpmCheckBox;
+	
 	@FXML
 	public CheckBox mailSentCheckBox;
 
 	@FXML
 	public ComboBox<EWartungArt> wartungArtComboBox;
+	@FXML
+	public ComboBox<EWartungTyp> wartungTypComboBox;
 	@FXML
 	public DatePicker lastWartungDateField;
 
@@ -229,6 +231,9 @@ public class StationDataController {
 		ObservableList<EWartungArt> wartungsArt = FXCollections.observableArrayList(EWartungArt.values());
 		wartungArtComboBox.setItems(wartungsArt);
 
+		ObservableList<EWartungTyp> wartungsTyp = FXCollections.observableArrayList(EWartungTyp.values());
+		wartungTypComboBox.setItems(wartungsTyp);
+
 		ObservableList<EIntervallDateUnit> wartungDateIntervall = FXCollections
 				.observableArrayList(EIntervallDateUnit.values());
 		wartungDateUnitComboBox.setItems(wartungDateIntervall);
@@ -259,11 +264,19 @@ public class StationDataController {
 			equipmentField.setText(data.getEquipment());
 			auftragField.setText(data.getAuftrag());
 			statusCheckBox.setSelected(data.isStatus());
-			tpmCheckBox.setSelected(data.isTpm());
+		
 			auswertungCheckBox.setSelected(data.isAuswertung());
 			mailSentCheckBox.setSelected(data.isMailSent());
 
 			wartungArtComboBox.getSelectionModel().select(data.getWartungArt());
+
+			if (data.isTpm())
+				wartungTypComboBox.getSelectionModel().select(EWartungTyp.AUTONOMOUS_TPM);
+			else if (data.isRobot())
+				wartungTypComboBox.getSelectionModel().select(EWartungTyp.ROBOT);
+			else
+				wartungTypComboBox.getSelectionModel().select(EWartungTyp.MAINTENANCE);
+
 			wartungsPlanField.setText(data.getWartungsplanLink());
 
 			wartungArtComboBoxEvent();
@@ -302,9 +315,10 @@ public class StationDataController {
 		equipmentField.setText("");
 		auftragField.setText("");
 		statusCheckBox.setSelected(true);
-		tpmCheckBox.setSelected(false);
+	
 
 		wartungArtComboBox.getSelectionModel().clearSelection();
+		wartungTypComboBox.getSelectionModel().clearSelection();
 		wartungsPlanField.setText("");
 		wartungsPlanLink.setText("");
 
@@ -336,7 +350,6 @@ public class StationDataController {
 		equipmentField.setDisable(!editable);
 		auftragField.setDisable(!editable);
 		statusCheckBox.setDisable(!editable);
-		tpmCheckBox.setDisable(!editable);
 		mailSentCheckBox.setDisable(!editable);
 
 		wartungStueckIntervallField.setDisable(!editable);
@@ -347,6 +360,8 @@ public class StationDataController {
 
 		wartungArtComboBox.setDisable(!editable);
 		wartungArtComboBox.getSelectionModel().selectFirst();
+		wartungTypComboBox.setDisable(!editable);
+		wartungTypComboBox.getSelectionModel().selectFirst();
 		wartungsPlanField.setDisable(!editable);
 		wartungsPlanLink.setDisable(!editable);
 
@@ -372,6 +387,9 @@ public class StationDataController {
 
 		if (wartungArtComboBox.getSelectionModel().isEmpty())
 			errorMessage += "Keine gueltige Wartungsart!\n";
+		
+		if (wartungTypComboBox.getSelectionModel().isEmpty())
+			errorMessage += "Kein gueltiger Wartungstyp!\n";
 
 		if (createDateField.getValue() == null)
 			errorMessage += "Kein gueltiges Erstelldatum!\n";

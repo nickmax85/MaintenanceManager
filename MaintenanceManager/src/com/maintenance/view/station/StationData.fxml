@@ -54,7 +54,7 @@
                   <RowConstraints minHeight="25.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="25.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" />
-                  <RowConstraints minHeight="10.0" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" />
                   <RowConstraints minHeight="10.0" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" />
@@ -121,17 +121,15 @@
                      <font>
                         <Font size="13.0" />
                      </font></Hyperlink>
-                  <Label text="TPM" GridPane.rowIndex="5">
-                     <font>
-                        <Font size="13.0" />
-                     </font></Label>
-                  <CheckBox fx:id="tpmCheckBox" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="5">
-                     <font>
-                        <Font size="13.0" />
-                     </font></CheckBox>
                   <TextArea fx:id="wartungsPlanField" maxWidth="400.0" prefHeight="80.0" wrapText="true" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="7" />
                   <Label text="Mail versendet" GridPane.rowIndex="8" />
                   <CheckBox fx:id="mailSentCheckBox" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                  <Label text="Wartungstyp" GridPane.rowIndex="5">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </Label>
+                  <ComboBox fx:id="wartungTypComboBox" prefHeight="31.0" prefWidth="291.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                </children>
             </GridPane>
             <Separator prefWidth="200.0" />

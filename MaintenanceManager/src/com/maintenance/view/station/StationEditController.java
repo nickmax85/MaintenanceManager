@@ -8,6 +8,7 @@ import com.maintenance.db.dto.Anlage;
 import com.maintenance.db.dto.PanelFormat;
 import com.maintenance.db.dto.Station;
 import com.maintenance.db.dto.Wartung.EWartungArt;
+import com.maintenance.db.dto.Wartung.EWartungTyp;
 import com.maintenance.db.service.Service;
 
 import javafx.fxml.FXML;
@@ -70,7 +71,23 @@ public class StationEditController {
 		station.setEquipment(stationDataController.equipmentField.getText());
 		station.setAuftrag(stationDataController.auftragField.getText());
 		station.setStatus(stationDataController.statusCheckBox.isSelected());
-		station.setTpm(stationDataController.tpmCheckBox.isSelected());
+
+		if (stationDataController.wartungTypComboBox.getSelectionModel().getSelectedItem() == EWartungTyp.MAINTENANCE) {
+			station.setTpm(false);
+			station.setRobot(false);
+		} else if (stationDataController.wartungTypComboBox.getSelectionModel()
+				.getSelectedItem() == EWartungTyp.AUTONOMOUS_TPM) {
+
+			station.setTpm(true);
+			station.setRobot(false);
+		}
+		else if (stationDataController.wartungTypComboBox.getSelectionModel()
+				.getSelectedItem() == EWartungTyp.ROBOT) {
+
+			station.setTpm(false);
+			station.setRobot(true);
+		}
+
 		station.setAuswertung(stationDataController.auswertungCheckBox.isSelected());
 		station.setWartungArt(stationDataController.wartungArtComboBox.getSelectionModel().getSelectedItem().ordinal());
 		station.setWartungsplanLink(stationDataController.wartungsPlanField.getText());

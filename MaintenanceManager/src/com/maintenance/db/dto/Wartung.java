@@ -222,5 +222,23 @@ public class Wartung {
 		}
 
 	}
+	
+	public enum EWartungTyp {
+
+		MAINTENANCE("Maintenance"), AUTONOMOUS_TPM("Total Productivity Management"), ROBOT("Robotic");
+
+		private String label;
+
+		EWartungTyp(String label) {
+			this.label = label;
+
+		}
+
+		@Override
+		public String toString() {
+			return label;
+		}
+
+	}
 
 }

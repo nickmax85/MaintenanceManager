@@ -76,6 +76,8 @@ public class AnlagePanelController implements Initializable {
 	@FXML
 	private ImageView tpmImage;
 	@FXML
+	private ImageView robotImage;
+	@FXML
 	private ImageView anhangImage;
 	@FXML
 	private ImageView linkImage;
@@ -111,6 +113,7 @@ public class AnlagePanelController implements Initializable {
 	private void initContextMenu() {
 
 		tpmImage.setVisible(false);
+		robotImage.setVisible(false);
 		EventHandler<MouseEvent> ev = new EventHandler<MouseEvent>() {
 
 			@Override
@@ -368,6 +371,11 @@ public class AnlagePanelController implements Initializable {
 				tpmImage.setVisible(true);
 			else
 				tpmImage.setVisible(false);
+			
+			if (ProzentCalc.isRobotStationFehler(stationen))
+				robotImage.setVisible(true);
+			else
+				robotImage.setVisible(false);
 
 			tpmExistsImage.setVisible(false);
 			for (Station s : stationen) {
@@ -418,6 +426,11 @@ public class AnlagePanelController implements Initializable {
 				tpmImage.setVisible(true);
 			else
 				tpmImage.setVisible(false);
+			
+			if (ProzentCalc.isRobotStationFehler(stationen))
+				robotImage.setVisible(true);
+			else
+				robotImage.setVisible(false);
 
 			tpmExistsImage.setVisible(false);
 			for (Station s : stationen) {

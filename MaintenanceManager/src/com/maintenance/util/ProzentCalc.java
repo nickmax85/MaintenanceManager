@@ -516,6 +516,47 @@ public class ProzentCalc {
 		return false;
 
 	}
+	
+	public static boolean isRobotStationFehler(List<Station> stationen) {
+
+		for (Station station : stationen) {
+
+			if (station.isRobot())
+				if (station.isStatus()) {
+
+					float prozent = ProzentCalc.calcProzent(station);
+
+					if (station.getWartungArt() == EWartungArt.STUECKZAHL.ordinal())
+						if (prozent >= station.getWartungStueckFehler()) {
+							return true;
+						}
+
+					if (station.getWartungArt() == EWartungArt.TIME_INTERVALL.ordinal()) {
+
+						Date nextWartungDate;
+						Date lastWartungDate;
+
+						if (station.getLastWartungDate() != null)
+							lastWartungDate = station.getLastWartungDate();
+						else
+							lastWartungDate = station.getCreateDate();
+
+						nextWartungDate = ProzentCalc.calcNextWartungDate(lastWartungDate,
+								station.getIntervallDateUnit(), station.getWartungDateIntervall());
+
+						if (Calendar.getInstance().getTime().after(nextWartungDate)) {
+							return true;
+						}
+
+					}
+
+				}
+
+		}
+
+		return false;
+
+	}
 
 	private static long calcMinTimeDiff(Station station) {
 

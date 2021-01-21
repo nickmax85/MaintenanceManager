@@ -48,6 +48,8 @@ public class StationenOverviewController {
 	@FXML
 	private TableColumn<Station, Boolean> tpmColumn;
 	@FXML
+	private TableColumn<Station, Boolean> robotColumn;
+	@FXML
 	private TableColumn<Station, Boolean> anhangColumn;
 
 	@FXML
@@ -76,6 +78,9 @@ public class StationenOverviewController {
 
 		tpmColumn.setCellValueFactory(new PropertyValueFactory<Station, Boolean>("tpm"));
 		tpmColumn.setCellFactory(CheckBoxTableCell.forTableColumn(tpmColumn));
+		
+		robotColumn.setCellValueFactory(new PropertyValueFactory<Station, Boolean>("robot"));
+		robotColumn.setCellFactory(CheckBoxTableCell.forTableColumn(robotColumn));
 
 		anhangColumn.setCellValueFactory(new PropertyValueFactory<Station, Boolean>("anhang"));
 		anhangColumn.setCellFactory(CheckBoxTableCell.forTableColumn(anhangColumn));
