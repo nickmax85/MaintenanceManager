@@ -161,7 +161,7 @@ public class WartungDataController {
 			alert.setTitle("Information");
 			alert.setHeaderText("Anhänge");
 			alert.setContentText("Anhänge können erst hinzugefügt werden, wenn die Wartung gespeichert wurde.\n\n"
-					+ "Bitte die Anhänge nach dem Speichern in der Übericht Wartungen hinzufügen.\n\n" + "Danke!");
+					+ "Bitte die Anhänge nach dem Speichern in der Übericht Wartungen hinzufügen.");
 			alert.showAndWait();
 			return false;
 		}

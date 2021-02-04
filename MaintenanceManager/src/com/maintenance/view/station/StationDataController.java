@@ -30,6 +30,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
@@ -38,6 +39,7 @@ import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
@@ -227,6 +229,8 @@ public class StationDataController {
 	public void setData(Station data) {
 
 		this.station = data;
+		
+
 
 		ObservableList<EWartungArt> wartungsArt = FXCollections.observableArrayList(EWartungArt.values());
 		wartungArtComboBox.setItems(wartungsArt);
@@ -267,6 +271,7 @@ public class StationDataController {
 		
 			auswertungCheckBox.setSelected(data.isAuswertung());
 			mailSentCheckBox.setSelected(data.isMailSent());
+			
 
 			wartungArtComboBox.getSelectionModel().select(data.getWartungArt());
 
@@ -432,6 +437,18 @@ public class StationDataController {
 
 	@FXML
 	private boolean handleAnhaenge() {
+		
+		
+		if (station.getId() == 0) {
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.initOwner(dialogStage);
+			alert.setTitle("Information");
+			alert.setHeaderText("Anhänge");
+			alert.setContentText("Anhänge können erst hinzugefügt werden, wenn die Station gespeichert wurde.\n\n"
+					+ "Bitte die Anhänge nach dem Speichern in der Übersicht Stationen hinzufügen.");
+			alert.showAndWait();
+			return false;
+		}
 
 		try {
 			FXMLLoader loader = new FXMLLoader();
