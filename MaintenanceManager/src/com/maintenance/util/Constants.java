@@ -3,6 +3,7 @@ package com.maintenance.util;
 public class Constants {
 
 	public final static String APP_ICON = "com/maintenance/resource/icons/maintenance128.png";
+	public final static String APP_ICON2 = "com/maintenance/resource/icons/inspection128.jpg";
 	public final static String STYLESHEET = "/com/maintenance/resource/css/JMetroLightTheme.css";
 	public final static int PROGRESSINDICATOR_SIZE = 100;
 
