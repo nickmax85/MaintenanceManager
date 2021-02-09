@@ -12,6 +12,7 @@ import com.maintenance.Main;
 import com.maintenance.db.dto.Anlage;
 import com.maintenance.db.dto.Station;
 import com.maintenance.db.service.Service;
+import com.maintenance.util.ApplicationProperties;
 import com.maintenance.util.Constants;
 import com.maintenance.util.DragResizeMod;
 import com.maintenance.view.root.LoginDialog;
@@ -23,6 +24,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -55,6 +57,11 @@ public class StationOverviewController {
 	private BorderPane robotPane;
 	@FXML
 	private CheckMenuItem dragResizeCheckMenuItem;
+	
+	@FXML
+	private Tab tpmTab;
+	@FXML
+	private Tab robotTab;
 
 	private Main main;
 
@@ -66,7 +73,7 @@ public class StationOverviewController {
 
 	@FXML
 	public void initialize() {
-
+		
 		dragResizeCheckMenuItem.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
@@ -101,6 +108,12 @@ public class StationOverviewController {
 
 		// maintenancePane.getChildren().add(getAnlageOverviewPane(anlage));
 		// tpmPane.getChildren().add(getAnlageOverviewTPMPane(anlage));
+		
+		
+		if (ApplicationProperties.getInstance().getProperty("db_model").equalsIgnoreCase("InspectionManager")) {
+			tabPane.getTabs().remove(tpmTab);
+			tabPane.getTabs().remove(robotTab);		
+		}
 
 		ScrollPane sp = new ScrollPane();
 		sp.setContent(getAnlageOverviewPane(anlage));
@@ -109,13 +122,15 @@ public class StationOverviewController {
 		ScrollPane sp1 = new ScrollPane();
 		sp1.setContent(getAnlageOverviewTPMPane(anlage));
 		tpmPane.setCenter(sp1);
-		
+
 		ScrollPane sp2 = new ScrollPane();
 		sp2.setContent(getAnlageOverviewRobotPane(anlage));
 		robotPane.setCenter(sp2);
 
 		// maintenancePane.setCenter(getAnlageOverviewPane(anlage));
 		// tpmPane.setCenter(getAnlageOverviewTPMPane(anlage));
+
+		
 
 	}
 
@@ -241,7 +256,7 @@ public class StationOverviewController {
 		// sp.setContent(overviewPane);
 		return overviewPane;
 	}
-	
+
 	private AnchorPane getAnlageOverviewRobotPane(Anlage anlage) {
 
 		// ScrollPane sp = new ScrollPane();

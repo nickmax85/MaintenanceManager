@@ -246,7 +246,7 @@ public class AnlagePanelController implements Initializable {
 				else {
 					try {
 
-						System.out.println(anlage.getWartungsplanLink());
+					
 
 						if (anlage.getWartungsplanLink().contains("http"))
 							try {
@@ -371,7 +371,7 @@ public class AnlagePanelController implements Initializable {
 				tpmImage.setVisible(true);
 			else
 				tpmImage.setVisible(false);
-			
+
 			if (ProzentCalc.isRobotStationFehler(stationen))
 				robotImage.setVisible(true);
 			else
@@ -426,7 +426,7 @@ public class AnlagePanelController implements Initializable {
 				tpmImage.setVisible(true);
 			else
 				tpmImage.setVisible(false);
-			
+
 			if (ProzentCalc.isRobotStationFehler(stationen))
 				robotImage.setVisible(true);
 			else
@@ -465,11 +465,7 @@ public class AnlagePanelController implements Initializable {
 		// Kalender Wartung
 		if (cal != null && anlage.getWartungArt() != EWartungArt.TIME_INTERVALL.ordinal()) {
 			nextWartungDate = cal.getDate();
-
-			Calendar calwartungUeberfaellig = Calendar.getInstance();
-			calwartungUeberfaellig.setTime(cal.getDate());
-			calwartungUeberfaellig.add(Calendar.DAY_OF_YEAR, anlage.getWartungUeberfaellig());
-
+			
 			if (anlage.getLastWartungDate() != null)
 				prozent = ProzentCalc.calcProzent(anlage.getLastWartungDate().getTime(), nextWartungDate.getTime());
 			else
@@ -486,12 +482,8 @@ public class AnlagePanelController implements Initializable {
 			else if (prozent >= anlage.getWartungStueckWarnung() && prozent < anlage.getWartungStueckFehler())
 				innerPane.setId("pane-yellow");
 
-			else if (prozent >= anlage.getWartungStueckFehler()
-					&& Calendar.getInstance().before(calwartungUeberfaellig))
+			else if (prozent >= anlage.getWartungStueckFehler())
 				innerPane.setId("pane-orange");
-
-			else if (calwartungUeberfaellig.before(Calendar.getInstance()))
-				innerPane.setId("pane-red");
 
 		}
 
@@ -643,7 +635,7 @@ public class AnlagePanelController implements Initializable {
 				anhangImage.setVisible(true);
 			else
 				anhangImage.setVisible(false);
-			
+
 			if (anlage.getLastWartungDate() != null)
 				cal = Service.getInstance().getNextCalendarWartung(anlage.getId(), anlage.getLastWartungDate());
 			else
@@ -651,7 +643,6 @@ public class AnlagePanelController implements Initializable {
 
 			stationen = Service.getInstance().getStationenFromAnlage(anlage);
 
-			
 		}
 	}
 

@@ -125,8 +125,12 @@ public class ProzentCalc {
 
 		long d = nextWartung - act;
 
+		float d2 = d;
+		float diff2 = diff;
+		
+
 		if (diff != 0)
-			prozent = 100 * d / diff;
+			prozent = 100 * d2 / diff2;
 
 		if (prozent > 100.0f)
 			prozent = 100.0f;
@@ -134,7 +138,7 @@ public class ProzentCalc {
 		if (prozent < 0.0f)
 			prozent = 0.0f;
 
-		return Math.round(100.0 - prozent);
+		return Math.round((100 - prozent) * 100) / 100.0f;
 
 	}
 
@@ -516,7 +520,7 @@ public class ProzentCalc {
 		return false;
 
 	}
-	
+
 	public static boolean isRobotStationFehler(List<Station> stationen) {
 
 		for (Station station : stationen) {

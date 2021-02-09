@@ -105,9 +105,6 @@ public class AnlageDataController {
 	public Label nextWartungDate;
 
 	@FXML
-	public TextField wartungUberfaelligField;
-
-	@FXML
 	private GridPane stueckzahlGridPane;
 	@FXML
 	private GridPane dateGridPane;
@@ -189,8 +186,6 @@ public class AnlageDataController {
 
 				else {
 					try {
-
-						System.out.println(wartungsPlanField.getText());
 
 						if (wartungsPlanField.getText().contains("http"))
 							try {
@@ -344,7 +339,6 @@ public class AnlageDataController {
 
 			wartungDateIntervallComboBox.getSelectionModel().select(data.getWartungDateIntervall());
 			warnungDateWarnungComboBox.getSelectionModel().select(data.getWartungDateWarnung());
-			wartungUberfaelligField.setText(String.valueOf(data.getWartungUeberfaellig()));
 
 			createDateCal = Calendar.getInstance();
 			createDateCal.setTime(data.getCreateDate());
@@ -406,7 +400,7 @@ public class AnlageDataController {
 		warnungDateUnitComboBox.getSelectionModel().clearSelection();
 		wartungDateIntervallComboBox.getSelectionModel().clearSelection();
 		warnungDateWarnungComboBox.getSelectionModel().clearSelection();
-		wartungUberfaelligField.setText("10");
+	
 
 		nextWartungDate.setText("");
 

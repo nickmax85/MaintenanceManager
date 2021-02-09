@@ -109,7 +109,6 @@ public class AnlageEditController {
 			data.setWartungDateWarnung(
 					anlageDataController.warnungDateWarnungComboBox.getSelectionModel().getSelectedItem());
 		}
-		data.setWartungUeberfaellig(Integer.parseInt(anlageDataController.wartungUberfaelligField.getText()));
 
 		if (data.getId() == 0)
 			insert();

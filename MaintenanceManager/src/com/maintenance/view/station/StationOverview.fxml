@@ -10,8 +10,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 
-
-<BorderPane fx:id="pane" onKeyPressed="#handleUpdate" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.maintenance.view.station.StationOverviewController">
+<BorderPane fx:id="pane" onKeyPressed="#handleUpdate" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.maintenance.view.station.StationOverviewController">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
@@ -59,7 +58,7 @@
                   </ImageView>
                </graphic>
             </Tab>
-            <Tab closable="false" text="Total Productivity Management">
+            <Tab fx:id="tpmTab" closable="false" text="Total Productivity Management">
               <content>
                   <BorderPane fx:id="tpmPane" />
               </content>
@@ -71,7 +70,7 @@
                   </ImageView>
                </graphic>
             </Tab>
-            <Tab closable="false" text="Robotic">
+            <Tab fx:id="robotTab" closable="false" text="Robotic">
               <content>
                   <BorderPane fx:id="robotPane" />
               </content>
