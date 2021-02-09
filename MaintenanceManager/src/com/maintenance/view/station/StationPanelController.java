@@ -4,13 +4,16 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.time.ZoneOffset;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import org.apache.log4j.Logger;
 
 import com.maintenance.Main;
+import com.maintenance.db.dto.PanelFormat;
 import com.maintenance.db.dto.Station;
 import com.maintenance.db.dto.Wartung;
 import com.maintenance.db.dto.Wartung.EWartungArt;
@@ -29,6 +32,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.DialogPane;
@@ -85,6 +89,7 @@ public class StationPanelController {
 	private MenuItem info = new MenuItem();
 	private MenuItem settings = new MenuItem();
 	private MenuItem link = new MenuItem();
+	private MenuItem duplicate = new MenuItem();
 
 	private Main main;
 	private Station station;
@@ -249,6 +254,72 @@ public class StationPanelController {
 			}
 		});
 
+		ImageView duplicateImage = new ImageView(
+				new Image(Main.class.getResourceAsStream("/com/maintenance/resource/icons/duplicate48.png")));
+		duplicateImage.setFitWidth(24);
+		duplicateImage.setFitHeight(24);
+		duplicate.setGraphic(duplicateImage);
+		duplicate.setText("Duplizieren");
+		duplicate.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+
+				if (LoginDialog.isLoggedIn(main.getPrimaryStage())) {
+
+					Alert alert = new Alert(AlertType.CONFIRMATION);
+					alert.getDialogPane().getStyleableParent();
+					alert.setTitle("MaintenanceManager");
+					alert.setHeaderText("Duplizieren");
+					alert.setContentText("Wollen Sie die Station wirklich duplizieren?");
+
+					Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+					stage.setAlwaysOnTop(true);
+					stage.toFront();
+
+					ButtonType buttonTypeOk = new ButtonType("Ja");
+					ButtonType buttonTypeCancel = new ButtonType("Nein");
+					alert.getButtonTypes().setAll(buttonTypeOk, buttonTypeCancel);
+					Optional<ButtonType> result = alert.showAndWait();
+
+					if (result.get() == buttonTypeOk) {
+
+						Station s = new Station();
+						s.setAnlageId(station.getAnlageId());
+						s.setAnlage(station.getAnlage());
+						s.setAuftrag(station.getAuftrag());
+						s.setWartungArt(station.getWartungArt());
+						s.setEquipment(station.getEquipment());
+						s.setIntervallDateUnit(station.getIntervallDateUnit());
+						s.setWartungDateIntervall(station.getWartungDateIntervall());
+						s.setWartungDateWarnung(station.getWartungDateWarnung());
+						s.setWartungStueckWarnung(station.getWartungStueckWarnung());
+						s.setWartungStueckFehler(station.getWartungStueckFehler());
+
+						s.setStatus(station.isStatus());
+						s.setTpm(station.isTpm());
+						s.setRobot(station.isRobot());
+						s.setAuswertung(station.isAuswertung());
+						s.setName("Duplikat von: " + station.getName());
+						s.setCreateDate(Calendar.getInstance().getTime());
+
+						PanelFormat panelFormat = new PanelFormat();
+						panelFormat.setX(station.getPanelFormat().getX() + 20);
+						panelFormat.setY(station.getPanelFormat().getY() + 20);
+						panelFormat.setWidth(station.getPanelFormat().getWidth());
+						panelFormat.setHeigth(station.getPanelFormat().getHeigth());
+
+						Service.getInstance().insertPanelFormat(panelFormat);
+
+						if (!Service.getInstance().isErrorStatus()) {
+							s.setPanelFormat(panelFormat);
+							s.setPanelFormatId(panelFormat.getId());
+							Service.getInstance().insertStation(s);
+						}
+					}
+				}
+			}
+		});
+
 		rootPane.setOnMousePressed(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
@@ -274,7 +345,7 @@ public class StationPanelController {
 		});
 
 		contextMenu.getItems().addAll(newWartung, wartungen, new SeparatorMenuItem(), link, anhaenge,
-				new SeparatorMenuItem(), settings, info);
+				new SeparatorMenuItem(), settings, duplicate, info);
 
 	}
 

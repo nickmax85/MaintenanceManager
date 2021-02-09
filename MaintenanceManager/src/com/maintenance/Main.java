@@ -94,8 +94,8 @@ public class Main extends Application {
 	private static double fadeTransitionsTime = Constants.FADE_TRANSITIONS_TIME;
 	private static boolean showSplashScreen = Constants.SHOW_SPLASH_SCREEN;
 
-	//public final static String APP_ICON = Constants.APP_ICON;
-	public final static String APP_ICON = Constants.APP_ICON2;
+	public final static String APP_ICON = Constants.APP_ICON;
+	//public final static String APP_ICON = Constants.APP_ICON2;
 
 	private static String ip;
 
