@@ -75,6 +75,7 @@ public class AnlageUserDataController {
 			auswahlColumn.setCellValueFactory(new PropertyValueFactory<>("active"));
 			auswahlColumn.setCellFactory(CheckBoxTableCell.forTableColumn(auswahlColumn));
 			auswahlColumn.setEditable(true);
+			auswahlColumn.setSortType(TableColumn.SortType.DESCENDING);
 
 			firstNameColumn.setCellValueFactory(new PropertyValueFactory<User, String>("firstName"));
 			firstNameColumn.setCellFactory(column -> {
@@ -142,6 +143,8 @@ public class AnlageUserDataController {
 			table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 			table.setEditable(true);
 			table.setItems(mitarbeiterAll);
+			table.getSortOrder().add(auswahlColumn);
+		
 
 		} else {
 			clearFields();
