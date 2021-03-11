@@ -127,7 +127,6 @@ public class ProzentCalc {
 
 		float d2 = d;
 		float diff2 = diff;
-		
 
 		if (diff != 0)
 			prozent = 100 * d2 / diff2;
@@ -247,7 +246,7 @@ public class ProzentCalc {
 
 		for (Station station : stationen) {
 
-			if (station.isStatus()  && !station.isTpm() && !station.isRobot()) {
+			if (station.isStatus() && !station.isTpm() && !station.isRobot()) {
 
 				if (station.getWartungArt() == EWartungArt.TIME_INTERVALL.ordinal()) {
 
@@ -316,7 +315,7 @@ public class ProzentCalc {
 
 		for (Station station : stationen) {
 
-			if (station.isStatus()) {
+			if (station.isStatus() && !station.isTpm() && !station.isRobot()) {
 
 				if (station.getWartungArt() == EWartungArt.STUECKZAHL.ordinal()) {
 					// Initialisieren
