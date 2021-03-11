@@ -247,7 +247,7 @@ public class ProzentCalc {
 
 		for (Station station : stationen) {
 
-			if (station.isStatus()) {
+			if (station.isStatus()  && !station.isTpm() && !station.isRobot()) {
 
 				if (station.getWartungArt() == EWartungArt.TIME_INTERVALL.ordinal()) {
 
