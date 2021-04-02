@@ -18,11 +18,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
@@ -30,6 +32,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import table.TableViewSample.Person;
 
 public class StationenOverviewController {
 
@@ -70,20 +73,40 @@ public class StationenOverviewController {
 
 		stationDataController.setEditable(false);
 
+		table.setEditable(true);
+
 		equipmentColumn.setCellValueFactory(cellData -> cellData.getValue().equipmentProperty());
+
 		nameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
-		auftragColumn.setCellValueFactory(cellData -> cellData.getValue().auftragProperty());
+
+		// auftragColumn.setCellValueFactory(cellData ->
+		// cellData.getValue().auftragProperty());
+		// auftragColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+		auftragColumn.setCellValueFactory(new PropertyValueFactory<Station, String>("auftrag"));
+		auftragColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+		auftragColumn.setOnEditCommit(new EventHandler<CellEditEvent<Station, String>>() {
+			@Override
+			public void handle(CellEditEvent<Station, String> t) {
+				((Station) t.getTableView().getItems().get(t.getTablePosition().getRow())).setAuftrag(t.getNewValue());
+				Service.getInstance().updateStation(table.getSelectionModel().getSelectedItem());
+			}
+		});
+
 		statusColumn.setCellValueFactory(new PropertyValueFactory<Station, Boolean>("status"));
 		statusColumn.setCellFactory(CheckBoxTableCell.forTableColumn(statusColumn));
+		statusColumn.setEditable(false);
 
 		tpmColumn.setCellValueFactory(new PropertyValueFactory<Station, Boolean>("tpm"));
 		tpmColumn.setCellFactory(CheckBoxTableCell.forTableColumn(tpmColumn));
-		
+		tpmColumn.setEditable(false);
+
 		robotColumn.setCellValueFactory(new PropertyValueFactory<Station, Boolean>("robot"));
 		robotColumn.setCellFactory(CheckBoxTableCell.forTableColumn(robotColumn));
+		robotColumn.setEditable(false);
 
 		anhangColumn.setCellValueFactory(new PropertyValueFactory<Station, Boolean>("anhang"));
 		anhangColumn.setCellFactory(CheckBoxTableCell.forTableColumn(anhangColumn));
+		anhangColumn.setEditable(false);
 
 		table.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
