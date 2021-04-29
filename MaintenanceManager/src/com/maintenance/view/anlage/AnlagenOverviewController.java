@@ -13,6 +13,7 @@ import com.maintenance.db.dto.Wartung.EWartungArt;
 import com.maintenance.db.service.Service;
 import com.maintenance.util.Constants;
 import com.maintenance.util.ProzentCalc;
+import com.maintenance.util.TableUtils;
 import com.maintenance.view.alert.DeleteYesNoAlert;
 import com.maintenance.view.alert.NoSelectionAlert;
 
@@ -22,6 +23,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -111,6 +113,10 @@ public class AnlagenOverviewController {
 		table.getSelectionModel().selectedItemProperty()
 				.addListener((observable, oldValue, newValue) -> showDetails(newValue));
 		table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+		
+		table.getSelectionModel().setCellSelectionEnabled(true);
+		table.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+		TableUtils.installCopyPasteHandler(table);
 	}
 
 	public void setData() {
